@@ -6,6 +6,12 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.route('homen', {path: "/home"}, function() {});
+  this.route('participate');
+  this.route('faq');
+  this.route('scientists');
+  this.route('resources');
+  this.route('contact');
 });
 
 export default Router;
