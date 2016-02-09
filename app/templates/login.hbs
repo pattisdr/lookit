@@ -1,7 +1,9 @@
-<h3>Login page</h3>
+<div class="container">
+    <h3>Login page</h3>
 
-{{#if loggedIn}}
-    <button {{action 'logout'}}>Click here to logout</button>
-{{else}}
-    <button {{action 'login'}}>Click here to log in</button>
-{{/if}}
+    {{#if loggedIn}}
+        <button {{action 'logout'}}>Click here to logout</button>
+    {{else}}
+        <button {{action 'login'}}>Click here to log in</button>
+    {{/if}}
+</div>

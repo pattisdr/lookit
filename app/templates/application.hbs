@@ -1,16 +1,16 @@
 <!--<p>(Application layer of Lookit)</p>-->
 {{main-nav}}
+<div class="container">
+    <ul>
 
-<ul>
+        {{#if isLoggedIn}}
+            <li>Hi Lookit Team</li>
+            <li>{{#link-to 'login'}}Logout{{/link-to}}</li>
+        {{else}}
+            <li>{{#link-to 'login'}}Login{{/link-to}}</li>
+            <li>Register</li>
+        {{/if}}
 
-    {{#if isLoggedIn}}
-        <li>Hi Lookit Team</li>
-        <li>{{#link-to 'login'}}Logout{{/link-to}}</li>
-    {{else}}
-        <li>{{#link-to 'login'}}Login{{/link-to}}</li>
-        <li>Register</li>
-    {{/if}}
-    
-</ul>
-
+    </ul>
+</div>
 {{outlet}}
