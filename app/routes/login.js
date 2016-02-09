@@ -4,11 +4,11 @@ export default Ember.Route.extend({
     actions: {
         login: function() {
             this.controller.set('loggedIn', true);
-            this.transitionTo('homen');
+            this.transitionTo('home');
         },
         logout: function() {
             this.controller.set('loggedIn', false);
-            this.transitionTo('homen');
+            this.transitionTo('home');
         }
     }
 });
