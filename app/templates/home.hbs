@@ -1,23 +1,80 @@
-<h3>Homepage</h3>
+<div class="container">
 
-{{#if isLoggedIn}}
-    
-    <h3>Here is the content that someone will see on the homepage when they are logged in!</h3>
-    <p>This will include (I think...)</p>
-    <ul>
-        <li>My Account</li>
-        <li>Previous Studies</li>
-    </ul>
+    <div class="jumbotron">
+        <div class="container">
+            <h1>LookIT: Expanding research to better understand early childhood</h1>
+            <p>A project of MIT Early Childhood Cognition Lab</p>
+        </div>
+    </div>
 
-{{else}}
-    
-    <h3>Here is the content that someone will see on the homepage when they aren't logged in!</h3>
-    <p>This will include...</p>
-    <ul>
-        <li>General Content</li>
-        <li>News</li>
-    </ul>
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Bringing Science Home</h2>
+                <p>
+                    Here at MIT's Early Childhood Cognition Lab, we're trying a new approach in developmental
+                    psychology:
+                    bringing the experiments to you.
+                </p>
+            </div>
+            <div class="col-md-4">
+                <h2>Help us understand how your child thinks</h2>
+                <p>
+                    Our online studies are quick and fun, and let you as a parent contribute to our collective
+                    understanding of the fascinating phenomenon of children's learning. In some experiments
+                    you'll step into the role of a researcher, asking your child questions or controlling
+                    the experiment based on what he or she does.
+                </p>
+            </div>
+            <div class="col-md-4">
+                <h2>Participate whenever and wherever</h2>
+                <p>
+                    Log in or create an account at the top right to get started!
+                    You can participate in studies from home by doing an online activity with your child that
+                    is videotaped via your webcam.
+                </p>
+            </div>
+        </div>
+        <div class="container">
+            {{#if isLoggedIn}}
 
-{{/if}}
+                <h3>Here is the content that someone will see on the homepage when they are logged in!</h3>
+                <p>This will include (I think...)</p>
+                <ul>
+                    <li>My Account</li>
+                    <li>Previous Studies</li>
+                </ul>
+
+            {{else}}
+
+                <h3>Here is the content that someone will see on the homepage when they aren't logged in!</h3>
+                <p>This will include...</p>
+                <ul>
+                    <li>General Content</li>
+                    <li>News</li>
+                </ul>
+
+            {{/if}}
+        </div>
+        <hr>
+
+        <footer>
+            <div class="row">
+                <div class="col-md-1">
+                    <img src="assets/nsf.gif"/>
+                </div>
+                <div class="col-md-11">
+                    This material is based upon work supported by the National Science Foundation (NSF)
+                    under Grant No. 1429216 and by an NSF Graduate Research Fellowship under Grant No. 1122374.
+                    Any opinion, findings, and conclusions or recommendations expressed in this material are those
+                    of the authors(s) and do not necessarily reflect the views of the National Science Foundation.
+                </div>
 
 
+            </div>
+        </footer>
+    </div> <!-- /container -->
+
+
+</div>

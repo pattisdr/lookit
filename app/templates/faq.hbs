@@ -1,27 +1,29 @@
-<h2>FAQ</h2>
+<div class="container">
+    <h2>FAQ</h2>
 
-<p>Below are unstyed panels for the FAQs, via Ember Collapsible Panel addon. For styling and animation, see https://tedconf.github.io/ember-collapsible-panel/.</p>
-{{#cp-panels accordion=true}}
-  {{#cp-panel}}
-    {{#cp-panel-toggle}}
-      <p>First FAQ (click me)</p>
-    {{/cp-panel-toggle}}
-    {{#cp-panel-body}}
-      <div>
-        <p>FAQ answer.</p>
-      </div>
-    {{/cp-panel-body}}
+    <p>Below are unstyed panels for the FAQs, via Ember Collapsible Panel addon. For styling and animation, see https://tedconf.github.io/ember-collapsible-panel/.</p>
+    {{#cp-panels accordion=true}}
+      {{#cp-panel}}
+        {{#cp-panel-toggle}}
+          <p>First FAQ (click me)</p>
+        {{/cp-panel-toggle}}
+        {{#cp-panel-body}}
+          <div>
+            <p>FAQ answer.</p>
+          </div>
+        {{/cp-panel-body}}
 
-  {{/cp-panel}}
-  {{#cp-panel}}
-    {{#cp-panel-toggle}}
-      <p>Second FAQ (click me)</p>
-    {{/cp-panel-toggle}}
-    {{#cp-panel-body}}
-      <div>
-        <p>FAQ answer.</p>
-      </div>
-    {{/cp-panel-body}}
+      {{/cp-panel}}
+      {{#cp-panel}}
+        {{#cp-panel-toggle}}
+          <p>Second FAQ (click me)</p>
+        {{/cp-panel-toggle}}
+        {{#cp-panel-body}}
+          <div>
+            <p>FAQ answer.</p>
+          </div>
+        {{/cp-panel-body}}
 
-  {{/cp-panel}}
-{{/cp-panels}}
+      {{/cp-panel}}
+    {{/cp-panels}}
+</div>
