@@ -1,10 +1,15 @@
-{{#power-select selected=chosenState options=usStates onchange=(action "chooseLocation") as |chosenState|}}
+{{#power-select
+    selected=chosenState
+    options=usStates
+    placeholder="Choose a state"
+    onchange=(action "chooseLocation")
+    as |chosenState|}}
     {{chosenState}}
 {{/power-select}}
 
-
+    <h4>{{chosenState}}</h4>
     {{#if nothingToShow}}
-        <p>There are no studies in this area. Please check back later.</p>
+        <p>Sorry, we don't know of any child development labs in {{chosenState}} yet!</p>
     {{/if}}
     <ul>
 
