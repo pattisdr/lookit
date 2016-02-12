@@ -1,0 +1,15 @@
+{{#power-select selected=chosenState options=usStates onchange=(action "chooseLocation") as |chosenState|}}
+    {{chosenState}}
+{{/power-select}}
+
+
+    {{#if nothingToShow}}
+        <p>There are no studies in this area. Please check back later.</p>
+    {{/if}}
+    <ul>
+
+        {{#each labs as |lab|}}
+            <li><a href="{{lab.url}}" target="_blank">{{lab.name}}</a></li>
+        {{/each}}
+
+    </ul>
