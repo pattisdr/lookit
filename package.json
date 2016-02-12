@@ -41,7 +41,8 @@
     "ember-export-application-global": "^1.0.4",
     "ember-get-config": "0.0.2",
     "ember-power-select": "0.8.6",
-    "ember-simple-auth": "1.0.1"
+    "ember-simple-auth": "1.0.1",
+    "ivy-videojs": "0.6.2"
   },
   "ember-addon": {
     "paths": [
