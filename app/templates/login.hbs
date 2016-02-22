@@ -1,9 +1,15 @@
 <div class="container">
     <h3>Login page</h3>
 
-    {{#if loggedIn}}
-        <button {{action 'logout'}}>Click here to logout</button>
+    {{#if session.isAuthenticated}}
+        <p>You are logged in.</p>
+        <button {{action 'invalidateSession'}}>Logout</button>
     {{else}}
-        <button {{action 'login'}}>Click here to log in</button>
+        {{jam-auth login=(action 'authenticate')}}
+    <br>
+    <hr>
+        <p>Not already a user? Create a Lookit account.</p>
+        {{jam-create create=(action 'createAccount')}}
     {{/if}}
 </div>
+ 

@@ -1,14 +1,5 @@
 import Ember from 'ember';
+//import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
 
-export default Ember.Route.extend({
-    actions: {
-        login: function() {
-            this.controller.set('loggedIn', true);
-            this.transitionTo('home');
-        },
-        logout: function() {
-            this.controller.set('loggedIn', false);
-            this.transitionTo('home');
-        }
-    }
-});
+export default Ember.Route.extend(/*UnauthenticatedRouteMixin*/);
+ 

@@ -14,7 +14,8 @@
     "qunit": "~1.20.0",
     "font-awesome": "~4.5.0",
     "bootstrap": "~3.3.5",
-    "uri-templates": "^0.1.9"
+    "uri-templates": "^0.1.9",
+    "bcryptjs": "^2.3.0"
   },
   "resolutions": {
     "ember": "^2.0.0"

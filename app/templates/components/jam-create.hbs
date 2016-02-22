@@ -1,0 +1,10 @@
+<form submit={{action "createAccount"}}>
+<div>
+  <label>Username</label>
+    {{input value=username class="form-control" type="text"}}
+  <label>Password</label>
+    {{input value=password class="form-control" type="password"}}
+  <br>
+  <button {{action "createAccount"}} >Create new account</button>
+</div>
+</form>

@@ -37,12 +37,12 @@
             </div>
         </div>
         <div class="container">
-            {{#if isLoggedIn}}
+            {{#if session.isAuthenticated}}
 
                 <h3>Here is the content that someone will see on the homepage when they are logged in!</h3>
                 <p>This will include (I think...)</p>
                 <ul>
-                    <li>My Account</li>
+                    <li>My Account: Current user {{sessionAccount.account.username}}</li>
                     <li>Previous Studies</li>
                 </ul>
 

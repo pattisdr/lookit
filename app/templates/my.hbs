@@ -1,0 +1,111 @@
+<div class="container">
+    <br><br><br>
+    <h2>My Account</h2>
+
+    {{#ivy-tabs}}
+          {{#ivy-tab-list}}
+            {{#ivy-tab}}(This is an unstyled tab! Click me) Account Information{{/ivy-tab}}
+            {{#ivy-tab}}(Unstyled tab) Children Information{{/ivy-tab}}
+          {{/ivy-tab-list}}
+    
+          {{#ivy-tab-panel}}
+            <p>Account information tab.</p>
+          {{/ivy-tab-panel}}
+    
+          {{#ivy-tab-panel}}
+    
+            <div>
+            {{#cp-panels accordion=true}}
+                {{#each model.profiles as |profile|}}
+                    
+                    <div>
+                    {{#cp-panel}}
+                        
+                        {{#cp-panel-toggle}}
+                            {{profile.firstName}}
+                        {{/cp-panel-toggle}}
+                        
+                        <!--Conditional panel for editing-->
+                        {{#if isEditing}}
+                        
+                        {{#cp-panel-body}}
+                            <div>
+                                <label>First Name</label>
+                                {{input type="text" value=editFirstName action="editProfile"}}
+                            </div>
+
+                            <div>
+                                <label>Last Name</label>
+                                {{input type="text" value=editLastName action="editProfile"}}
+                            </div>
+
+                            <div>
+                                <label>Birthday</label>
+                                {{input type="text" value=editBirthday action="editProfile"}}
+                            </div>
+                            
+                            <button {{action 'editProfile' profile}}>Submit</button>
+                        {{/cp-panel-body}}
+                    
+                        {{else}}
+                        
+                        {{#cp-panel-body}}
+                            <div>
+                                <p>Name: {{profile.firstName}} {{profile.lastName}}</p>
+                            </div>
+                            <div>
+                                <p>Birthday: {{profile.birthday}}</p>
+                            </div>
+                            
+                            <button {{action 'edit'}}>Edit information</button>
+                        {{/cp-panel-body}}
+                    
+                        {{/if}}
+                        
+                    {{/cp-panel}}
+                    </div>
+                
+                {{/each}}
+            {{/cp-panels}}
+            </div>
+    
+            <div>
+            {{#cp-panels accordion=true}}
+            
+                <div>
+                {{#cp-panel}}
+                    
+                    {{#cp-panel-toggle}}
+                        <p>Add a new participant</p>
+                    {{/cp-panel-toggle}}
+                    
+                    {{#cp-panel-body}}
+                        <div>
+                            <label>First Name</label>
+                            {{input type="text" id="firstname" value=newFirstName action="createProfile"}}
+                        </div>
+
+                        <div>
+                            <label>Last Name</label>
+                            {{input type="text" id="lastname" value=newLastName action="createProfile"}}
+                        </div>
+
+                        <div>
+                            <label>Birthday</label>
+                            {{input type="text" id="birthday" value=newBirthday action="createProfile"}}
+                        </div>
+
+                        <button {{action 'createProfile'}}>Create Profile</button>
+                    {{/cp-panel-body}}
+                    
+                {{/cp-panel}}
+                </div>
+                
+            {{/cp-panels}}
+            </div>
+    
+          {{/ivy-tab-panel}}
+    
+{{/ivy-tabs}}
+    
+</div>
