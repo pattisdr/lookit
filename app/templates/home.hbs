@@ -1,80 +1,105 @@
 <div class="container">
-
     <div class="jumbotron">
         <div class="container">
-            <h1>LookIT: Expanding research to better understand early childhood</h1>
+            <h1>Lookit: Expanding research to better understand early childhood</h1>
             <p>A project of MIT Early Childhood Cognition Lab</p>
         </div>
     </div>
+    <div class="row">
 
-    <div class="container">
-        <!-- Example row of columns -->
+        <div class="col-md-4">
+            <h2>Bringing Science Home</h2>
+            <p>
+                Here at MIT's Early Childhood Cognition Lab, we're trying a new approach in developmental
+                psychology:
+                bringing the experiments to you.
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2>Help us understand how your child thinks</h2>
+            <p>
+                Our online studies are quick and fun, and let you as a parent contribute to our collective
+                understanding of the fascinating phenomenon of children's learning. In some experiments
+                you'll step into the role of a researcher, asking your child questions or controlling
+                the experiment based on what he or she does.
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2>Participate whenever and wherever</h2>
+            <p>
+                Log in or create an account at the top right to get started!
+                You can participate in studies from home by doing an online activity with your child that
+                is videotaped via your webcam.
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h3>News</h3>
+        </div>
+    </div>
+    <div class="row">
         <div class="row">
-            <div class="col-md-4">
-                <h2>Bringing Science Home</h2>
-                <p>
-                    Here at MIT's Early Childhood Cognition Lab, we're trying a new approach in developmental
-                    psychology:
-                    bringing the experiments to you.
-                </p>
-            </div>
-            <div class="col-md-4">
-                <h2>Help us understand how your child thinks</h2>
-                <p>
-                    Our online studies are quick and fun, and let you as a parent contribute to our collective
-                    understanding of the fascinating phenomenon of children's learning. In some experiments
-                    you'll step into the role of a researcher, asking your child questions or controlling
-                    the experiment based on what he or she does.
-                </p>
-            </div>
-            <div class="col-md-4">
-                <h2>Participate whenever and wherever</h2>
-                <p>
-                    Log in or create an account at the top right to get started!
-                    You can participate in studies from home by doing an online activity with your child that
-                    is videotaped via your webcam.
-                </p>
+            <div class="col-md-2 col-md-offset-1">November 17, 2015</div>
+            <div class="col-md-7">
+                Lookit will be taking a brief hiatus while our partners at the Center for Open Science work on
+                re-engineering the site so it's easier for both parents and researchers to use. We're looking
+                forward to re-opening the login system and starting up some new studies in March!
             </div>
         </div>
-        <div class="container">
-            {{#if session.isAuthenticated}}
-
-                <h3>Here is the content that someone will see on the homepage when they are logged in!</h3>
-                <p>This will include (I think...)</p>
-                <ul>
-                    <li>My Account: Current user {{sessionAccount.account.username}}</li>
-                    <li>Previous Studies</li>
-                </ul>
-
-            {{else}}
-
-                <h3>Here is the content that someone will see on the homepage when they aren't logged in!</h3>
-                <p>This will include...</p>
-                <ul>
-                    <li>General Content</li>
-                    <li>News</li>
-                </ul>
-
-            {{/if}}
-        </div>
-        <hr>
-
-        <footer>
-            <div class="row">
-                <div class="col-md-1">
-                    <img src="assets/nsf.gif"/>
-                </div>
-                <div class="col-md-11">
-                    This material is based upon work supported by the National Science Foundation (NSF)
-                    under Grant No. 1429216 and by an NSF Graduate Research Fellowship under Grant No. 1122374.
-                    Any opinion, findings, and conclusions or recommendations expressed in this material are those
-                    of the authors(s) and do not necessarily reflect the views of the National Science Foundation.
-                </div>
-
-
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1">October 1, 2015</div>
+            <div class="col-md-7">
+                We've finished collecting data for replications of three classic studies, looking at
+                infants' and children's understanding of probability, language, and reliability.
+                Kim is writing up the results now and they'll be featured here soon!
             </div>
-        </footer>
-    </div> <!-- /container -->
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1">June 30, 2014</div>
+            <div class="col-md-7">
+                An MIT News press release discusses Lookit
+                <a href="https://newsoffice.mit.edu/2014/mit-launches-online-lab-early-childhood-learning-lookit">here</a>.
+                The project was also featured in
+                <a href="http://www.bostonmagazine.com/health/blog/2014/06/19/new-mit-lab/">Boston Magazine</a>
+                and on the
+                <a href="https://www.sciencenews.org/blog/growth-curve/your-baby-can-watch-movies-science">
+                    Science News blog</a>. Stay up-to-date and connect with other science-minded parents
+                through our <a href="https://www.facebook.com/lookit.mit.edu">Facebook page</a>!
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1">June 6, 2014</div>
+            <div class="col-md-7">
+                Walk through a study with some of our first participants {{#link-to "resources"}}here{{/link-to}}!
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1">February 5, 2014</div>
+            <div class="col-md-7">
+                Beta testing of Lookit within the MIT community begins! Many thanks to our first volunteers.
+            </div>
+        </div>
+    </div>
 
 
-</div>
+    <hr>
+
+    <footer>
+        <div class="row">
+            <div class="col-md-1">
+                <img src="assets/img/nsf.gif"/>
+            </div>
+            <div class="col-md-11">
+                This material is based upon work supported by the National Science Foundation (NSF)
+                under Grant No. 1429216 and by an NSF Graduate Research Fellowship under Grant No. 1122374.
+                Any opinion, findings, and conclusions or recommendations expressed in this material are those
+                of the authors(s) and do not necessarily reflect the views of the National Science Foundation.
+            </div>
+
+
+        </div>
+    </footer>
+</div> <!-- /container -->
+

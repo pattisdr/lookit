@@ -1,0 +1,20 @@
+{{#power-select
+    selected=chosenState
+    options=usStates
+    placeholder="Choose a state"
+    onchange=(action "chooseLocation")
+    as |chosenState|}}
+    {{chosenState}}
+{{/power-select}}
+
+    <h4>{{chosenState}}</h4>
+    {{#if nothingToShow}}
+        <p>Sorry, we don't know of any child development labs in {{chosenState}} yet!</p>
+    {{/if}}
+    <ul>
+
+        {{#each labs as |lab|}}
+            <li><a href="{{lab.url}}" target="_blank">{{lab.name}}</a></li>
+        {{/each}}
+
+    </ul>
