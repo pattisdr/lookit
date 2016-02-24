@@ -3,30 +3,12 @@
 module.exports = function(environment) {
   var ENV = {
     
-    //The below are necessary to use the jam-osf-jwt authenticator in the exp-addon, which doesn't work for login (returns 500)
-    OSF: {
-        clientId: process.env.OSF_CLIENT_ID,
-        scope: process.env.OSF_SCOPE,
-        url: process.env.OSF_URL
-    },
     JAMDB: {
         url: 'http://localhost:1212',
-        namespace: 'experimenter'
+        namespace: 'experimenter',
+        collection:'accounts'
     },
-      
-    jamdbURL: 'http://localhost:1212',
-    auth: {
-//          The below SHOULD be correct defaults, but they don't work
-//        Would also need to update type in jam-jwt authenticator
-//        self: {
-//            defaultNamespace: 'experimenter',
-//            defaultCollection: 'accounts',
-//        },
-        self: {
-            defaultNamespace: 'experimenter',
-            defaultCollection: 'accounts',
-        },
-    },
+    
     modulePrefix: 'lookit-base',
     environment: environment,
     baseURL: '/',
@@ -68,8 +50,8 @@ module.exports = function(environment) {
   }
   
   if (environment === 'stage') {
-    ENV.jamdbURL = 'https://staging-metadata.osf.io';
-    ENV.auth.self.defaultNamespace = 'COS';
+    ENV.JAMDB.url = 'https://staging-metadata.osf.io';
+    ENV.JAMDB.namespace = 'COS';
   }
 
   if (environment === 'test') {
