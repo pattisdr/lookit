@@ -2,6 +2,7 @@
     <br><br><br>
     <h2>My Account</h2>
 
+    <!--It doesn't appear that there is an ember-bootstrap tab component-->
     {{#ivy-tabs}}
           {{#ivy-tab-list}}
             {{#ivy-tab}}(This is an unstyled tab! Click me) Account Information{{/ivy-tab}}
@@ -15,97 +16,81 @@
           {{#ivy-tab-panel}}
     
             <div>
-            {{#cp-panels accordion=true}}
+            {{#bs-accordion}}
                 {{#each model.profiles as |profile|}}
+                {{#bs-accordion-item title=profile.firstName}}
                     
+                    {{#if isEditing}}
+                        
+                        <div>
+                            {{#bs-form}}
+                                {{#bs-form-group}}
+                                    <div>
+                                        <label>First Name</label>
+                                        {{bs-input type="text" value=editFirstName}}
+                                    </div>
+                                    <div>
+                                        <label>Last Name</label>
+                                        {{bs-input type="text" value=editLastName}}
+                                    </div>
+                                    <div>
+                                        <label>Birthday</label>
+                                        {{bs-input type="text" value=editBirthday}}
+                                    </div>
+                                    <br>
+                                    <button {{action 'editProfile' profile}}>Submit</button>
+                                {{/bs-form-group}}
+                            {{/bs-form}}
+                        </div>
+                
+                    {{else}}
+                
                     <div>
-                    {{#cp-panel}}
-                        
-                        {{#cp-panel-toggle}}
-                            {{profile.firstName}}
-                        {{/cp-panel-toggle}}
-                        
-                        <!--Conditional panel for editing-->
-                        {{#if isEditing}}
-                        
-                        {{#cp-panel-body}}
-                            <div>
-                                <label>First Name</label>
-                                {{input type="text" value=editFirstName action="editProfile"}}
-                            </div>
-
-                            <div>
-                                <label>Last Name</label>
-                                {{input type="text" value=editLastName action="editProfile"}}
-                            </div>
-
-                            <div>
-                                <label>Birthday</label>
-                                {{input type="text" value=editBirthday action="editProfile"}}
-                            </div>
+                        <div>
+                            <p>Name: {{profile.firstName}} {{profile.lastName}}</p>
+                        </div>
+                        <div>
+                            <p>Birthday: {{profile.birthday}}</p>
+                        </div>
                             
-                            <button {{action 'editProfile' profile}}>Submit</button>
-                        {{/cp-panel-body}}
-                    
-                        {{else}}
-                        
-                        {{#cp-panel-body}}
-                            <div>
-                                <p>Name: {{profile.firstName}} {{profile.lastName}}</p>
-                            </div>
-                            <div>
-                                <p>Birthday: {{profile.birthday}}</p>
-                            </div>
-                            
-                            <button {{action 'edit'}}>Edit information</button>
-                        {{/cp-panel-body}}
-                    
-                        {{/if}}
-                        
-                    {{/cp-panel}}
+                        <button {{action 'edit'}}>Edit information</button>
                     </div>
                 
-                {{/each}}
-            {{/cp-panels}}
-            </div>
-    
-            <div>
-            {{#cp-panels accordion=true}}
-            
-                <div>
-                {{#cp-panel}}
-                    
-                    {{#cp-panel-toggle}}
-                        <p>Add a new participant</p>
-                    {{/cp-panel-toggle}}
-                    
-                    {{#cp-panel-body}}
-                        <div>
-                            <label>First Name</label>
-                            {{input type="text" id="firstname" value=newFirstName action="createProfile"}}
-                        </div>
-
-                        <div>
-                            <label>Last Name</label>
-                            {{input type="text" id="lastname" value=newLastName action="createProfile"}}
-                        </div>
-
-                        <div>
-                            <label>Birthday</label>
-                            {{input type="text" id="birthday" value=newBirthday action="createProfile"}}
-                        </div>
-
-                        <button {{action 'createProfile'}}>Create Profile</button>
-                    {{/cp-panel-body}}
-                    
-                {{/cp-panel}}
-                </div>
+                    {{/if}}
                 
-            {{/cp-panels}}
+                {{/bs-accordion-item}}
+                {{/each}}
+                
+                {{#bs-accordion-item title="Add a new participant"}}
+                <div>
+                    
+                    {{#bs-form}}
+                        {{#bs-form-group}}
+                            <div>
+                                <label>First Name</label>
+                                {{bs-input type="text" value=newFirstName}}
+                            </div>
+                            <div>
+                                <label>Last Name</label>
+                                {{bs-input type="text" value=newLastName}}
+                            </div>
+                            <div>
+                                <label>Birthday</label>
+                                {{bs-input type="text" value=newBirthday}}
+                            </div>
+                            <br>
+                            <button {{action 'createProfile'}}>Create Profile</button>
+                        {{/bs-form-group}}
+                    {{/bs-form}}
+                    
+    
+                </div>
+                {{/bs-accordion-item}}
+            {{/bs-accordion}}
             </div>
     
           {{/ivy-tab-panel}}
     
-{{/ivy-tabs}}
+    {{/ivy-tabs}}
     
 </div>
