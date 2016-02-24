@@ -8,7 +8,6 @@ export default Ember.Controller.extend({
     
     actions: {
         authenticate(attrs,router) {
-            console.log(attrs);
             this.get('session').authenticate('authenticator:jam-jwt',attrs).then(() => {
                 this.get('target').transitionTo('home');
             });
@@ -17,6 +16,7 @@ export default Ember.Controller.extend({
             this.get('session').invalidate().then(() => {
                 this.get('target').transitionTo('home');
             });
+
         },
         createAccount(attrs) {
             var newAccount = this.store.createRecord('account', {

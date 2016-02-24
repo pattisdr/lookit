@@ -8,7 +8,7 @@ module.exports = function(environment) {
         namespace: 'experimenter',
         collection:'accounts'
     },
-    
+
     modulePrefix: 'lookit-base',
     environment: environment,
     baseURL: '/',
@@ -40,6 +40,19 @@ module.exports = function(environment) {
         'default-src': "*",
     }
   };
+
+  if (environment === 'development') {
+    // ENV.APP.LOG_RESOLVER = true;
+    // ENV.APP.LOG_ACTIVE_GENERATION = true;
+    // ENV.APP.LOG_TRANSITIONS = true;
+    // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
+    // ENV.APP.LOG_VIEW_LOOKUPS = true;
+  }
+  
+  if (environment === 'stage') {
+    ENV.JAMDB.url = 'https://staging-metadata.osf.io';
+    ENV.JAMDB.namespace = 'COS';
+  }
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;

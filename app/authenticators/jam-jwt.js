@@ -2,11 +2,9 @@ import Ember from 'ember';
 import ENV from 'lookit-base/config/environment';
 import Base from 'ember-simple-auth/authenticators/base';
 
-
 const { $, RSVP } = Ember;
 
 export default Base.extend({
-    
     url: `${ENV.JAMDB.url}/v1/auth`,
     restore(data) {
         let token = JSON.parse(atob(data.attributes.token.split('.')[1]));
