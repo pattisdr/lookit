@@ -5,7 +5,7 @@ import Base from 'ember-simple-auth/authenticators/base';
 const { $, RSVP } = Ember;
 
 export default Base.extend({
-    url: `${ENV.jamdbURL}/v1/auth`,
+    url: `${ENV.JAMDB.url}/v1/auth`,
     restore(data) {
         let token = JSON.parse(atob(data.attributes.token.split('.')[1]));
         if (token.exp > moment().unix())

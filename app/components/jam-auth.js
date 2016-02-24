@@ -2,8 +2,8 @@ import Ember from 'ember';
 import ENV from 'lookit-base/config/environment';
 
 export default Ember.Component.extend({
-  namespace: ENV.auth.self.defaultNamespace,
-  collection: ENV.auth.self.defaultCollection,
+  namespace: ENV.JAMDB.namespace,
+  collection: ENV.JAMDB.collection,
 
   username: null,
   password: null,
