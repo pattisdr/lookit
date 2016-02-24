@@ -2,11 +2,12 @@
     <br><br><br>
     <h2>My Account</h2>
 
-    <!--It doesn't appear that there is an ember-bootstrap tab component-->
+    <!--Still some issues with adding bootstrap styling to the tab component-->
     {{#ivy-tabs}}
           {{#ivy-tab-list}}
-            {{#ivy-tab}}(This is an unstyled tab! Click me) Account Information{{/ivy-tab}}
-            {{#ivy-tab}}(Unstyled tab) Children Information{{/ivy-tab}}
+<!--Ivy tabs don't seem to be picking up the styling for their bootstrap classes, even though these classes are rendered in the HTML-->
+            {{#ivy-tab}}Account Information{{/ivy-tab}}
+            {{#ivy-tab}}Children Information{{/ivy-tab}}
           {{/ivy-tab-list}}
     
           {{#ivy-tab-panel}}
