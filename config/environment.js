@@ -2,13 +2,12 @@
 
 module.exports = function(environment) {
   var ENV = {
-    jamdbURL: 'http://localhost:1212',
-    auth: {
-        self: {
-            defaultNamespace: 'OPENTRIALS',
-            defaultCollection: 'users',
-        },
+    JAMDB: {
+        url: 'http://localhost:1212',
+        namespace: 'experimenter',
+        collection: 'accounts'
     },
+
     modulePrefix: 'lookit-base',
     environment: environment,
     baseURL: '/',
@@ -48,25 +47,25 @@ module.exports = function(environment) {
   }
   
   if (environment === 'stage') {
-    ENV.jamdbURL = 'https://staging-metadata.osf.io';
-    ENV.auth.self.defaultNamespace = 'COS';
+    ENV.JAMDB.url = 'https://staging-metadata.osf.io';
+    ENV.JAMDB.namespace = 'COS';
   }
 
-  if (environment === 'test') {
-    // Testem prefers this...
-    ENV.baseURL = '/';
-    ENV.locationType = 'none';
+    if (environment === 'test') {
+        // Testem prefers this...
+        ENV.baseURL = '/';
+        ENV.locationType = 'none';
 
-    // keep test console output quieter
-    ENV.APP.LOG_ACTIVE_GENERATION = false;
-    ENV.APP.LOG_VIEW_LOOKUPS = false;
+        // keep test console output quieter
+        ENV.APP.LOG_ACTIVE_GENERATION = false;
+        ENV.APP.LOG_VIEW_LOOKUPS = false;
 
-    ENV.APP.rootElement = '#ember-testing';
-  }
+        ENV.APP.rootElement = '#ember-testing';
+    }
 
-  if (environment === 'production') {
+    if (environment === 'production') {
 
-  }
+    }
 
-  return ENV;
+    return ENV;
 };
