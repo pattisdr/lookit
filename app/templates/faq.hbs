@@ -5,7 +5,7 @@
     </div>
 </div>
 
-<div class="lookit-row">
+<div class="lookit-row faq-row">
     <div class="container">
         <h3>Participation</h3>
         {{#bs-accordion}}
@@ -71,7 +71,11 @@
                         parent does not read the statement--any other data collected during the study will be deleted
                         without viewing.
                     </p>
-                    <p>{{ivy-videojs src="/assets/video//mp4/consent.mp4" controls=true}}</p>
+                    <div class="row">
+                        <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+                            {{ivy-videojs src="/assets/video//mp4/consent.mp4" controls=true fluid=true}}
+                        </div>
+                    </div>
                 </div>
             {{/bs-accordion-item}}
             {{#bs-accordion-item title='How is our information kept confidential?'}}
@@ -143,9 +147,11 @@
                         lots of information about what he or she understands. Here are some of the techniques our lab
                         uses to learn more about how children learn.
                     </p>
-                    <p>
+                    <div class="row">
+                        <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
                         {{ivy-videojs src="/assets/video//mp4/ag.mp4" controls=true}}
-                    </p>
+                        </div>
+                    </div>
                     <h4>Habituation</h4>
                     <p>
                         In a habituation study, we first show infants many examples of one type of object or event, and
