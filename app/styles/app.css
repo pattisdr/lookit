@@ -7,5 +7,27 @@ body {
 .home-jumbotron {
     background: #f8f8f8;
     border-bottom: 1px solid #eee;
-    padding: 50px;
+    background:#351306 url('img/lookit_face.jpg') center top no-repeat;
+}
+
+.home-jumbotron .content  {
+    margin: 0 auto;
+    color: #FFF;
+    text-align: center;
+    padding-top: 300px;
+    padding-bottom: 20px;
+}
+
+.home-jumbotron>.content>h1 {
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    font-size: 50px;
+}
+.home-jumbotron .content h1 small {
+    color: #FFFFFF;
+}
+
+@media (max-width:500px) {
+    .home-jumbotron > .content > h1 {
+        font-size: 36px;
+    }
 }
