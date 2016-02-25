@@ -1,8 +1,18 @@
 body {
     font-family: 'Lato', sans-serif;
     padding-top: 50px;
+    font-size : 15px;
 }
 
+.navbar {
+    box-shadow: 0 0 15px -4px #444;
+}
+.navbar {
+    min-height: 40px;
+    background: #FFFFFF;
+}
+
+/* JUMBOTRON */
 .home-jumbotron {
     background: #f8f8f8;
     border-bottom: 1px solid #eee;
@@ -25,32 +35,40 @@ body {
     color: #FFFFFF;
 }
 
+.information-row, .news-row, .footer-row {
+    padding: 40px 0;
+}
+
+/* Information Row */
 .home-content-icon {
     text-align: center;
     font-size: 60px;
     color: #337AB7;
 }
-
 .information-row h3 {
     min-height: 60px;
 }
 
-.information-row, .news-row, .footer-row {
-    padding: 30px 0;
-}
-.footer-row {
-    background: rgba(176, 193, 207, 0.35);
-}
+/* News Row */
 .news-row {
     background: #f5f5f5;
     border-top: 1px solid #eee;
 }
-.navbar {
-    box-shadow: 0 0 15px -4px #444;
+.news-row h3 {
+    font-weight: 300;
+    text-align: center;
+    margin: 0 0 20px 0;
 }
-.navbar {
-    min-height: 40px;
+.news-row .row {
+    padding: 5px 0;
 }
+
+/* Footer Row */
+.footer-row {
+    background: rgba(176, 193, 207, 0.35);
+}
+
+
 @media (max-width:500px) {
     .home-jumbotron > .content > h1 {
         font-size: 36px;
