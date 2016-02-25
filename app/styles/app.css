@@ -122,3 +122,20 @@ body {
 .scientists-row h3 {
     text-align: center;
 }
+
+
+/* RESOURCES */
+.resources-row h3 {
+    padding: 10px 0;
+    font-weight: 300;
+    color: #337AB7;
+}
+.resources-row h4 {
+    padding: 25px 0 10px 0;
+}
+.resources-local {
+    padding: 15px;
+    background: #f5f5f5;
+    margin: 0;
+    border-radius: 5px;
+}
