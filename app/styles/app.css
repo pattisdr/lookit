@@ -1,8 +1,10 @@
+/* ENTIRE WEBSITE */
 body {
     font-family: 'Lato', sans-serif;
     padding-top: 50px;
     font-size : 15px;
 }
+
 
 .navbar {
     box-shadow: 0 0 15px -4px #444;
@@ -11,6 +13,16 @@ body {
     min-height: 40px;
     background: #FFFFFF;
 }
+
+.lookit-row {
+    padding: 40px 0;
+}
+.lookit-page-title {
+    background: #337ab7;
+    color: #FFF;
+}
+
+
 
 /* JUMBOTRON */
 .home-jumbotron {
@@ -35,9 +47,6 @@ body {
     color: #FFFFFF;
 }
 
-.information-row, .news-row, .footer-row {
-    padding: 40px 0;
-}
 
 /* Information Row */
 .home-content-icon {
@@ -74,3 +83,6 @@ body {
         font-size: 36px;
     }
 }
+
+
+/* FAQ */
