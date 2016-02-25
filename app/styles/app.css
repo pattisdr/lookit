@@ -1,13 +1,12 @@
 body {
     font-family: 'Lato', sans-serif;
     padding-top: 50px;
-
 }
 
 .home-jumbotron {
     background: #f8f8f8;
     border-bottom: 1px solid #eee;
-    background:#351306 url('img/lookit_face.jpg') center top no-repeat;
+    background:#351306 url('img/lookit_face.jpg') center top no-repeat; /* Image source: https://www.flickr.com/photos/theothernate/8287981071/in/photolist-655Dz5-pBNWax-pa1tU5-qwyM78-7vg3dc-5XEo1m-rmCajQ-5XA7Tc-82ptYk-dCo52n-pd9mej-pzLg3m-7MHhZ2-hkjGp-5XEod3-rmHV9H-7MMia1-6T2ovg-4PUta4-qMnNK3-rEkXFk-xHjvoq-5XEoo5-7w8FrN-AkN8FP */
 }
 
 .home-jumbotron .content  {
@@ -26,6 +25,32 @@ body {
     color: #FFFFFF;
 }
 
+.home-content-icon {
+    text-align: center;
+    font-size: 60px;
+    color: #337AB7;
+}
+
+.information-row h3 {
+    min-height: 60px;
+}
+
+.information-row, .news-row, .footer-row {
+    padding: 30px 0;
+}
+.footer-row {
+    background: rgba(176, 193, 207, 0.35);
+}
+.news-row {
+    background: #f5f5f5;
+    border-top: 1px solid #eee;
+}
+.navbar {
+    box-shadow: 0 0 15px -4px #444;
+}
+.navbar {
+    min-height: 40px;
+}
 @media (max-width:500px) {
     .home-jumbotron > .content > h1 {
         font-size: 36px;
