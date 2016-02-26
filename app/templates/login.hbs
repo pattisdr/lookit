@@ -14,8 +14,11 @@
                     <button class="btn btn-primary btn-lg" {{action 'invalidateSession'}}>Logout</button>
                 {{else}}
                     {{jam-auth login=(action 'authenticate')}}
+                    <p>Not already a user? Create a Lookit account.</p>
+                    {{jam-create create=(action 'createAccount')}}
                 {{/if}}
             </div>
+
         </div>
     </div>
 </div>

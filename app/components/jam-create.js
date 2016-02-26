@@ -9,13 +9,11 @@ export default Ember.Component.extend({
   password: null,
 
   actions: {
-    authenticate() {
-      this.get('login')({
-        provider: 'self',
-        namespace: this.get('namespace'),
-        collection: this.get('collection'),
+    createAccount() {
+      this.get('create')({
         username: this.get('username'),
         password: this.get('password')
+//        Add fields for permissions and history?
       });
       return false;
     }

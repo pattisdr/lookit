@@ -13,6 +13,7 @@ Router.map(function() {
   this.route('scientists');
   this.route('resources');
   this.route('contact');
+  this.route('my',{path: "/account"});
 });
 
 export default Router;
