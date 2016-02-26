@@ -33,7 +33,7 @@ export default Ember.Controller.extend({
             this.set('newBirthday','');
         },
         edit: function() {
-            this.set('isEditing',true);
+            this.toggleProperty('isEditing');
         },
         // To edit an existing profile
         editProfile: function(profile) {
@@ -42,10 +42,13 @@ export default Ember.Controller.extend({
          
             this.get('model').save();
 
-            this.set('isEditing',false);
             this.set('editFirstName','');
             this.set('editLastName','');
             this.set('editBirthday','');
+            this.send('edit');
+        },
+        deleteProfile: function(profile) {
+            console.log(this.get('model').profiles);
         }
     }
 });

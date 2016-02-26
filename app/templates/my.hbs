@@ -40,6 +40,7 @@
                                     </div>
                                     <br>
                                     <button {{action 'editProfile' profile}}>Submit</button>
+                                    <button {{action 'edit'}}>Cancel</button>
                                 {{/bs-form-group}}
                             {{/bs-form}}
                         </div>
@@ -55,6 +56,7 @@
                         </div>
                             
                         <button {{action 'edit'}}>Edit information</button>
+                        <button {{action 'deleteProfile' profile}}>Delete this profile</button>
                     </div>
                 
                     {{/if}}
