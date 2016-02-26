@@ -2,11 +2,11 @@
 
 module.exports = function(environment) {
   var ENV = {
-    
     JAMDB: {
         url: 'http://localhost:1212',
         namespace: 'experimenter',
-        collection:'accounts'
+        collection:'accounts',
+        authorizer: 'jam-jwt'
     },
 
     modulePrefix: 'lookit-base',
@@ -28,8 +28,8 @@ module.exports = function(environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     },
-    
-//    This is probably super unsafe, but just for proof of concept...
+
+    //    This is probably super unsafe, but just for proof of concept...
     contentSecurityPolicy: {
         'font-src':"'self' fonts.gstatic.com fonts.googleapis.com",
         'style-src':"'self''unsafe-inline' fonts.googleapis.com",
@@ -48,7 +48,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
   }
-  
+
   if (environment === 'stage') {
     ENV.JAMDB.url = 'https://staging-metadata.osf.io';
     ENV.JAMDB.namespace = 'COS';
@@ -61,7 +61,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
   }
-  
+
   if (environment === 'stage') {
     ENV.JAMDB.url = 'https://staging-metadata.osf.io';
     ENV.JAMDB.namespace = 'COS';
