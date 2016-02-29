@@ -10,7 +10,8 @@
     "bootstrap": "~3.3.5",
     "uri-templates": "^0.1.9",
     "bcryptjs": "^2.3.0",
-    "video.js": "^5.0.0"
+    "video.js": "^5.0.0",
+    "moment": "momentjs#^2.11.2"
   },
   "resolutions": {
     "ember": "2.3.0"
