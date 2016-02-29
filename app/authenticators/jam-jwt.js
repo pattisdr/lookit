@@ -24,8 +24,5 @@ export default Base.extend({
                 attributes: attrs
             }})
         }).then(data => data.data);
-    },
-//     invalidate(data) {
-//         debugger;
-//     }
+    }
 });
