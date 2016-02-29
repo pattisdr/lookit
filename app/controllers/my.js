@@ -18,17 +18,14 @@ export default Ember.Controller.extend({
             
             var profile = {"birthday": birthday, "firstName": firstName, "lastName": lastName, "profileId": profileId};
             
-            this.get('model.profiles').pushObject(profile);
-            
-//            if (this.get('model.profiles') != undefined) {
-//                console.log('adding to preexisting profiles');
-//                this.get('model.profiles').pushObject(profile);
-//            }
-//            else {
-//                console.log('creating first profile');
-//                this.set('model.profiles',[]);
-//                this.get('model.profiles').pushObject(profile);
-//            }
+            if (this.get('model.profiles').length != 0) {
+                console.log(this.get('model.profiles'));
+                this.get('model.profiles').pushObject(profile);
+            }
+            else {
+                this.set('model.profiles',[]);
+                this.get('model.profiles').pushObject(profile);
+            }
             
             
             this.get('model').save();

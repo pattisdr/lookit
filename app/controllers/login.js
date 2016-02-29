@@ -32,6 +32,7 @@ export default Ember.Controller.extend({
             var newAccount = this.store.createRecord('account', {
                 username: attrs.username,
                 password: attrs.password,
+                profiles: [],
                 // Update the line below to be more general
                 id: 'experimenter.accounts.' + attrs.username
             });
