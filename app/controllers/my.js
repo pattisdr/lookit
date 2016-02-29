@@ -14,17 +14,23 @@ export default Ember.Controller.extend({
             var firstName = this.get('newFirstName');
             var lastName = this.get('newLastName');
             var birthday = new Date(this.get('newBirthday'));
-            var profileID = this.get('model.username') + "." + Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
+            var profileId = this.get('model.username') + "." + Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
             
-            var profile = {"birthday": birthday, "firstName": firstName, "lastName": lastName, "profileID": profileID};
+            var profile = {"birthday": birthday, "firstName": firstName, "lastName": lastName, "profileId": profileId};
             
-            if (this.get('model.profiles') != undefined) {
-                this.get('model.profiles').pushObject(profile);
-            }
-            else {
-                this.set('model.profiles',[]);
-                this.get('model.profiles').pushObject(profile);
-            }
+            this.get('model.profiles').pushObject(profile);
+            
+//            if (this.get('model.profiles') != undefined) {
+//                console.log('adding to preexisting profiles');
+//                this.get('model.profiles').pushObject(profile);
+//            }
+//            else {
+//                console.log('creating first profile');
+//                this.set('model.profiles',[]);
+//                this.get('model.profiles').pushObject(profile);
+//            }
+            
+            
             this.get('model').save();
             
             // Reset input fields
@@ -46,9 +52,6 @@ export default Ember.Controller.extend({
             this.set('editLastName','');
             this.set('editBirthday','');
             this.send('edit');
-        },
-        deleteProfile: function(profile) {
-            console.log(this.get('model').profiles);
         }
     }
 });
