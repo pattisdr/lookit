@@ -5,12 +5,22 @@ export default Ember.Controller.extend({
     session: Ember.inject.service('session'),
     queryParams: ['driver'],
     driver: 'jam-auth',
+    modal: false,
     
     actions: {
         authenticate(attrs,router) {
-            this.get('session').authenticate('authenticator:jam-jwt',attrs).then(() => {
-                this.get('target').transitionTo('home');
-            });
+            var target = this.get('target');
+            var me = this; 
+            this.get('session').authenticate('authenticator:jam-jwt',attrs).then(
+                function() {
+                    target.transitionTo('home');
+                }, function() {
+                    me.send('toggleModal');
+                }  
+            );
+        },
+        toggleModal() {
+            this.toggleProperty('modal');
         },
         invalidateSession() {
             this.get('session').invalidate().then(() => {
@@ -33,3 +43,4 @@ export default Ember.Controller.extend({
         }
     }                                   
 });
+                

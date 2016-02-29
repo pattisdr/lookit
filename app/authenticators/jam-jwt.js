@@ -23,9 +23,7 @@ export default Base.extend({
                 type: 'users',
                 attributes: attrs
             }})
-        }).then(data => data.data).fail(function() {
-            alert('Invalid username/password. Unable to log in.');
-        });
+        }).then(data => data.data);
     },
 //     invalidate(data) {
 //         debugger;
