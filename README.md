@@ -25,6 +25,13 @@ You will need the following things properly installed on your computer.
 * `cd lib`
 * `git pull origin develop`
 
+## Setting up JAM database
+
+In Experimenter repo, working on the jamdb virtualenv:
+* (If necessary) `jam delete experimenter`
+* `npm run bootstrap`
+* `jam userify experimenter accounts`
+
 ## Running / Development
 
 * `ember server`
