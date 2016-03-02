@@ -18,7 +18,7 @@ export default Ember.Controller.extend({
             
             var profile = {"birthday": birthday, "firstName": firstName, "lastName": lastName, "profileId": profileId};
             
-            if (this.get('model.profiles').length != 0) {
+            if (this.get('model.profiles').length !== 0) {
                 this.get('model.profiles').pushObject(profile);
             }
             else {
