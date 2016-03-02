@@ -1,16 +1,25 @@
 import Ember from 'ember';
-import config from 'ember-get-config';
 
 export default Ember.Controller.extend({
     session: Ember.inject.service('session'),
     queryParams: ['driver'],
     driver: 'jam-auth',
+    modal: false,
     
     actions: {
-        authenticate(attrs,router) {
-            this.get('session').authenticate('authenticator:jam-jwt',attrs).then(() => {
-                this.get('target').transitionTo('home');
-            });
+        authenticate(attrs) {
+            var me = this;
+            var target = me.get('target');
+            me.get('session').authenticate('authenticator:jam-jwt',attrs).then(
+                function() {
+                    target.transitionTo('home');
+                }, function() {
+                    me.send('toggleModal');
+                }  
+            );
+        },
+        toggleModal() {
+            this.toggleProperty('modal');
         },
         invalidateSession() {
             this.get('session').invalidate().then(() => {
@@ -22,6 +31,7 @@ export default Ember.Controller.extend({
             var newAccount = this.store.createRecord('account', {
                 username: attrs.username,
                 password: attrs.password,
+                profiles: [],
                 // Update the line below to be more general
                 id: 'experimenter.accounts.' + attrs.username
             });
@@ -33,3 +43,4 @@ export default Ember.Controller.extend({
         }
     }                                   
 });
+                

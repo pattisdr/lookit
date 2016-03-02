@@ -31,15 +31,12 @@
                                         {{bs-input type="text" value=editFirstName}}
                                     </div>
                                     <div>
-                                        <label>Last Name</label>
-                                        {{bs-input type="text" value=editLastName}}
-                                    </div>
-                                    <div>
                                         <label>Birthday</label>
                                         {{bs-input type="text" value=editBirthday}}
                                     </div>
                                     <br>
                                     <button {{action 'editProfile' profile}}>Submit</button>
+                                    <button {{action 'edit'}}>Cancel</button>
                                 {{/bs-form-group}}
                             {{/bs-form}}
                         </div>
@@ -48,7 +45,7 @@
                 
                     <div>
                         <div>
-                            <p>Name: {{profile.firstName}} {{profile.lastName}}</p>
+                            <p>Name: {{profile.firstName}}</p>
                         </div>
                         <div>
                             <p>Birthday: {{profile.birthday}}</p>
@@ -70,10 +67,6 @@
                             <div>
                                 <label>First Name</label>
                                 {{bs-input type="text" value=newFirstName}}
-                            </div>
-                            <div>
-                                <label>Last Name</label>
-                                {{bs-input type="text" value=newLastName}}
                             </div>
                             <div>
                                 <label>Birthday</label>

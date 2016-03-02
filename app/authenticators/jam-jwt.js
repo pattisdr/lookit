@@ -25,7 +25,4 @@ export default Base.extend({
             }})
         }).then(data => data.data);
     }
-    // invalidate(data) {
-    //     debugger;
-    // }
 });

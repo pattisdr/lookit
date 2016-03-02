@@ -12,40 +12,39 @@ export default Ember.Controller.extend({
         createProfile: function() {
             
             var firstName = this.get('newFirstName');
-            var lastName = this.get('newLastName');
             var birthday = new Date(this.get('newBirthday'));
-            var profileID = this.get('model.username') + "." + Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
+            var profileId = this.get('model.username') + "." + Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
             
-            var profile = {"birthday": birthday, "firstName": firstName, "lastName": lastName, "profileID": profileID};
+            var profile = {"birthday": birthday, "firstName": firstName, "profileId": profileId};
             
-            if (this.get('model.profiles') != undefined) {
+            if (this.get('model.profiles').length !== 0) {
                 this.get('model.profiles').pushObject(profile);
             }
             else {
                 this.set('model.profiles',[]);
                 this.get('model.profiles').pushObject(profile);
             }
+            
+            
             this.get('model').save();
             
             // Reset input fields
             this.set('newFirstName','');
-            this.set('newLastName','');
             this.set('newBirthday','');
         },
         edit: function() {
-            this.set('isEditing',true);
+            this.toggleProperty('isEditing');
         },
         // To edit an existing profile
         editProfile: function(profile) {
             // NOTE: To set properties on a JS object (NOT Ember object), must use Ember.set
-            Ember.setProperties(profile, {'firstName': this.get('editFirstName'),'lastName': this.get('editLastName'),'birthday': new Date(this.get('editBirthday'))});
+            Ember.setProperties(profile, {'firstName': this.get('editFirstName'),'birthday': new Date(this.get('editBirthday'))});
          
             this.get('model').save();
 
-            this.set('isEditing',false);
             this.set('editFirstName','');
-            this.set('editLastName','');
             this.set('editBirthday','');
+            this.send('edit');
         }
     }
 });

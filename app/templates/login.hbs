@@ -1,9 +1,14 @@
-
 <div class="lookit-row lookit-page-title">
     <div class="container">
         <h2> Login </h2>
     </div>
 </div>
+
+{{#if modal}}
+    {{#bs-modal title="An error occured when logging in." closedAction=(action 'toggleModal')}}
+        {{#bs-modal-body}}Invalid username or password.{{/bs-modal-body}}
+    {{/bs-modal}}
+{{/if}}
 
 <div class="lookit-row login-row">
     <div class="container">
