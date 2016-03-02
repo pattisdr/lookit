@@ -10,7 +10,7 @@ export default Ember.Route.extend({
     
     model() {
         var activeExperiments =  this.store.query('experiment', {'filter[state]': 'Active'});
-        if(this.get('sessionAccount').account != undefined) {
+        if(this.get('sessionAccount').account !== undefined) {
             var currentUser = this.store.findRecord('account', this.get('sessionAccount').account.id);
             var promises = {experiments: activeExperiments, user: currentUser};
             return Ember.RSVP.hash(promises);
