@@ -8,7 +8,7 @@ export default Ember.Controller.extend({
     modal: false,
     
     actions: {
-        authenticate(attrs,router) {
+        authenticate(attrs) {
             var me = this;
             var target = me.get('target');
             me.get('session').authenticate('authenticator:jam-jwt',attrs).then(
