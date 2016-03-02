@@ -9,9 +9,9 @@ export default Ember.Controller.extend({
     
     actions: {
         authenticate(attrs,router) {
-            var target = this.get('target');
-            var me = this; 
-            this.get('session').authenticate('authenticator:jam-jwt',attrs).then(
+            var me = this;
+            var target = me.get('target');
+            me.get('session').authenticate('authenticator:jam-jwt',attrs).then(
                 function() {
                     target.transitionTo('home');
                 }, function() {

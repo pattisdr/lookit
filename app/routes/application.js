@@ -7,6 +7,10 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
   session: service('session'),
   sessionAccount: service('session-account'),
 
+//  model() {
+//    debugger;
+//  },  
+      
   beforeModel() {
     return this._loadCurrentUser();
   },
