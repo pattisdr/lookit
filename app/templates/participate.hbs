@@ -1,86 +1,14 @@
-<div class="container">
-<!--Do this with CSS-->
-    <br><br><br>
-    <h2>Lookit Studies</h2>
-    
-    <br>
-    
-    {{#ivy-tabs}}
-          {{#ivy-tab-list}}
-<!--Ivy tabs don't seem to be picking up the styling for their bootstrap classes, even though these classes are rendered in the HTML-->
-            {{#ivy-tab}}Suggested Studies{{/ivy-tab}}
-    
-            {{#if session.isAuthenticated}} 
-            {{#ivy-tab}}Studies I'm Participating In{{/ivy-tab}}
-            {{#ivy-tab}}My Past Studies{{/ivy-tab}}
-            {{/if}}
-    
-          {{/ivy-tab-list}}
-    
-          {{#ivy-tab-panel}}
-            <div class="container">
-                <br>
-                <p>Here are some studies that we're currently running.</p>
-                <p>Filter by age: [This will be added when some experiments actually have eligibility criteria]</p>
-                <div class="container">
-                    <div class="row">
-                        
-                        {{# if session.isAuthenticated}}
-                        
-                        {{#each model.experiments as |experiment|}}
-                            <!--Rudimentary CSS-->
-                            <div class="col-md-4" style="border: 1px solid black; width: 30%; margin: 5px; height: 200px;">
-                                <h3>{{experiment.title}}</h3>
-                                <p>{{experiment.description}}</p>
-                            </div>
-                        {{/each}}
-                        
-                        {{else}}
-                        
-                        {{#each model as |experiment|}}
-                            <!--Rudimentary CSS-->
-                            <div class="col-md-4" style="border: 1px solid black; width: 30%; margin: 5px; height: 200px;">
-                                <h3>{{experiment.title}}</h3>
-                                <p>{{experiment.description}}</p>
-                            </div>
-                        {{/each}}
-                        
-                        {{/if}}
-                        
-                    </div>
-                </div>
-            </div>
-          {{/ivy-tab-panel}}
-    
-    
-          {{#if session.isAuthenticated}}
-          {{#ivy-tab-panel}}
-            <div class="container">
-                <br>
-                <p>You can access and complete your ongoing studies.</p>
-                <div class="container">
-                    <div class="row">
-                        <p>(Coming soon)</p>
-                    </div>
-                </div>
-            </div>
-          {{/ivy-tab-panel}}
-          {{/if}}
-    
-          {{#if session.isAuthenticated}}
-           {{#ivy-tab-panel}}
-            <div class="container">
-                <br>
-                <p>You can view your studies and view or download your data from our records.</p>
-                <div class="container">
-                    <div class="row">
-                        <p>(Coming soon)</p>
-                    </div>
-                </div>
-            </div>
-          {{/ivy-tab-panel}}
-          {{/if}}
-    
-    {{/ivy-tabs}}
+<div id="expContainer">
+{{
+  exp-player
+  experiment=model.experiment
+  session=session
+  account=account
+  profile=profile
 
+  saveHandler=(action 'saveSession')
+  frameIndex=0
+
+  fullScreenElementId='expContainer'
+  }}
 </div>

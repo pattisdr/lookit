@@ -11,6 +11,8 @@ Router.map(function() {
   this.route('studies', function() {
     this.route('detail', {path: '/:experiment_id/'});
   });
+  this.route('participate', {path: '/participate/:experiment_id/'});
+
   this.route('faq');
   this.route('scientists');
   this.route('resources');
