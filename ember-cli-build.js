@@ -1,15 +1,24 @@
 /*jshint node:true*/
 /* global require, module */
+require('dotenv').config();
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
-    // Add options here
+    emberWowza: {
+      // Config for video recorder config
+      asp: JSON.parse(process.env.WOWZA_ASP),
+      // Config for actual video recording
+      php: JSON.parse(process.env.WOWZA_PHP)
+    }
   });
 
   // Use `app.import` to add additional libraries to the generated
   // output files.
   app.import('bower_components/moment/moment.js');
+
+  app.import('bower_components/bootstrap/dist/js/bootstrap.js');
+  app.import('bower_components/bootstrap/dist/css/bootstrap.css');
 
   //
   // If you need to use different assets in different
