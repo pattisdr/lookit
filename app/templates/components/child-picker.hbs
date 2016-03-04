@@ -1,0 +1,11 @@
+{{#bs-modal title="Please select a child" closeButton=false}}
+{{#bs-modal-body}}
+  <div class="panel">
+    <select value={{selectedChild}}>
+      {{#each children as |child|}}
+      <option value="{{child.id}}">{{child.firstName}}</option>
+      {{/each}}
+    </select>
+  </div>
+{{/bs-modal-body}}
+{{/bs-modal}}

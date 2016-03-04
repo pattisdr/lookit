@@ -1,6 +1,6 @@
 <div class="lookit-row lookit-page-title">
     <div class="container">
-        <h2> Participate in "{{model.title}}" {{link-to  "Back to list" 'studies' class="btn btn-lg btn-primary pull-right"}}</h2>
+        <h2> Participate in "{{model.experiment.title}}" {{link-to  "Back to list" 'studies' class="btn btn-lg btn-primary pull-right"}}</h2>
     </div>
 </div>
 <div class="lookit-row study-detail-row">
@@ -9,7 +9,7 @@
       <div class="col-md-10 col-md-offset-1">
         <div class="row">
           <div class="col-xs-12">
-            <img class="study-detail-thumbnail" src="{{model.thumbnail.raw}}" />
+            <img class="study-detail-thumbnail" src="{{model.experiment.thumbnail.raw}}" />
           </div>
         </div>
 
@@ -18,26 +18,51 @@
             <p class="study-detail-caption"> Thank you for your interest in this study. We will help you learn more about the study and set up on your computer. </p>
             <p>
               <strong>Eligibility criteria:</strong>
-              {{model.eligibilityCriteria}}
+              {{model.experiment.eligibilityCriteria}}
             </p>
             <p>
               <strong>Duration: </strong>
-              {{model.duration}}
+              {{model.experiment.duration}}
             </p>
             <p>
               <strong>What happens: </strong>
-              {{model.whatHappens}}
+              {{model.experiment.whatHappens}}
             </p>
             <p>
               <strong>What are we studying?: </strong>
-              {{model.purpose}}
+              {{model.experiment.purpose}}
             </p>
           </div>
           <div class="col-md-3">
-            {{link-to "Participate now!" 'participate' model.id class="btn btn-primary btn-lg"}}
+            <button class="btn btn-primary btn-lg" onclick={{action 'participate'}}>Participate now!</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+{{#if pickingChild }}
+  {{#if (not account) }}
+  {{#bs-modal title="Not logged in" }}
+  {{#bs-modal-body}}
+    <div class="panel">
+      <p>
+        You must sign in or create an account before you can participate in a study. You can do that {{link-to 'here' 'login'}}.
+      </p>
+    </div>
+  {{/bs-modal-body}}
+  {{/bs-modal}}
+  {{else if (not model.account.profiles) }}
+  {{#bs-modal title="No child profiles created" }}
+  {{#bs-modal-body}}
+    <div class="panel">
+      <p>
+        Before you begin, you need to set up a profile for your child. You can do that {{link-to 'here' 'my'}}.
+      </p>
+    </div>
+  {{/bs-modal-body}}
+  {{/bs-modal}}
+  {{else}}
+    {{child-picker account=model.account isShowing=pickingChild}}
+  {{/if}}
+{{/if}}
