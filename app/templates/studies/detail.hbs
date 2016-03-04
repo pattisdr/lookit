@@ -15,7 +15,7 @@
 
         <div class="row" class="study-detail-info row">
           <div class="col-md-9">
-            <p class="study-detail-caption"> Thank you for your interest in this study. We will help you learn more about the study and set up on your computed. Follow these steps in the order shown below. When you are finished with these steps you can continue to the study.</p>
+            <p class="study-detail-caption"> Thank you for your interest in this study. We will help you learn more about the study and set up on your computer. </p>
             <p>
               <strong>Eligibility criteria:</strong>
               {{model.eligibilityCriteria}}
@@ -34,7 +34,7 @@
             </p>
           </div>
           <div class="col-md-3">
-            {{link-to "Participate now!" 'participate' model class="btn btn-primary btn-lg"}}
+            {{link-to "Participate now!" 'participate' model.id class="btn btn-primary btn-lg"}}
           </div>
         </div>
       </div>
