@@ -4,5 +4,8 @@ const { service } = Ember.inject;
 
 export default Ember.Controller.extend({
     session: service('session'),
-    sessionAccount: service('session-account')
+    sessionAccount: service('session-account'),
+    isParticipate: Ember.computed('currentPath', function() {
+        return this.get('currentPath') === 'participate';
+    })
 });
