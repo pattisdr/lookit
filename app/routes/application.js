@@ -9,8 +9,8 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
 
 //  model() {
 //    debugger;
-//  },  
-      
+//  },
+
   beforeModel() {
     return this._loadCurrentUser();
   },
@@ -21,7 +21,8 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
   },
 
   _loadCurrentUser() {
-    return this.get('sessionAccount').loadCurrentUser();
+      return this.get('sessionAccount').loadCurrentUser().catch(() => {
+          this.get('session').invalidate();
+      });
   }
 });
-
