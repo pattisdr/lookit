@@ -11,7 +11,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
         this._super(controller, model);
 
         if (!this.get('sessionAccount.profile')) {
-            this.transitionToRoute('studies', model.experiment.get('id'));
+            this.transitionTo('studies', model.experiment.get('id'));
         }
 
         var session = this.get('store').createRecord(model.experiment.get('sessionCollectionId'), {
