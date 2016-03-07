@@ -1,1 +1,252 @@
 @import "ember-power-select";
+
+/* ENTIRE WEBSITE */
+body {
+    font-family: 'Lato', sans-serif;
+    padding-top: 50px;
+    font-size : 15px;
+}
+
+
+.navbar {
+    box-shadow: 0 0 15px -4px #444;
+}
+.navbar {
+    min-height: 40px;
+    background: #FFFFFF;
+}
+
+.navbar-toggle .icon-bar {
+    background: #337AB7;
+}
+.lookit-row {
+    padding: 30px 0;
+}
+.lookit-page-title {
+    background: #337ab7;
+    color: #FFF;
+}
+
+
+/* JUMBOTRON */
+.home-jumbotron {
+    background: #f8f8f8;
+    border-bottom: 1px solid #eee;
+    background:#351306 url('img/lookit_face.jpg') center top no-repeat; /* Image source: https://www.flickr.com/photos/theothernate/8287981071/in/photolist-655Dz5-pBNWax-pa1tU5-qwyM78-7vg3dc-5XEo1m-rmCajQ-5XA7Tc-82ptYk-dCo52n-pd9mej-pzLg3m-7MHhZ2-hkjGp-5XEod3-rmHV9H-7MMia1-6T2ovg-4PUta4-qMnNK3-rEkXFk-xHjvoq-5XEoo5-7w8FrN-AkN8FP */
+}
+
+.home-jumbotron .content  {
+    margin: 0 auto;
+    color: #FFF;
+    text-align: center;
+    padding-top: 300px;
+    padding-bottom: 20px;
+}
+
+.home-jumbotron>.content>h1 {
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    font-size: 50px;
+}
+.home-jumbotron .content h1 small {
+    color: #FFFFFF;
+}
+
+
+/* Information Row */
+.home-content-icon {
+    text-align: center;
+    font-size: 60px;
+    color: #337AB7;
+}
+.information-row h3 {
+    min-height: 60px;
+}
+
+/* News Row */
+.news-row {
+    background: #f5f5f5;
+    border-top: 1px solid #eee;
+}
+.news-row h3 {
+    font-weight: 300;
+    text-align: center;
+    margin: 0 0 20px 0;
+}
+.news-row .row {
+    padding: 5px 0;
+}
+
+/* Footer Row */
+.footer-row {
+    background: rgba(176, 193, 207, 0.35);
+}
+
+
+@media (max-width:500px) {
+    .home-jumbotron > .content > h1 {
+        font-size: 36px;
+    }
+}
+
+
+/* FAQ */
+.faq-row .panel {
+    border: none;
+}
+.faq-row .panel-heading {
+    background-color: rgba(202, 218, 227, 0.46);
+    padding: 12px;
+}
+.faq-row .panel-title {
+    font-size: 17px;
+}
+.panel-group .panel + .panel {
+    margin-top: 9px;
+}
+
+
+
+
+/* SCIENTISTS */
+.lookit-scientist {
+    min-height: 600px;
+    margin-top: 20px;
+}
+.profile-img {
+    text-align: center;
+}
+.profile-img img {
+    border-radius: 120px;
+    border: 6px solid #d9edf7;
+    width: 240px;
+}
+
+.scientists-row h3 {
+    text-align: center;
+}
+
+
+/* RESOURCES */
+.resources-row h3 {
+    padding: 10px 0;
+    font-weight: 300;
+    color: #337AB7;
+}
+.resources-row h4 {
+    padding: 25px 0 10px 0;
+}
+.resources-local {
+    padding: 15px;
+    background: #f5f5f5;
+    margin: 0;
+    border-radius: 5px;
+}
+
+/* LOGIN */
+.login-item {
+    padding: 25px;
+    box-shadow: 0 0 3px #ccc;
+}
+.login-row label {
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: 300;
+}
+.login-row .pull-right {
+    padding-top:30px;
+}
+.login-row button {
+    width: 180px;
+}
+
+
+/* STUDIES PAGE */
+.study-list-panel {
+    height: 450px;
+    overflow: hidden;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+}
+.study-list-thumbnail {
+    max-height: 300px;
+    max-width: 300px;
+    margin-top: 30px;
+    margin: 30px;
+}
+.study-list-thumbnail-wrapper {
+    max-height: 275px;
+    min-height: 275px;
+}
+.study-list-placeholder {
+    font-size: 200px;
+    text-align: center;
+}
+
+.study-list-panel .caption {
+    min-height: 150px;
+    max-height: 150;
+}
+.study-list-panel .fadeout {
+    content: '';
+    width: 100%;
+    height: 70%;
+    position: absolute;
+    left: 0;
+    bottom: 21px;
+    background: linear-gradient(transparent 150px, white);
+}
+.study-list-panel .full {
+    content: '';
+    width: 100%;
+    height: auto;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    bottom: 25px;
+}
+
+/* STUDY DETAIL */
+
+.study-detail-thumbnail {
+    width: 80%;
+    /*max-width: 650px;
+    max-height: 650px;*/
+}
+.study-detail-caption {
+    line-height: 25px;
+    font-size: 18px;
+    font-weight: 300;
+}
+.study-detail-info {
+    margin-top: 30px;
+}
+
+/* PARTICIPATE */
+#expContainer:fullscreen {
+    width: 100vh;
+    height: 100vh;
+    padding: 25vw;
+}
+
+#expContainer:-webkit-full-screen {
+    width: 100vh;
+    height: 100vh;
+    padding: 25vw;
+}
+
+#expContainer:-moz-full-screen {
+    height: 100vh;
+    width: 100vh;
+    padding: 25vw;
+}
+#expContainer:-ms-fullscreen {
+    height: 100vh;
+    width: 100vh;
+    padding: 25vw;
+}
+#expContainer {
+    margin: 10vw;
+    margin-top: 2vw;
+}
