@@ -1,11 +1,24 @@
-{{#bs-modal title="Please select a child" closeButton=false}}
+{{#bs-modal title="Please select a child" closeButton=false footer=false backdropClose=false}}
 {{#bs-modal-body}}
   <div class="panel">
-    <select value={{selectedChild}}>
-      {{#each children as |child|}}
-      <option value="{{child.id}}">{{child.firstName}}</option>
-      {{/each}}
-    </select>
+    <div class="row form">
+      <div class="form-input">
+        <select onchange={{action (mut selectedChild) value="target.value"}} >
+          <option value="null">None Selected</option>
+          {{#each children as |child|}}
+          <option value={{child.profileId}} >{{child.firstName}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
   </div>
 {{/bs-modal-body}}
+{{#bs-modal-footer as |footer|}}
+  {{#bs-button type="default" class="child-picker-btn" action=(action 'close' target=footer)}}
+    Cancel
+  {{/bs-button}}
+  {{#bs-button type="primary" class=(concat child-picker-btn (if canSelect '' 'disabled')) action=(action 'selectChild')}}
+    Select child
+  {{/bs-button}}
+{{/bs-modal-footer}}
 {{/bs-modal}}

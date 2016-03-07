@@ -3,23 +3,9 @@ import Ember from 'ember';
 const { service } = Ember.inject;
 
 export default Ember.Controller.extend({
-    sessionAccount: service('session-account'),
     model: null,
-
     session: null,
-    init: function() {
-        var session = this.get('store').createRecord(this.get('model.experiment.sessionCollectionId'), {
-            experimentId: this.get('model.experiment.id'),
-            profileId: '',
-            profileVersion: '',
-            softwareVersion: ''
-        });
-        this.get('model.experiment').getCurrentVersion().then(function(versionId) {
-            session.set('experimentVersion', versionId);
-        });
-        this.set('session', session);
-    },
-
+    sessionAccount: service('session-account'),
     store: Ember.inject.service(),
     isDirty: function() {
         // TODO: check the session model to see if it contains unsaved data
