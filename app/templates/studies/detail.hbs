@@ -56,28 +56,3 @@
     </div>
   </div>
 </div>
-{{#if pickingChild }}
-  {{#if (not model.account) }}
-    {{#bs-modal title="Not logged in" }}
-    {{#bs-modal-body}}
-      <div class="panel">
-        <p>
-          You must sign in or create an account before you can participate in a study. You can do that {{link-to 'here' 'login'}}.
-        </p>
-      </div>
-    {{/bs-modal-body}}
-    {{/bs-modal}}
-  {{else if (not model.account.profiles) }}
-    {{#bs-modal title="No child profiles created" }}
-    {{#bs-modal-body}}
-      <div class="panel">
-        <p>
-          Before you begin, you need to set up a profile for your child. You can do that {{link-to 'here' 'my'}}.
-        </p>
-      </div>
-    {{/bs-modal-body}}
-    {{/bs-modal}}
-  {{else}}
-    {{child-picker account=model.account onSelect=(action 'pickChild') onCancel=(action 'cancelPickChild') }}
-  {{/if}}
-{{/if}}
