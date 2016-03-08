@@ -7,12 +7,14 @@ export default Ember.Component.extend({
 
   username: null,
   password: null,
+    email: null,
 
   actions: {
     createAccount() {
       this.get('create')({
         username: this.get('username'),
-        password: this.get('password')
+        password: this.get('password'),
+          email: this.get('email')
 //        Add fields for permissions and history?
       });
       return false;
