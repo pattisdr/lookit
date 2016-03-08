@@ -5,7 +5,7 @@ export default Ember.Controller.extend({
     queryParams: ['driver'],
     driver: 'jam-auth',
     modal: false,
-    
+
     actions: {
         authenticate(attrs) {
             var me = this;
@@ -15,7 +15,7 @@ export default Ember.Controller.extend({
                     target.transitionTo('home');
                 }, function() {
                     me.send('toggleModal');
-                }  
+                }
             );
         },
         toggleModal() {
@@ -31,16 +31,17 @@ export default Ember.Controller.extend({
             var newAccount = this.store.createRecord('account', {
                 username: attrs.username,
                 password: attrs.password,
+                email: attrs.email,
                 profiles: [],
                 // Update the line below to be more general
                 id: 'experimenter.accounts.' + attrs.username
             });
             newAccount.save().then(() => {
             // log in immediately with this new account information
-                var theAttrs = {provider: 'self', namespace: 'experimenter', collection: 'accounts', username: attrs.username, password: attrs.password};
+                var theAttrs = {provider: 'self', namespace: 'experimenter', collection: 'accounts', username: attrs.username, password: attrs.password, email: attrs.email};
                 this.send('authenticate',theAttrs);
             });
         }
-    }                                   
+    }
 });
-                
+
