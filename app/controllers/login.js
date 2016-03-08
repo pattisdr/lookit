@@ -38,7 +38,7 @@ export default Ember.Controller.extend({
             });
             newAccount.save().then(() => {
             // log in immediately with this new account information
-                var theAttrs = {provider: 'self', namespace: 'experimenter', collection: 'accounts', username: attrs.username, password: attrs.password, email: attrs.email};
+                var theAttrs = {provider: 'self', namespace: 'experimenter', collection: 'accounts', username: attrs.username, password: attrs.password};
                 this.send('authenticate',theAttrs);
             });
         }
