@@ -14,12 +14,12 @@ export default Ember.Controller.extend({
                 function() {
                     target.transitionTo('home');
                 }, function() {
-                    me.send('toggleModal');
+                    me.send('toggleUserNotFound');
                 }
             );
         },
-        toggleModal() {
-            this.toggleProperty('modal');
+        toggleUserNotFound() {
+            this.toggleProperty('userNotFound');
         },
         invalidateSession() {
             this.get('session').invalidate().then(() => {

@@ -4,8 +4,8 @@
     </div>
 </div>
 
-{{#if modal}}
-    {{#bs-modal title="An error occured when logging in." closedAction=(action 'toggleModal')}}
+{{#if userNotFound}}
+    {{#bs-modal title="An error occured when logging in." closedAction=(action 'toggleUserNotFound')}}
         {{#bs-modal-body}}Invalid username or password.{{/bs-modal-body}}
     {{/bs-modal}}
 {{/if}}
