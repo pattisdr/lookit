@@ -8,5 +8,11 @@ export default Ember.Controller.extend({
     sessionAccount: service('session-account'),
     queryString: 'Active',
     queryTypes: ['state','eligibilityCriteria'],
-    queryType: 'state'
+    queryType: 'state',
+    header: 'Current Studies',
+    actions: {
+        updateHeader: function(header) {
+            this.set('header', header);
+        }
+    }
 });

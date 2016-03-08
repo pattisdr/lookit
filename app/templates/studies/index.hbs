@@ -1,36 +1,100 @@
 <div class="lookit-row lookit-page-title">
   <div class="container">
-    <h2> Current Studies </h2>
+    <h2> {{header}} </h2>
   </div>
 </div>
-<div class="lookit-row studies-row">
-  <div class="container">
-    <p class="study-detail-caption">Here are some studies that we're currently running:</p>
-    <!--<p>Filter by age: [This will be added when some experiments actually have eligibility criteria]</p>-->
-    <div class="row">
-      {{#each model.experiments as |experiment|}}
-      <div class="col-md-4">
-        <div class="thumbnail study-list-panel">
-          <div class="study-list-thumbnail-wrapper">
-            {{#if experiment.thumbnail.raw}}
-              <img class="study-list-thumbnail" src="{{experiment.thumbnail.raw}}" />
-            {{else}}
-              <div class="study-list-placeholder">
-                <i class="fa fa-picture-o "></i>
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#currentStudies" {{action "updateHeader" "Current Studies"}}>Current Studies</a></li>
+  <li><a data-toggle="tab" href="#pastStudies" {{action "updateHeader" "Past Studies"}}>Past Studies</a></li>
+</ul>
+<div class="tab-content">
+  <div id="currentStudies" class="tab-pane fade in active">
+    <div class="lookit-row studies-row">
+      <div class="container">
+        <p class="study-detail-caption">Here are some studies that we're currently running:</p>
+        <!--<p>Filter by age: [This will be added when some experiments actually have eligibility criteria]</p>-->
+        <div class="row">
+          {{#each model.experiments as |experiment|}}
+          <div class="col-md-4">
+            <div class="thumbnail study-list-panel">
+              <div class="study-list-thumbnail-wrapper">
+                {{#if experiment.thumbnail.raw}}
+                  <img class="study-list-thumbnail" src="{{experiment.thumbnail.raw}}" />
+                {{else}}
+                  <div class="study-list-placeholder">
+                    <i class="fa fa-picture-o "></i>
+                  </div>
+                {{/if}}
               </div>
-            {{/if}}
+              <div class="caption">
+                <h3>{{experiment.title}}</h3>
+                <p>{{experiment.description}}</p>
+                <div class="fadeout"></div>
+              </div>
+              <div class="full">
+                {{link-to 'See details' 'studies.detail' experiment.id}}
+              </div>
+            </div>
           </div>
-          <div class="caption">
-            <h3>{{experiment.title}}</h3>
-            <p>{{experiment.description}}</p>
-            <div class="fadeout"></div>
-          </div>
-          <div class="full">
-            {{link-to 'See details' 'studies.detail' experiment.id}}
-          </div>
+          {{/each}}
         </div>
       </div>
-      {{/each}}
+    </div>
+  </div>
+  <div id="pastStudies" class="tab-pane fade">
+    <div id="currentStudies" class="tab-pane fade in active">
+    <div class="lookit-row studies-row">
+      <div class="container">
+        <p class="study-detail-caption">Here you can view your studies and see comments left by researchers:</p>
+        <div class="row">
+          {{#each model.experiments as |experiment|}}
+          <div class="col-md-12 well foo">
+            <div class="row table-block">
+              <div class="col-xs-10">
+                <h3>{{experiment.title}}</h3>
+              </div>
+              <div class="col-xs-2 pull-right">
+                <button class="btn btn-dafault">Researchers Comments</button>
+              </div>
+            </div>
+            <div class="row table-block">
+              <div class="col-xs-2">
+                <strong>Participant: </strong>placeholder <!-- TODO: get participant name -->
+              </div>
+              <div class="col-xs-2">
+                <strong>Date: </strong>{{moment-format experiment.endDate 'MM/D/YYYY'}} <!-- TODO: study completion date -->
+              </div>
+            </div>
+            <div class="row table-block">
+              <div class="col-xs-4">
+                {{#if experiment.thumbnail.raw}}
+                  <img class="study-list-thumbnail" src="{{experiment.thumbnail.raw}}" />
+                {{else}}
+                  <div class="study-list-placeholder">
+                    <i class="fa fa-picture-o "></i>
+                  </div>
+                {{/if}}
+              </div>
+              <div class="col-xs-8">
+                {{experiment.description}}
+                <div class="row table-block">
+                  <div class="col-xs-6">
+                    <strong>Age Range: </strong>placeholder <!-- TODO: get study age range -->
+                  </div>
+                  <div class="col-xs-6">
+                    <strong>Duration: </strong>placeholder <!-- TODO: get study duration -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
     </div>
   </div>
 </div>
+
+
