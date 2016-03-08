@@ -34,7 +34,22 @@
             </p>
           </div>
           <div class="col-md-3">
-            <button class="btn btn-primary btn-lg" onclick={{action 'participate'}}>Participate now!</button>
+            {{#if (not model.account) }}
+              {{link-to 'Log in to participate' 'login' class="btn btn-lg btn-default"}}
+            {{else if (not model.account.profiles)}}
+              {{link-to 'Add child profile to participate' 'my' class="btn btn-lg btn-default"}}
+            {{else}}
+              <div class="form-group">
+                <label>Select a child:</label>
+                <select onchange={{action (mut selectedChildId) value="target.value"}} >
+                  <option value="null">None Selected</option>
+                  {{#each model.account.profiles as |child|}}
+                  <option value={{child.profileId}} >{{child.firstName}}</option>
+                  {{/each}}
+                </select>
+              </div>
+              <button disabled={{if (not selectedChildId) true false}} class="btn btn-lg btn-primary {{if (not selectedChildId) 'disabled'}}" onclick={{action 'pickChild'}}>Participate now!</button>
+            {{/if}}
           </div>
         </div>
       </div>

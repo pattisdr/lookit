@@ -7,5 +7,10 @@ export default Ember.Route.extend({
             experiment: this.store.findRecord('experiment', params.experiment_id),
             account: this.get('sessionAccount.account')
         });
+    },
+    resetController: function(controller, isExiting) {
+        if (isExiting) {
+            controller.set('selectedChild', null);
+        }
     }
 });
