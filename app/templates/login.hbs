@@ -10,6 +10,12 @@
     {{/bs-modal}}
 {{/if}}
 
+{{#if userConflict}}
+    {{#bs-modal title="An error occured when creating that user." closedAction=(action 'toggleUserConflict')}}
+        {{#bs-modal-body}}That username has already been taken. Please choose another.{{/bs-modal-body}}
+    {{/bs-modal}}
+{{/if}}
+
 <div class="lookit-row login-row">
     <div class="container">
         <div class="row">

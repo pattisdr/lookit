@@ -28,7 +28,8 @@ export default Ember.Controller.extend({
 
         },
         createAccount(attrs) {
-            var newAccount = this.store.createRecord('account', {
+            var me = this;
+            var newAccount = me.store.createRecord('account', {
                 username: attrs.username,
                 password: attrs.password,
                 email: attrs.email,
@@ -36,11 +37,17 @@ export default Ember.Controller.extend({
                 // Update the line below to be more general
                 id: 'experimenter.accounts.' + attrs.username
             });
-            newAccount.save().then(() => {
-            // log in immediately with this new account information
-                var theAttrs = {provider: 'self', namespace: 'experimenter', collection: 'accounts', username: attrs.username, password: attrs.password};
-                this.send('authenticate',theAttrs);
+            newAccount.save().then(
+                function() {
+                    // log in immediately with this new account information
+                    var theAttrs = {provider: 'self', namespace: 'experimenter', collection: 'accounts', username: attrs.username, password: attrs.password};
+                    this.send('authenticate',theAttrs);
+            }, function() {
+                me.send('toggleUserConflict');
             });
+        },
+        toggleUserConflict() {
+            this.toggleProperty('userConflict');
         }
     }
 });
