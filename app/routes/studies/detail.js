@@ -10,7 +10,7 @@ export default Ember.Route.extend({
     },
     resetController: function(controller, isExiting) {
         if (isExiting) {
-            controller.set('selectedChild', null);
+            controller.set('selectedChildId', null);
         }
     }
 });
