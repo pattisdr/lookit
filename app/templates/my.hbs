@@ -9,30 +9,30 @@
             {{#ivy-tab}}Account Information{{/ivy-tab}}
             {{#ivy-tab}}Children Information{{/ivy-tab}}
           {{/ivy-tab-list}}
-    
+
           {{#ivy-tab-panel}}
             <p>Account information tab.</p>
           {{/ivy-tab-panel}}
-    
+
           {{#ivy-tab-panel}}
-    
+
             <div>
             {{#bs-accordion}}
                 {{#each model.profiles as |profile|}}
                 {{#bs-accordion-item title=profile.firstName}}
-                    
+
                     {{#if isEditing}}
-                        
+
                         <div>
                             {{#bs-form}}
                                 {{#bs-form-group}}
                                     <div>
                                         <label>First Name</label>
-                                        {{bs-input type="text" value=editFirstName}}
+                                        {{bs-input type="text" value=profile.firstName}}
                                     </div>
                                     <div>
                                         <label>Birthday</label>
-                                        {{bs-input type="text" value=editBirthday}}
+                                        {{bs-input type="text" value=profile.birthday}}
                                     </div>
                                     <br>
                                     <button {{action 'editProfile' profile}}>Submit</button>
@@ -40,9 +40,9 @@
                                 {{/bs-form-group}}
                             {{/bs-form}}
                         </div>
-                
+
                     {{else}}
-                
+
                     <div>
                         <div>
                             <p>Name: {{profile.firstName}}</p>
@@ -50,18 +50,18 @@
                         <div>
                             <p>Birthday: {{profile.birthday}}</p>
                         </div>
-                            
+
                         <button {{action 'edit'}}>Edit information</button>
                     </div>
-                
+
                     {{/if}}
-                
+
                 {{/bs-accordion-item}}
                 {{/each}}
-                
+
                 {{#bs-accordion-item title="Add a new participant"}}
                 <div>
-                    
+
                     {{#bs-form}}
                         {{#bs-form-group}}
                             <div>
@@ -76,15 +76,15 @@
                             <button {{action 'createProfile'}}>Create Profile</button>
                         {{/bs-form-group}}
                     {{/bs-form}}
-                    
-    
+
+
                 </div>
                 {{/bs-accordion-item}}
             {{/bs-accordion}}
             </div>
-    
+
           {{/ivy-tab-panel}}
-    
+
     {{/ivy-tabs}}
-    
+
 </div>
