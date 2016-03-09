@@ -32,7 +32,7 @@
                                     </div>
                                     <div>
                                         <label>Birthday</label>
-                                        {{bs-input type="text" value=profile.birthday}}
+                                        {{pikaday-input value=profile.birthday format="MM/DD/YYYY"}}
                                     </div>
                                     <br>
                                     <button {{action 'editProfile' profile}}>Submit</button>
@@ -48,7 +48,7 @@
                             <p>Name: {{profile.firstName}}</p>
                         </div>
                         <div>
-                            <p>Birthday: {{profile.birthday}}</p>
+                            <p>Birthday: {{pikaday-input value=profile.birthday format="MM/DD/YYYY" disabled=true}} </p>
                         </div>
 
                         <button {{action 'edit'}}>Edit information</button>
@@ -70,7 +70,7 @@
                             </div>
                             <div>
                                 <label>Birthday</label>
-                                {{bs-input type="text" value=newBirthday}}
+                                {{pikaday-input value=newBirthday format="MM/DD/YYYY"}}
                             </div>
                             <br>
                             <button {{action 'createProfile'}}>Create Profile</button>

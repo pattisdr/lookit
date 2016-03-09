@@ -15,7 +15,8 @@
     "swfobject": "*",
     "alpaca": "1.5.14",
     "handlebars": "3.0.3",
-    "lodash": "~3.10.1"
+    "lodash": "~3.10.1",
+    "pikaday": "^1.4.0"
   },
   "resolutions": {
     "ember": "2.3.0",
