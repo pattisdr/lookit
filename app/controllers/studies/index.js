@@ -9,7 +9,7 @@ export default Ember.Controller.extend({
     queryString: 'Active',
     queryTypes: ['state','eligibilityCriteria'],
     queryType: 'state',
-    header: 'Current Studies',
+    header: 'Suggested Studies',
     actions: {
         updateHeader: function(header) {
             this.set('header', header);
