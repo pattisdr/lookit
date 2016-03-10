@@ -34,10 +34,9 @@ export default Ember.Controller.extend({
                     // self.store.query(experiment.get('sessionCollectionId'), {'filter[completed]': 1})
 
                     // will only return sessions that user has permissions for
-                    promises.push(self.store.findAll(experiment.get('sessionCollectionId')).then(function(session) {
-                        let sessions = session.get('content');
-                        if (sessions.length > 0) {
-                            experimentSessions = experimentSessions.concat({
+                    promises.push(self.store.findAll(experiment.get('sessionCollectionId')).then(function(sessions) {
+                        if (sessions.get('length') > 0) {
+                            experimentSessions.push({
                                 experiment: experiment,
                                 sessions: sessions
                             });
