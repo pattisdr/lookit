@@ -16,11 +16,11 @@ export default Ember.Service.extend({
 
     loadCurrentUser() {
         return new RSVP.Promise((resolve, reject) => {
-            const accountId = this.get('session.data.authenticated.attributes.id');
+            const accountId = this.get('session.data.authenticated.id');
             if (!Ember.isEmpty(accountId)) {
                 return this.get('store').findRecord('account', 'experimenter.accounts.' + accountId).then((account) => {
                     this.set('account', account);
-                    resolve();
+                    resolve(account);
                 }, reject);
             } else {
                 return resolve();
