@@ -1,1 +1,28 @@
-{{outlet}}
+            <div>
+                <div>
+                    I would like to be contacted when:
+                            {{#bs-form}}
+                                {{#bs-form-group}}
+                                    {{
+                                        bs-form-element controlType="checkbox"
+                                        value=model.emailPreferencesResearcherQuestions
+                                        label="Researchers have questions about my responses"
+                                    }}
+                                    {{
+                                        bs-form-element controlType="checkbox"
+                                        value=model.emailPreferencesNewStudies
+                                        label="New studies are available for my children"
+                                    }}
+                                    {{
+                                        bs-form-element controlType="checkbox"
+                                        value=model.emailPreferencesResultsPublished
+                                        label="Results of a study we participated in are published"
+                                    }}
+                                    <br>
+                                    {{#bs-button type="primary" action="saveEmailPreferences"}}
+                                        Save
+                                    {{/bs-button}}
+                                {{/bs-form-group}}
+                            {{/bs-form}}
+                        </div>
+            </div>
