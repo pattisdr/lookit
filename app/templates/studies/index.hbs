@@ -3,7 +3,7 @@
     <h2> {{header}} </h2>
   </div>
 </div>
-{{#if model.user }}
+{{#if loggedIn }}
 <ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#suggestedStudies" {{action "updateHeader" "Suggested Studies"}}>Suggested Studies</a></li>
   <li><a data-toggle="tab" href="#pastStudies" {{action "updateHeader" "Past Studies"}}>Past Studies</a></li>
@@ -16,7 +16,7 @@
         <p class="study-detail-caption">Here are some studies that we're currently running:</p>
         <!--<p>Filter by age: [This will be added when some experiments actually have eligibility criteria]</p>-->
         <div class="row">
-          {{#each model.experiments as |experiment|}}
+          {{#each model as |experiment|}}
             {{study-summary experiment=experiment}}
           {{/each}}
         </div>
@@ -29,9 +29,14 @@
       <div class="container">
         <p class="study-detail-caption">Here you can view your studies and see comments left by researchers:</p>
         <div class="row">
-          {{#each model.experiments as |experiment|}}
-            {{study-feedback experiment=experiment}}
-          {{/each}}
+          {{#if allExperiments.isPending}}
+            Loading...
+          {{else}}
+            {{#each allExperiments.content as |experiment|}}
+              {{log experiment}}
+              {{study-feedback experiment=experiment.experiment sessions=experiment.sessions}}
+            {{/each}}
+          {{/if}}
         </div>
       </div>
     </div>

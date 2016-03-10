@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-md-4">
+    {{session._data.profileId}}
+  </div>
+  <div class="col-md-4">
+    placeholder
+    <!--TODO: no date available {{moment-format session.completedDate 'MM/D/YYYY'}}-->
+  </div>
+  <div class="col-md-4">
+    {{#if session._data.feedback}}
+      <!-- TODO: add seen/unseen to feedbackText based on hasReadFeedback-->
+      <a {{action "toggleFeedback"}}>{{feedbackText}}</a>
+    {{else}}
+      No Feedback
+    {{/if}}
+  </div>
+</div>
+{{#if showFeedback}}
+  <div class="row">
+    <div class="col-md-12">
+      <p class="study-feedback-text">{{session._data.feedback}}</p>
+    </div>
+  </div>
+{{/if}}

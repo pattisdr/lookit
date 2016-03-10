@@ -22,24 +22,9 @@
       </div>
 
       <!-- each session -->
-      <div class="row">
-        <div class="col-md-4">
-          placeholder
-        </div>
-        <div class="col-md-4">
-          {{moment-format experiment.endDate 'MM/D/YYYY'}}
-        </div>
-        <div class="col-md-4">
-          <a {{action "toggleFeedback"}}>{{feedbackText}}</a>
-        </div>
-      </div>
-      {{#if showFeedback}}
-        <div class="row">
-          <div class="col-md-12">
-            <p class="study-feedback-text">This is where the feedback would go.</p>
-          </div>
-        </div>
-      {{/if}}
+      {{#each sessions as |session|}}
+        {{study-feedback-text session=session}}
+      {{/each}}
 
 
       <!-- Study Info -->
