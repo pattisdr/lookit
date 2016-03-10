@@ -17,7 +17,11 @@ Router.map(function() {
   this.route('scientists');
   this.route('resources');
   this.route('contact');
-  this.route('my',{path: "/account"});
+  this.route('my', {path: "/account"}, function() {
+    this.route('demographics');
+    this.route('children');
+    this.route('email');
+  });
 });
 
 export default Router;

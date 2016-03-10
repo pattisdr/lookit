@@ -162,6 +162,23 @@ body {
     width: 180px;
 }
 
+/* Account */
+.account-item {
+    padding: 25px;
+    box-shadow: 0 0 3px #ccc;
+}
+.account-row label {
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: 300;
+}
+.account-row .pull-right {
+    padding-top:30px;
+}
+.account-row button {
+    width: 180px;
+}
+
 
 /* STUDIES PAGE */
 .study-list-panel {

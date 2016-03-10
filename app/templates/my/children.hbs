@@ -1,0 +1,66 @@
+            <div>
+            {{#bs-accordion}}
+                {{#each model.profiles as |profile|}}
+                {{#bs-accordion-item title=profile.firstName}}
+
+                    {{#if isEditing}}
+
+                        <div>
+                            {{#bs-form}}
+                                {{#bs-form-group}}
+                                    <div>
+                                        <label>First Name</label>
+                                        {{bs-input type="text" value=profile.firstName}}
+                                    </div>
+                                    <div>
+                                        <label>Birthday</label>
+                                        {{pikaday-input value=profile.birthday format="MM/DD/YYYY"}}
+                                    </div>
+                                    <br>
+                                    <button {{action 'editProfile' profile}}>Submit</button>
+                                    <button {{action 'edit'}}>Cancel</button>
+                                {{/bs-form-group}}
+                            {{/bs-form}}
+                        </div>
+
+                    {{else}}
+
+                    <div>
+                        <div>
+                            <p>Name: {{profile.firstName}}</p>
+                        </div>
+                        <div>
+                            <p>Birthday: {{pikaday-input value=profile.birthday format="MM/DD/YYYY" disabled=true}} </p>
+                        </div>
+
+                        <button {{action 'edit'}}>Edit information</button>
+                    </div>
+
+                    {{/if}}
+
+                {{/bs-accordion-item}}
+                {{/each}}
+
+                {{#bs-accordion-item title="Add a new participant"}}
+                <div>
+
+                    {{#bs-form}}
+                        {{#bs-form-group}}
+                            <div>
+                                <label>First Name</label>
+                                {{bs-input type="text" value=newFirstName}}
+                            </div>
+                            <div>
+                                <label>Birthday</label>
+                                {{pikaday-input value=newBirthday format="MM/DD/YYYY"}}
+                            </div>
+                            <br>
+                            <button {{action 'createProfile'}}>Create Profile</button>
+                        {{/bs-form-group}}
+                    {{/bs-form}}
+
+
+                </div>
+                {{/bs-accordion-item}}
+            {{/bs-accordion}}
+            </div>
