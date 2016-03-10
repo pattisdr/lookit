@@ -33,7 +33,6 @@
             Loading...
           {{else}}
             {{#each allExperiments.content as |experiment|}}
-              {{log experiment}}
               {{study-feedback experiment=experiment.experiment sessions=experiment.sessions}}
             {{/each}}
           {{/if}}
