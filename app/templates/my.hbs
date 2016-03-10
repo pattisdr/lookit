@@ -2,89 +2,28 @@
     <br><br><br>
     <h2>My Account</h2>
 
-    <!--Still some issues with adding bootstrap styling to the tab component-->
-    {{#ivy-tabs}}
-          {{#ivy-tab-list}}
-<!--Ivy tabs don't seem to be picking up the styling for their bootstrap classes, even though these classes are rendered in the HTML-->
-            {{#ivy-tab}}Account Information{{/ivy-tab}}
-            {{#ivy-tab}}Children Information{{/ivy-tab}}
-          {{/ivy-tab-list}}
-
-          {{#ivy-tab-panel}}
-            <p>Account information tab.</p>
-          {{/ivy-tab-panel}}
-
-          {{#ivy-tab-panel}}
-
-            <div>
-            {{#bs-accordion}}
-                {{#each model.profiles as |profile|}}
-                {{#bs-accordion-item title=profile.firstName}}
-
-                    {{#if isEditing}}
-
-                        <div>
-                            {{#bs-form}}
-                                {{#bs-form-group}}
-                                    <div>
-                                        <label>First Name</label>
-                                        {{bs-input type="text" value=profile.firstName}}
-                                    </div>
-                                    <div>
-                                        <label>Birthday</label>
-                                        {{pikaday-input value=profile.birthday format="MM/DD/YYYY"}}
-                                    </div>
-                                    <br>
-                                    <button {{action 'editProfile' profile}}>Submit</button>
-                                    <button {{action 'edit'}}>Cancel</button>
-                                {{/bs-form-group}}
-                            {{/bs-form}}
-                        </div>
-
-                    {{else}}
-
-                    <div>
-                        <div>
-                            <p>Name: {{profile.firstName}}</p>
-                        </div>
-                        <div>
-                            <p>Birthday: {{pikaday-input value=profile.birthday format="MM/DD/YYYY" disabled=true}} </p>
-                        </div>
-
-                        <button {{action 'edit'}}>Edit information</button>
-                    </div>
-
-                    {{/if}}
-
-                {{/bs-accordion-item}}
-                {{/each}}
-
-                {{#bs-accordion-item title="Add a new participant"}}
-                <div>
-
-                    {{#bs-form}}
-                        {{#bs-form-group}}
-                            <div>
-                                <label>First Name</label>
-                                {{bs-input type="text" value=newFirstName}}
-                            </div>
-                            <div>
-                                <label>Birthday</label>
-                                {{pikaday-input value=newBirthday format="MM/DD/YYYY"}}
-                            </div>
-                            <br>
-                            <button {{action 'createProfile'}}>Create Profile</button>
-                        {{/bs-form-group}}
-                    {{/bs-form}}
-
-
-                </div>
-                {{/bs-accordion-item}}
-            {{/bs-accordion}}
-            </div>
-
-          {{/ivy-tab-panel}}
-
-    {{/ivy-tabs}}
+<div class="row">
+    <div class="col-md-3">
+        {{#link-to "my.index" class="btn btn-default btn-md btn-block"}}
+            <strong>Account information</strong><br />
+            Change your name, email, or password.
+        {{/link-to}}
+        {{#link-to "my.demographics" class="btn btn-default btn-md btn-block"}}
+            <strong>Demographic Survey</strong><br />
+            Tell us more about yourself.
+        {{/link-to}}
+        {{#link-to "my.children" class="btn btn-default btn-md btn-block"}}
+            <strong>Children Information</strong><br />
+            Add or edit participant information.
+        {{/link-to}}
+        {{#link-to "my.email" class="btn btn-default btn-md btn-block"}}
+            <strong>Email Preferences</strong><br />
+            Edit when you can be contacted.
+        {{/link-to}}
+    </div>
+    <div class="col-md-9">
+        {{outlet}}
+    </div>
+</div>
 
 </div>
