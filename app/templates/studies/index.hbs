@@ -1,15 +1,3 @@
-<div class="lookit-row lookit-page-title">
-  <div class="container">
-    <h2> {{header}} </h2>
-  </div>
-</div>
-{{#if loggedIn }}
-<ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#suggestedStudies" {{action "updateHeader" "Suggested Studies"}}>Suggested Studies</a></li>
-  <li><a data-toggle="tab" href="#pastStudies" {{action "updateHeader" "Past Studies"}}>Past Studies</a></li>
-</ul>
-{{/if}}
-<div class="tab-content">
   <div id="suggestedStudies" class="tab-pane fade in active">
     <div class="lookit-row studies-row">
       <div class="container">
@@ -23,22 +11,3 @@
       </div>
     </div>
   </div>
-  <div id="pastStudies" class="tab-pane fade">
-    <div id="currentStudies" class="tab-pane fade in active">
-    <div class="lookit-row studies-row">
-      <div class="container">
-        <p class="study-detail-caption">Here you can view your studies and see comments left by researchers:</p>
-        <div class="row">
-          {{#if allExperiments.isPending}}
-            Loading...
-          {{else}}
-            {{#each allExperiments.content as |experiment|}}
-              {{study-feedback experiment=experiment.experiment sessions=experiment.sessions}}
-            {{/each}}
-          {{/if}}
-        </div>
-      </div>
-    </div>
-    </div>
-  </div>
-</div>

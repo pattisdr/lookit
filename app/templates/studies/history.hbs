@@ -1,0 +1,12 @@
+
+<div class="lookit-row studies-row">
+  <div class="container">
+    <p class="study-detail-caption">Here you can view your studies and see comments left by researchers:</p>
+    <div class="row">
+        {{#each model as |experiment|}}
+          {{study-feedback experiment=experiment.experiment sessions=experiment.sessions}}
+        {{/each}}
+    </div>
+  </div>
+</div>
+

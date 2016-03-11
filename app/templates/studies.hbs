@@ -1,1 +1,17 @@
-{{outlet}}
+<div class="lookit-row lookit-page-title">
+  <div class="container">
+    <h2> {{header}} </h2>
+  </div>
+</div>
+
+{{!--
+{{#if loggedIn }} --}}
+<ul class="nav nav-tabs">
+    <li class="active">{{!--<a data-toggle="tab" href="#suggestedStudies" {{action "updateHeader" "Suggested Studies"}}> --}}{{#link-to "studies.history"}}Suggested Studies{{/link-to}} {{!--</a>--}}</li>
+  <li>{{!-- <a data-toggle="tab" href="#pastStudies" {{action "updateHeader" "Past Studies"}}> --}} {{#link-to "studies.history"}}Past Studies{{/link-to}}{{!--</a>--}}</li> <!-- TODO: Fix header -->
+</ul>
+{{!-- {{/if}}
+--}}
+<div>
+    {{outlet}}
+</div>
