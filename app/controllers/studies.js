@@ -4,9 +4,7 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
     session: Ember.inject.service('session'),
     sessionAccount: Ember.inject.service('session-account'),
-    queryString: 'Active',
-    queryTypes: ['state', 'eligibilityCriteria'],
-    queryType: 'state',
+
     header: 'Suggested Studies',
 
     loggedIn: Ember.computed(function () {

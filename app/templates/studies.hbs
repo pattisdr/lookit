@@ -4,14 +4,24 @@
   </div>
 </div>
 
-{{!--
-{{#if loggedIn }} --}}
+
+{{#if loggedIn }}
 <ul class="nav nav-tabs">
-    <li class="active">{{!--<a data-toggle="tab" href="#suggestedStudies" {{action "updateHeader" "Suggested Studies"}}> --}}{{#link-to "studies.history"}}Suggested Studies{{/link-to}} {{!--</a>--}}</li>
-  <li>{{!-- <a data-toggle="tab" href="#pastStudies" {{action "updateHeader" "Past Studies"}}> --}} {{#link-to "studies.history"}}Past Studies{{/link-to}}{{!--</a>--}}</li> <!-- TODO: Fix header -->
+    {{#link-to "studies" tagName="li"}}
+        <a href="#suggested-studies">Suggested Studies</a>
+    {{/link-to}}
+    {{#link-to "studies.history" tagName="li"}}
+        <a href="#past-studies">Past Studies</a>
+    {{/link-to}}
 </ul>
-{{!-- {{/if}}
---}}
-<div>
-    {{outlet}}
+{{/if}}
+
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active">
+        <div class="lookit-row studies-row">
+            <div class="container">
+                {{outlet}}
+            </div>
+        </div>
+    </div>
 </div>
