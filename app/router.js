@@ -6,8 +6,8 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('home', {path: "/"}, function() {});
-  this.route('login', {path: "/login"});
+  this.route('home', {path: '/'}, function() {});
+  this.route('login', {path: '/login'});
   this.route('studies', function() {
     this.route('detail', {path: '/:experiment_id/'});
   });
@@ -17,7 +17,7 @@ Router.map(function() {
   this.route('scientists');
   this.route('resources');
   this.route('contact');
-  this.route('my', {path: "/account"}, function() {
+  this.route('my', {path: '/account'}, function() {
     this.route('demographics');
     this.route('children');
     this.route('email');
