@@ -1,4 +1,3 @@
-
 import Ember from 'ember';
 
 const { service } = Ember.inject;
@@ -9,32 +8,34 @@ export default Ember.Controller.extend({
     session: service('session'),
     sessionAccount: service('session-account'),
     queryString: 'Active',
-    queryTypes: ['state','eligibilityCriteria'],
+    queryTypes: ['state', 'eligibilityCriteria'],
     queryType: 'state',
     header: 'Suggested Studies',
-    loggedIn: function() {
+
+    loggedIn: Ember.computed(function () {
         if (this.get('sessionAccount').account) {
             return true;
         }
         return false;
-    }.property(),
-    allExperiments: function() {
+    }),
+
+    allExperiments: Ember.computed(function () {
         if (this.get('loggedIn')) {
 
             let Experiment = this.store.modelFor('experiment');
 
             let sessionGatherer = this.store.query('experiment', {
-                q:`state:${Experiment.prototype.ACTIVE} OR state:${Experiment.prototype.ARCHIVED}`
+                q: `state:${Experiment.prototype.ACTIVE} OR state:${Experiment.prototype.ARCHIVED}`
             }).then((experiments) => {
                 let self = this;
                 let promises = [];
                 let experimentSessions = [];
 
-                experiments.forEach(function(experiment) {
+                experiments.forEach(function (experiment) {
                     // self.store.query(experiment.get('sessionCollectionId'), {'filter[completed]': 1})
 
                     // will only return sessions that user has permissions for
-                    promises.push(self.store.findAll(experiment.get('sessionCollectionId')).then(function(sessions) {
+                    promises.push(self.store.findAll(experiment.get('sessionCollectionId')).then(function (sessions) {
                         if (sessions.get('length') > 0) {
                             experimentSessions.push({
                                 experiment: experiment,
@@ -44,7 +45,7 @@ export default Ember.Controller.extend({
                     }));
                 });
 
-                return Ember.RSVP.all(promises).then(function() {
+                return Ember.RSVP.all(promises).then(function () {
                     return experimentSessions;
                 });
             });
@@ -54,9 +55,10 @@ export default Ember.Controller.extend({
             });
         }
         return [];
-    }.property(),
+    }),
+
     actions: {
-        updateHeader: function(header) {
+        updateHeader: function (header) {
             this.set('header', header);
         }
     }
