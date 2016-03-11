@@ -10,11 +10,9 @@ const {
 
 export default Base.extend({
     url: `${ENV.JAMDB.url}/v1/auth`,
-    sessionAccount: Ember.inject.service(),
     restore(data) {
-        let token = JSON.parse(atob(data.attributes.token.split('.')[1]));
+        let token = JSON.parse(atob(data.token.split('.')[1]));
         if (token.exp > moment().unix()) {
-            this.get('sessionAccount').loadCurrentUser();
             return RSVP.resolve(data);
         }
         return RSVP.reject(data);
@@ -34,9 +32,8 @@ export default Base.extend({
                     attributes: attrs
                 }
             })
-        }).then((data) => {
-            this.get('sessionAccount').loadCurrentUser();
-            return data.data;
+        }).then((res) => {
+            return res.data.attributes;
         });
     }
 });
