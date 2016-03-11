@@ -7,5 +7,12 @@ export default Ember.Controller.extend({
     sessionAccount: service('session-account'),
     isParticipate: Ember.computed('currentPath', function() {
         return this.get('currentPath') === 'participate';
-    })
+    }),
+    actions: {
+        logout() {
+            this.get('session').invalidate().then(() => {
+                this.transitionToRoute('home');
+            });
+        }
+    }
 });
