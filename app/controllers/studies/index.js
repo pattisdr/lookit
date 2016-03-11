@@ -13,10 +13,7 @@ export default Ember.Controller.extend({
     header: 'Suggested Studies',
 
     loggedIn: Ember.computed(function () {
-        if (this.get('sessionAccount').account) {
-            return true;
-        }
-        return false;
+        return !!this.get('sessionAccount').account;
     }),
 
     allExperiments: Ember.computed(function () {
@@ -27,30 +24,27 @@ export default Ember.Controller.extend({
             let sessionGatherer = this.store.query('experiment', {
                 q: `state:${Experiment.prototype.ACTIVE} OR state:${Experiment.prototype.ARCHIVED}`
             }).then((experiments) => {
-                let self = this;
                 let promises = [];
                 let experimentSessions = [];
 
-                experiments.forEach(function (experiment) {
-                    // self.store.query(experiment.get('sessionCollectionId'), {'filter[completed]': 1})
-
-                    // will only return sessions that user has permissions for
-                    promises.push(self.store.findAll(experiment.get('sessionCollectionId')).then(function (sessions) {
-                        if (sessions.get('length') > 0) {
-                            experimentSessions.push({
-                                experiment: experiment,
-                                sessions: sessions
-                            });
-                        }
-                    }));
+                experiments.forEach((experiment) => {
+                    promises.push(  // Endpoint only returns sessions that the user has permissions to see (assumption: only their own)
+                        this.store.query(experiment.get('sessionCollectionId'), {'filter[completed]': 1}).then((sessions) => {
+                            if (sessions.get('length') > 0) {
+                                experimentSessions.push({
+                                    experiment: experiment,
+                                    sessions: sessions
+                                });
+                            }
+                        }));
                 });
 
-                return Ember.RSVP.all(promises).then(function () {
+                return Ember.RSVP.all(promises).then(() => {
                     return experimentSessions;
                 });
             });
 
-            return Promise.create({
+            return Promise.create({ // TODO: Is this necessary? (Why is it here?)
                 promise: sessionGatherer
             });
         }
