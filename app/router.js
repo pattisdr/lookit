@@ -9,7 +9,7 @@ Router.map(function() {
     this.route('home', {path: "/"}, function() {});
     this.route('login', {path: "/login"});
     this.route('studies', function() {
-        this.route('detail', {path: '/:experiment_id/'});
+        this.route('detail', {path: '/:experiment_id/'}); // TODO: May have wrong header due to nesting
         this.route('history');
     });
     this.route('participate', {path: '/participate/:experiment_id/'});

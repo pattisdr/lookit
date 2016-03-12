@@ -5,30 +5,8 @@
       <!-- Title -->
       <h3>{{experiment.title}}</h3>
 
-
-      <!-- Sessions -->
-      <div class="study-feedback-label">Experiment Sessions</div>
-
-      <div class="row">
-        <div class="col-md-4">
-          <strong>Participant</strong>
-        </div>
-        <div class="col-md-4">
-          <strong>Date</strong>
-        </div>
-        <div class="col-md-4">
-          <strong>Feedback</strong>
-        </div>
-      </div>
-
-      <!-- each session -->
-      {{#each sessions as |session|}}
-        {{study-feedback-text session=session}}
-      {{/each}}
-
-
       <!-- Study Info -->
-      <div class="study-feedback-label">Experiment Information</div>
+      <h4 class="study-feedback-label">Experiment Information</h4>
       <div class="study-feedback-experiment-info">
 
           <div class="study-feedback-thumbnail-wrapper">
@@ -51,6 +29,26 @@
 
       </div>
 
+
+      <!-- Sessions -->
+      <h4 class="study-feedback-label">Experiment Sessions</h4>
+
+      <div class="row">
+        <div class="col-md-4">
+          <strong>Participant</strong>
+        </div>
+        <div class="col-md-4">
+          <strong>Date</strong>
+        </div>
+        <div class="col-md-4">
+          <strong>Feedback</strong>
+        </div>
+      </div>
+
+      <!-- each session -->
+      {{#each sessions as |session|}}
+        {{study-feedback-text session=session}}
+      {{/each}}
     </div>
 
   </div>

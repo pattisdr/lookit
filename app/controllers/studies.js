@@ -11,13 +11,6 @@ export default Ember.Controller.extend({
         return !!this.get('sessionAccount').account;
     }),
 
-    allExperiments: Ember.computed(function () {
-        if (this.get('loggedIn')) {
-            return;
-        }
-        return [];
-    }),
-
     actions: {
         updateHeader: function (header) {
             this.set('header', header);
