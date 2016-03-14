@@ -1,0 +1,21 @@
+{{study-header header=header}}
+
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active">
+        <div class="lookit-row studies-row">
+            <div class="container">
+                <div id="past-studies">
+                    <p class="study-detail-caption">Here you can view your studies and see comments left by researchers:</p>
+                    <div class="row">
+                        {{#each model as |experiment|}}
+                          {{study-feedback experiment=experiment.experiment sessions=experiment.sessions}}
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
