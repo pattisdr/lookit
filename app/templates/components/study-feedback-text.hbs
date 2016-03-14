@@ -8,7 +8,7 @@
   <div class="col-md-4">
     {{#if session.feedback}}
       <!-- TODO: add seen/unseen to feedbackText based on hasReadFeedback-->
-      <a {{action "toggleFeedback"}}>{{feedbackText}}</a>
+      <a href="#" {{action "toggleFeedback"}}>{{feedbackText}}</a>
     {{else}}
       No Feedback
     {{/if}}
