@@ -37,9 +37,9 @@
             {{#if (not model.account) }}
               {{link-to 'Log in to participate' 'login' class="btn btn-lg btn-default"}}
             {{else if (not model.account.profiles)}}
-              {{link-to 'Add child profile to participate' 'my' class="btn btn-lg btn-default"}}
+              {{link-to 'Add child profile to participate' 'my.children' class="btn btn-lg btn-default"}}
             {{else if (not model.account.hasCompletedSurvey) }}
-              {{link-to 'Complete demographic survey to participate' 'my' class="btn btn-lg btn-default"}}
+              {{link-to 'Complete demographic survey to participate' 'my.demographics' class="btn btn-lg btn-default"}}
             {{else}}
               <div class="form-group">
                 <label>Select a child:</label>
