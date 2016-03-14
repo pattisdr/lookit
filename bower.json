@@ -20,8 +20,8 @@
   },
   "resolutions": {
     "ember": "2.3.0",
-    "jquery": ">= 1.9.1",
-    "bootstrap": ">= 3.3.5",
+    "jquery": "2.1.4",
+    "bootstrap": "~3.3.5",
     "moment": "^2.11.2"
   }
 }
