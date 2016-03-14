@@ -1,11 +1,13 @@
 <div class="row">
+  <div class="col-md-1"><i class="fa {{if session.hasReadFeedback 'fa-check-circle-o' 'fa-exclamation-circle'}}"></i></div>
+
   <div class="col-md-4">
     {{session.profileId}}
   </div>
   <div class="col-md-4">
     {{moment-format session.createdOn 'MM/D/YYYY'}}
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
     {{#if session.feedback}}
       <!-- TODO: add seen/unseen to feedbackText based on hasReadFeedback-->
       <a href="#" {{action "toggleFeedback"}}>{{feedbackText}}</a>
