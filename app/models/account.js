@@ -25,13 +25,11 @@ export default Account.extend({
     demographicsCanScheduleAnAppointment: DS.attr('string'),
     demographicsAdditionalComments: DS.attr('string'),
     
-    hasCompletedSurvey: Ember.computed('DEMOGRAPHIC_FIELDS', function() {
-        if (this.get('DEMOGRAPHIC_FIELDS').any(item => this.get(item) !== undefined && this.get(item) !== null)) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    })
+    hasCompletedSurvey: DS.attr('boolean'),
+    
+    // Function is called before saving the account record when submitting the demographic survey.
+    checkCompletedSurvey: function() {
+        this.set('hasCompletedSurvey',this.get('DEMOGRAPHIC_FIELDS').some(item => !Ember.isEmpty(this.get(item))));
+    }
     
 });
