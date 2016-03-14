@@ -1,21 +1,3 @@
-<!-- TODO: Break header into component as hack to deal with different headings/styles on study pages -->
-<div class="lookit-row lookit-page-title">
-  <div class="container">
-    <h2> {{header}} </h2>
-  </div>
-</div>
-
-{{#if loggedIn }}
-<ul class="nav nav-tabs">
-    {{#link-to "studies" tagName="li"}}
-        <a href="#suggested-studies">Suggested Studies</a>
-    {{/link-to}}
-    {{#link-to "studies.history" tagName="li"}}
-        <a href="#past-studies">Past Studies</a>
-    {{/link-to}}
-</ul>
-{{/if}}
-
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane active">
         <div class="lookit-row studies-row">

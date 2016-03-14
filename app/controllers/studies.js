@@ -1,11 +1,9 @@
-
 import Ember from 'ember';
+
 
 export default Ember.Controller.extend({
     session: Ember.inject.service('session'),
     sessionAccount: Ember.inject.service('session-account'),
-
-    header: 'Suggested Studies',
 
     loggedIn: Ember.computed(function () {
         return !!this.get('sessionAccount').account;  // TODO: Can we just use session.isAuthenticated ?

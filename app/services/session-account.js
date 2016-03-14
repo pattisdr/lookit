@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-import ENV from './config/environment';
+import ENV from 'lookit-base/config/environment';
 
 
 export default Ember.Service.extend({
