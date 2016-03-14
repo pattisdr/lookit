@@ -8,7 +8,7 @@ export default Ember.Controller.extend({
     header: 'Suggested Studies',
 
     loggedIn: Ember.computed(function () {
-        return !!this.get('sessionAccount').account;
+        return !!this.get('sessionAccount').account;  // TODO: Can we just use session.isAuthenticated ?
     }),
 
     actions: {

@@ -5,7 +5,7 @@ export default Ember.Route.extend({
     model(params) {
         return Ember.RSVP.hash({
             experiment: this.store.findRecord('experiment', params.experiment_id),
-            account: this.get('sessionAccount').loadCurrentUser()
+            account: this.get('sessionAccount').loadCurrentUser()  // TODO: Is this necessary (see application route)
         });
     },
     resetController: function(controller, isExiting) {
