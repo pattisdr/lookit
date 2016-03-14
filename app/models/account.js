@@ -20,5 +20,15 @@ export default Account.extend({
     demographicsAnnualIncome: DS.attr('string'),
     demographicsWillingToBeContactedForSimilarStudies: DS.attr('string'),
     demographicsCanScheduleAnAppointment: DS.attr('string'),
-    demographicsAdditionalComments: DS.attr('string')
+    demographicsAdditionalComments: DS.attr('string'),
+    
+    hasCompletedSurvey: Ember.computed('demographicsLanguagesSpokenAtHome', function() {
+        if ((this.get('demographicsLanguagesSpokenAtHome') || this.get('demographicsNumberOfChildren') || this.get('demographicsChildrenBirthDates') || this.get('demographicsNumberOfGuardians') || this.get('demographicsRaceIdentification') ||  this.get('demographicsAge') || this.get('demographicsGender') || this.get('demographicsEducationLevel') || this.get('demographicsSpouseEducationLevel') || this.get('demographicsAnnualIncome') || this.get('demographicsWillingToBeContactedForSimilarStudies') ||  this.get('demographicsCanScheduleAnAppointment') || this.get('demographicsAdditionalComment')) !== undefined) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    })
+    
 });
