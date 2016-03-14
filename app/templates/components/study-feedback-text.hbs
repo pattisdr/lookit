@@ -1,13 +1,12 @@
 <div class="row">
   <div class="col-md-4">
-    {{session.profileId}}
+    {{profileName}}
   </div>
   <div class="col-md-4">
     {{moment-format session.createdOn 'MM/D/YYYY'}}
   </div>
   <div class="col-md-4">
     {{#if session.feedback}}
-      <!-- TODO: add seen/unseen to feedbackText based on hasReadFeedback-->
       <a href="#" {{action "toggleFeedback"}}>{{feedbackText}}</a>
         {{#if session.hasReadFeedback}}
             <i class="fa fa-check-circle-o" title="You have seen this feedback"></i>
