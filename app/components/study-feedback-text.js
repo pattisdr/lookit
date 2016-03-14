@@ -1,19 +1,16 @@
 import Ember from 'ember';
 
-var PLACEHOLDER = 'Loading...';
 
 export default Ember.Component.extend({
     session: null,
+    sessionAccount: Ember.inject.service('session-account'),
 
     showFeedback: false,
     feedbackText: 'Show Feedback',
 
     store: Ember.inject.service(),
 
-    _profileName: PLACEHOLDER,  // Show... something... until data has fully loaded
-    profileName: Ember.computed('_profileName', function() {
-        return this.get('_profileName');
-    }),
+    profileName: null,
 
     /*
         On component creation, fetch the username associated with a specific profile
@@ -21,15 +18,9 @@ export default Ember.Component.extend({
     init() {
         this._super(...arguments);
 
-        let session = this.get('session');
-        let profileId = session.get('profileId');
-
-        // Fetch name associated with profile, then update page
-        this.get('store').queryRecord('account', {'filter[profiles.profileId]': profileId})
-            .then((res) => {
-                let profile = res[0].profileById(profileId);
-                this.set('_profileName', profile.firstName);
-            });
+        let account = this.get('sessionAccount').account;  // Assumption: user must be logged in to see this
+        let profile = account.profileById(this.get('session.profileId'));
+        this.set('profileName', `${profile.firstName}`); // TODO: Name format should disambiguate
     },
 
     actions: {
