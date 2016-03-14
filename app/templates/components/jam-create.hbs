@@ -8,7 +8,7 @@
     {{input value=password class="form-control" type="password"}}
   <br>
     <div class="pull-right">
-        <button class="btn btn-info" {{action "createAccount"}} >Create new account</button>
+        <button disabled={{not maySubmit}} class="btn btn-info" {{action "createAccount"}} >Create new account</button>
     </div>
 </div>
 </form>

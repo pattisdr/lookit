@@ -118,24 +118,24 @@ body {
 .profile-img {
     text-align: center;
 }
-.profile-img img {
+img.profile-img {
     border-radius: 120px;
     border: 6px solid #d9edf7;
     width: 240px;
 }
 
-.scientists-row h3 {
+h3.scientists-row {
     text-align: center;
 }
 
 
 /* RESOURCES */
-.resources-row h3 {
+h3.resources-row {
     padding: 10px 0;
     font-weight: 300;
     color: #337AB7;
 }
-.resources-row h4 {
+h4.resources-row {
     padding: 25px 0 10px 0;
 }
 .resources-local {
@@ -150,15 +150,15 @@ body {
     padding: 25px;
     box-shadow: 0 0 3px #ccc;
 }
-.login-row label {
+label.login-row {
     margin-top: 15px;
     font-size: 20px;
     font-weight: 300;
 }
-.login-row .pull-right {
+.login-row.pull-right {
     padding-top:30px;
 }
-.login-row button {
+button.login-row {
     width: 180px;
 }
 
@@ -167,15 +167,15 @@ body {
     padding: 25px;
     box-shadow: 0 0 3px #ccc;
 }
-.account-row label {
+label.account-row {
     margin-top: 15px;
     font-size: 20px;
     font-weight: 300;
 }
-.account-row .pull-right {
+.account-row.pull-right {
     padding-top:30px;
 }
-.account-row button {
+button.account-row {
     width: 180px;
 }
 
