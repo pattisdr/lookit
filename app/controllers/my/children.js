@@ -37,6 +37,7 @@ export default Ember.Controller.extend({
         editProfile: function(profile) {
             // NOTE: To set properties on a JS object (NOT Ember object), must use Ember.set
             Ember.setProperties(profile, {'firstName': profile.get('firstName'),'birthday': new Date(profile.get('birthday'))});
+//            Ember.setProperties(profile, {'firstName': profile.firstName,'birthday': new Date(profile.birthday)});
 
             this.get('model').save();
             this.send('edit');

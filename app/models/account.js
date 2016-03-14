@@ -2,6 +2,9 @@ import DS from 'ember-data';
 import Account from 'exp-models/models/account';
 
 export default Account.extend({
+
+    DEMOGRAPHIC_FIELDS: ['demographicsLanguagesSpokenAtHome','demographicsNumberOfChildren','demographicsChildrenBirthDates','demographicsNumberOfGuardians','demographicsNumberOfGuardiansExplanation','demographicsRaceIdentification','demographicsAge','demographicsGender','demographicsEducationLevel','demographicsSpouseEducationLevel','demographicsAnnualIncome','demographicsWillingToBeContactedForSimilarStudies','demographicsCanScheduleAnAppointment','demographicsAdditionalComments'],
+    
     email: DS.attr('string'),
     mustResetPassword: DS.attr('boolean'),
     emailPreferencesResearcherQuestions: DS.attr('boolean'),
@@ -22,8 +25,8 @@ export default Account.extend({
     demographicsCanScheduleAnAppointment: DS.attr('string'),
     demographicsAdditionalComments: DS.attr('string'),
     
-    hasCompletedSurvey: Ember.computed('demographicsLanguagesSpokenAtHome', function() {
-        if ((this.get('demographicsLanguagesSpokenAtHome') || this.get('demographicsNumberOfChildren') || this.get('demographicsChildrenBirthDates') || this.get('demographicsNumberOfGuardians') || this.get('demographicsRaceIdentification') ||  this.get('demographicsAge') || this.get('demographicsGender') || this.get('demographicsEducationLevel') || this.get('demographicsSpouseEducationLevel') || this.get('demographicsAnnualIncome') || this.get('demographicsWillingToBeContactedForSimilarStudies') ||  this.get('demographicsCanScheduleAnAppointment') || this.get('demographicsAdditionalComment')) !== undefined) {
+    hasCompletedSurvey: Ember.computed('DEMOGRAPHIC_FIELDS', function() {
+        if (this.get('DEMOGRAPHIC_FIELDS').any(item => this.get(item) !== undefined && this.get(item) !== null)) {
             return true;
         }
         else {
