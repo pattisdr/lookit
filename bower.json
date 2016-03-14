@@ -11,7 +11,7 @@
     "uri-templates": "^0.1.9",
     "bcryptjs": "^2.3.0",
     "video.js": "^5.0.0",
-    "moment": "momentjs#^2.11.2",
+    "moment": "momentjs#~2.11.1",
     "swfobject": "*",
     "alpaca": "1.5.14",
     "handlebars": "3.0.3",
@@ -20,6 +20,8 @@
   },
   "resolutions": {
     "ember": "2.3.0",
-    "jquery": ">= 1.9.1"
+    "jquery": ">= 1.9.1",
+    "bootstrap": ">= 3.3.5",
+    "moment": "^2.11.2"
   }
 }
