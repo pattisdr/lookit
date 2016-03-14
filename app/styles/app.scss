@@ -250,25 +250,13 @@ button.account-row {
     padding: 25vw;
 }
 
-#expContainer:-webkit-full-screen {
-    width: 100vh;
-    height: 100vh;
-    padding: 25vw;
+#expContainer.player-fullscreen {
+    width: 100%;
+    height: 100%;
 }
 
-#expContainer:-moz-full-screen {
-    height: 100vh;
-    width: 100vh;
-    padding: 25vw;
-}
-#expContainer:-ms-fullscreen {
-    height: 100vh;
-    width: 100vh;
-    padding: 25vw;
-}
 #expContainer {
-    margin: 10vw;
-    margin-top: 2vw;
+    padding: 5%;
 }
 
 /* CHILD PICKER */
