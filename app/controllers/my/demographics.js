@@ -5,7 +5,10 @@ const { service } = Ember.inject;
 export default Ember.Controller.extend({
     session: service('session'),
     sessionAccount: service('session-account'),
-
+    selectedRaceIdentification: function() {
+        var model = this.get('model');
+        return model.get('demographicsRaceIdentification');
+    }.property(),
     ageChoices: [
         'under 18',
         '18-21',
@@ -90,6 +93,10 @@ export default Ember.Controller.extend({
         'no'
     ],
     actions: {
+        selectRaceIdentification: function(event) {
+            const selectedRaceIdentification = Ember.$(event.target).val();
+            this.set('selectedRaceIdentification', selectedRaceIdentification || []);
+        },
         saveDemographicsPreferences: function() {
             var model = this.get('model');
             model.setProperties({
@@ -98,7 +105,7 @@ export default Ember.Controller.extend({
                 demographicsChildrenBirthDates: model.get('demographicsChildrenBirthDates'),
                 demographicsNumberOfGuardians: model.get('demographicsNumberOfGuardians'),
                 demographicsNumberOfGuardiansExplanation: model.get('demographicsNumberOfGuardiansExplanation'),
-                demographicsRaceIdentification: model.get('demographicsRaceIdentification'),
+                demographicsRaceIdentification: this.get('selectedRaceIdentification'),
                 demographicsAge: model.get('demographicsAge'),
                 demographicsGender: model.get('demographicsGender'),
                 demographicsEducationLevel: model.get('demographicsEducationLevel'),
