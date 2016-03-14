@@ -1,5 +1,9 @@
 <div class="row">
-  <div class="col-md-1"><i class="fa {{if session.hasReadFeedback 'fa-check-circle-o' 'fa-exclamation-circle'}}"></i></div>
+  <div class="col-md-1">
+      {{#if session.feedback}}
+          <i class="fa {{if session.hasReadFeedback 'fa-check-circle-o' 'fa-exclamation-circle'}}"></i>
+      {{/if}}
+  </div>
 
   <div class="col-md-4">
     {{session.profileId}}
