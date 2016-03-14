@@ -23,6 +23,8 @@ Router.map(function() {
         this.route('children');
         this.route('email');
     });
+
+    this.route('notfound', {path: '/*path'});
 });
 
 export default Router;
