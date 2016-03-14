@@ -28,10 +28,10 @@
                   {{/each}}
                 </select>
                 <label>What category(ies) does your family identify as?</label>
-                <select onchange={{action (mut model.demographicsRaceIdentification) value="target.value"}}
+                <select onchange={{action "selectRaceIdentification"}}
                                 multiple class="form-control" >
                   {{#each raceCategories as |raceCategory|}}
-                    <option value={{raceCategory}} selected={{eq model.demographicsRaceIdentification raceCategory}}>{{raceCategory}}</option>
+                    <option value={{raceCategory}} selected={{include selectedRaceIdentification raceCategory}}>{{raceCategory}}</option>
                   {{/each}}
                 </select>
                 <label>What is your age?</label>
