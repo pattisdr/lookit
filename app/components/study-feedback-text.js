@@ -27,17 +27,14 @@ export default Ember.Component.extend({
         toggleFeedback: function() {
             this.toggleProperty('showFeedback');
             if (this.get('showFeedback')) {
-                this.send('updateFeedbackText', 'Hide Feedback');
+                this.set('feedbackText', 'Hide Feedback');
                 var session = this.get('session');
                 session.set('hasReadFeedback', true);
                 session.save().then(this.set('session', session));
             } else {
-                this.send('updateFeedbackText', 'Show Feedback');
+                this.set('feedbackText', 'Show Feedback');
             }
 
-        },
-        updateFeedbackText: function(text) {
-            this.set('feedbackText', text);
         }
     }
 });
