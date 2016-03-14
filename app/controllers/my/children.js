@@ -30,6 +30,13 @@ export default Ember.Controller.extend({
             this.set('newFirstName','');
             this.set('newBirthday','');
         },
+        save: function(profile) {
+            Ember.setProperties(profile, {'firstName': profile.get('firstName'),'birthday': new Date(profile.get('birthday'))});
+            this.get('model').save();
+        },
+        cancel: function() {
+            this.get('model').rollbackAttributes();
+        },
         edit: function() {
             this.toggleProperty('isEditing');
         },
