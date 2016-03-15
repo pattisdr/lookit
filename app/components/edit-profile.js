@@ -1,24 +1,24 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-    firstName: function() {
+    firstName: Ember.computed(function() {
         return this.profile.firstName;
-    }.property(),
-    birthday: function() {
+    }),
+    birthday: Ember.computed(function() {
         return this.profile.birthday;
-    }.property(),
-    isDirty: function() {
+    }),
+    isDirty: Ember.computed('firstName', 'birthday', function() {
         if (this.get('firstName') !== this.get('profile.firstName') || this.get('birthday') !== this.get('profile.birthday')) {
             return true;
         }
         return false;
-    }.property('firstName', 'birthday'),
-    isValid: function() {
+    }),
+    isValid: Ember.computed('firstName', 'birthday', function() {
         if (!Ember.isEmpty(this.get('firstName')) && !Ember.isEmpty(this.get('birthday'))) {
             return true;
         }
         return false;
-    }.property('firstName', 'birthday'),
+    }),
     actions: {
         save: function(profile) {
             Ember.setProperties(profile, {'firstName': this.get('firstName'),'birthday': new Date(this.get('birthday'))});
