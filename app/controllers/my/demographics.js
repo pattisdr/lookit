@@ -115,8 +115,6 @@ export default Ember.Controller.extend({
                 demographicsCanScheduleAnAppointment: model.get('demographicsCanScheduleAnAppointment'),
                 demographicsAdditionalComments: model.get('demographicsAdditionalComments')
             });
-            // Update the hasCompletedSurvey field
-            model.checkCompletedSurvey();
             model.save();
         }
     }
