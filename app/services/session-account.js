@@ -14,7 +14,7 @@ export default Ember.Service.extend({
         return new Ember.RSVP.Promise((resolve, reject) => {
             const accountId = this.get('session.data.authenticated.id');
             if (!Ember.isEmpty(accountId)) {
-                return this.get('store').findRecord('account', `${ENV.JAMDB.namespace}.accounts.${accountId}`).then((account) => {
+                return this.get('store').findRecord('account', accountId).then(account => {
                     this.set('account', account);
                     resolve(account);
                 }, reject);
