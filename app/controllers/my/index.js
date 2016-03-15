@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const {bcrypt} = dcodeIO;
+const {bcrypt} = dcodeIO; // jshint ignore: line
 
 export default Ember.Controller.extend({
     _error: null,
@@ -9,7 +9,7 @@ export default Ember.Controller.extend({
     confirmPass: null,
 
     passMatch: function() {
-        this.set('_error')
+        this.set('_error');
         return this.get('newPass') === this.get('confirmPass');
     }.property('newPass', 'confirmPass'),
 
