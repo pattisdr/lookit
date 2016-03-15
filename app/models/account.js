@@ -1,10 +1,10 @@
+import Ember from 'ember';
 import DS from 'ember-data';
 import Account from 'exp-models/models/account';
 
-export default Account.extend({
+const DEMOGRAPHIC_FIELDS = ['demographicsLanguagesSpokenAtHome','demographicsNumberOfChildren','demographicsChildrenBirthDates','demographicsNumberOfGuardians','demographicsNumberOfGuardiansExplanation','demographicsRaceIdentification','demographicsAge','demographicsGender','demographicsEducationLevel','demographicsSpouseEducationLevel','demographicsAnnualIncome','demographicsWillingToBeContactedForSimilarStudies','demographicsCanScheduleAnAppointment','demographicsAdditionalComments'];
 
-    DEMOGRAPHIC_FIELDS: ['demographicsLanguagesSpokenAtHome','demographicsNumberOfChildren','demographicsChildrenBirthDates','demographicsNumberOfGuardians','demographicsNumberOfGuardiansExplanation','demographicsRaceIdentification','demographicsAge','demographicsGender','demographicsEducationLevel','demographicsSpouseEducationLevel','demographicsAnnualIncome','demographicsWillingToBeContactedForSimilarStudies','demographicsCanScheduleAnAppointment','demographicsAdditionalComments'],
-    
+export default Account.extend({
     email: DS.attr('string'),
     mustResetPassword: DS.attr('boolean'),
     emailPreferencesResearcherQuestions: DS.attr('boolean'),
@@ -24,12 +24,6 @@ export default Account.extend({
     demographicsWillingToBeContactedForSimilarStudies: DS.attr('string'),
     demographicsCanScheduleAnAppointment: DS.attr('string'),
     demographicsAdditionalComments: DS.attr('string'),
-    
-    hasCompletedSurvey: DS.attr('boolean'),
-    
-    // Function is called before saving the account record when submitting the demographic survey.
-    checkCompletedSurvey: function() {
-        this.set('hasCompletedSurvey',this.get('DEMOGRAPHIC_FIELDS').some(item => !Ember.isEmpty(this.get(item))));
-    }
-    
+
+    hasCompletedSurvey: Ember.computed.or(DEMOGRAPHIC_FIELDS)
 });

@@ -4,7 +4,7 @@ export default Ember.Component.extend({
     session: Ember.inject.service('session'),
     actions: {
         logout() {
-            this.container.lookup('controller:application').send('logout');
+            Ember.getOwner(this).lookup('controller:application').send('logout');
         }
     }
 });

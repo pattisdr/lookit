@@ -1,0 +1,54 @@
+<div class="col-md-12">
+  <div class="thumbnail">
+    <div class="caption">
+
+      <!-- Title -->
+      <h3>{{experiment.title}}</h3>
+
+      <!-- Study Info -->
+      <div class="study-feedback-experiment-info">
+
+          <div class="study-feedback-thumbnail-wrapper">
+            {{#if experiment.thumbnail.raw}}
+              <img class="study-feedback-thumbnail" src="{{experiment.thumbnail.raw}}" />
+            {{else}}
+              <div class="study-list-placeholder">
+                <i class="fa fa-picture-o "></i>
+              </div>
+            {{/if}}
+          </div>
+
+          <div class="study-feedback-description-wrapper">
+            {{experiment.description}}
+            <div>
+              <strong>Age Range: </strong>placeholder <!-- TODO: get study age range --><br>
+              <strong>Duration: </strong>placeholder <!-- TODO: get study duration -->
+            </div>
+          </div>
+
+      </div>
+
+
+      <!-- Sessions -->
+      <h4 class="study-feedback-label">Experiment Sessions</h4>
+
+      <div class="row">
+        <div class="col-md-4">
+          <strong>Child</strong>
+        </div>
+        <div class="col-md-4">
+          <strong>Date</strong>
+        </div>
+        <div class="col-md-4">
+          <strong>Feedback</strong>
+        </div>
+      </div>
+
+      <!-- each session -->
+      {{#each sessions as |session|}}
+        {{study-feedback-text session=session}}
+      {{/each}}
+    </div>
+
+  </div>
+</div>

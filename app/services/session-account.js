@@ -7,6 +7,7 @@ const {
     RSVP
 } = Ember;
 
+
 export default Ember.Service.extend({
     account: null,
     profile: null,
@@ -18,7 +19,7 @@ export default Ember.Service.extend({
         return new RSVP.Promise((resolve, reject) => {
             const accountId = this.get('session.data.authenticated.id');
             if (!Ember.isEmpty(accountId)) {
-                return this.get('store').findRecord('account', 'experimenter.accounts.' + accountId).then((account) => {
+                return this.get('store').findRecord('account', accountId).then((account) => {
                     this.set('account', account);
                     resolve(account);
                 }, reject);

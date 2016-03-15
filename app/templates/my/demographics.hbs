@@ -10,6 +10,7 @@
                 <label>How many children do you have?</label>
                 <select onchange={{action (mut model.numberOfChildren) value="target.value"}}
                                 class="form-control">
+                  <option value="" disabled selected hidden>Please Choose...</option>
                   {{#each childrenCounts as |childrenCount|}}
                   <option value={{childrenCount}} selected={{eq model.demographicsNumberOfChildren childrenCount}}>{{childrenCount}}</option>
                   {{/each}}
@@ -21,45 +22,52 @@
                 <br />If the answer varies due to shared custody arrangements or travel,
                 please enter the number of parents/guardians your children are usually
                 living with or explain below.
-                    <select onchange={{action (mut model.demographicsNumberOfGuardians) value="target.value"}}
+                  <select onchange={{action (mut model.demographicsNumberOfGuardians) value="target.value"}}
                                 class="form-control">
+                  <option value="" disabled selected hidden>Please Choose...</option>
                   {{#each guardianOptions as |guardianOption|}}
                     <option value={{guardianOption}} selected={{eq model.demographicsNumberOfGuardians guardianOption}}>{{guardianOption}}</option>
                   {{/each}}
                 </select>
                 <label>What category(ies) does your family identify as?</label>
-                <select onchange={{action (mut model.demographicsRaceIdentification) value="target.value"}}
+                <select onchange={{action "selectRaceIdentification"}}
                                 multiple class="form-control" >
+                  <option value="" disabled selected hidden>Please Choose...</option>
                   {{#each raceCategories as |raceCategory|}}
-                    <option value={{raceCategory}} selected={{eq model.demographicsRaceIdentification raceCategory}}>{{raceCategory}}</option>
+                    <option value={{raceCategory}} selected={{include selectedRaceIdentification raceCategory}}>{{raceCategory}}</option>
                   {{/each}}
                 </select>
                 <label>What is your age?</label>
                 <select onchange={{action (mut model.demographicsAge) value="target.value"}} class="form-control" >
+                  <option value="" disabled selected hidden>Please Choose...</option>
                   {{#each ageChoices as |ageChoice|}}
                     <option value={{ageChoice}} selected={{eq model.demographicsAge ageChoice}}>{{ageChoice}}</option>
                   {{/each}}
                 </select>
                 <label>What is your gender?</label>
                 <select onchange={{action (mut model.demographicsGender) value="target.value"}} class="form-control" >
+                  <option value="" disabled selected hidden>Please Choose...</option>
                   {{#each genderOptions as |genderOption|}}
                     <option value={{genderOption}} selected={{eq model.demographicsGender genderOption}}>{{genderOption}}</option>
                   {{/each}}
                 </select>
                 <label>What is the highest level of education you've completed?</label>
                 <select onchange={{action (mut model.demographicsEducationLevel) value="target.value"}} class="form-control" >
+                  <option value="" disabled selected hidden>Please Choose...</option>
                   {{#each educationOptions as |educationOption|}}
                     <option value={{educationOption}} selected={{eq model.demographicsEducationLevel educationOption}}>{{educationOption}}</option>
                   {{/each}}
                 </select>
                 <label>What is the highest level of education your spouse has completed?</label>
                 <select onchange={{action (mut model.demographicsSpouseEducationLevel) value="target.value"}} class="form-control" >
+                  <option value="" disabled selected hidden>Please Choose...</option>
                   {{#each spouseEducationOptions as |spouseEducationOption|}}
                     <option value={{spouseEducationOption}} selected={{eq chosenSpouseEducation spouseEducationOption}}>{{spouseEducationOption}}</option>
                   {{/each}}
                 </select>
                 <label>What is your approximate family yearly income?</label>
                 <select onchange={{action (mut model.demographicsAnnualIncome) value="target.value"}} class="form-control" >
+                  <option value="" disabled selected hidden>Please Choose...</option>
                   {{#each annualIncomeOptions as |annualIncomeOption|}}
                     <option value={{annualIncomeOption}} selected={{eq model.demographicsAnnualIncome annualIncomeOption}}>{{annualIncomeOption}}</option>
                   {{/each}}
@@ -67,6 +75,7 @@
                 <label>If you had been contacted on the phone by a local university about participating
                 in studies like this, would you have been interested</label>
                 <select onchange={{action (mut model.demographicsWillingToBeContactedForSimilarStudies) value="target.value"}} class="form-control" >
+                  <option value="" disabled selected hidden>Please Choose...</option>
                   {{#each yesNoOptions as |yesNoOption|}}
                     <option value={{yesNoOption}} selected={{eq model.demographicsWillingToBeContactedForSimilarStudies yesNoOption}}>{{yesNoOption}}</option>
                   {{/each}}
@@ -74,6 +83,7 @@
                 <label>Would you have been able to schedule an appointment during the workweek to bring one of
                 your children ~5 miles for this study?</label>
                 <select onchange={{action (mut model.demographicsCanScheduleAnAppointment) value="target.value"}} class="form-control" >
+                  <option value="" disabled selected hidden>Please Choose...</option>
                   {{#each yesNoOptions as |yesNoOption|}}
                     <option value={{yesNoOption}} selected={{eq model.demographicsCanScheduleAnAppointment yesNoOption}}>{{yesNoOption}}</option>
                   {{/each}}

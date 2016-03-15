@@ -12,6 +12,7 @@
                                 <label>First Name</label>
                                 {{bs-input type="text" value=profile.firstName}}
                             </div>
+                            <br>
                             <div class="form-inline">
                                 <label>Birthday</label>
                                 {{pikaday-input value=profile.birthday format="MM/DD/YYYY" yearRange="1990,currentYear" class="form-control"}}
@@ -42,7 +43,7 @@
         {{/bs-accordion-item}}
     {{/each}}
 
-    {{#bs-accordion-item title="Add a new participant"}}
+    {{#bs-accordion-item title="Add a child"}}
         <div>
 
             {{#bs-form}}
@@ -51,12 +52,13 @@
                         <label>First Name</label>
                         {{bs-input type="text" value=newFirstName}}
                     </div>
+                    <br>
                     <div class="form-inline">
                         <label>Birthday</label>
                         {{pikaday-input value=newBirthday format="MM/DD/YYYY" yearRange="1990,currentYear" class="form-control"}}
                     </div>
                     <br>
-                    <button class="btn btn-default" {{action 'createProfile'}}>Create Profile</button>
+                    <button class="btn btn-default" {{action 'createProfile'}}>Add</button>
                 {{/bs-form-group}}
             {{/bs-form}}
 
