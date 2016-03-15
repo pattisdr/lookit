@@ -6,7 +6,7 @@
       {{#bs-form-group}}
       <div>
         <label>First Name</label>
-        {{bs-input type="text" class="required" value=firstName}}
+        {{bs-input type="text" class="{{if not isValid 'has-error'}}" value=firstName}}
       </div>
       <br>
       <div>
@@ -15,9 +15,9 @@
       </div>
       <br>
       <div class="pull-right">
-        <button disabled={{not isDirty}} class="btn btn-success" {{action 'save' profile}}>Save</button>
+        <button disabled={{or (not isDirty) (not isValid)}} class="btn btn-success" {{action 'save' profile}}>Save</button>
         <button class="btn btn-danger" {{action 'delete' profile}}>Delete</button>
-        <button class="btn btn-default" {{action 'cancel' profile}}>Cancel</button>
+        <button disabled={{not isDirty}} class="btn btn-default" {{action 'cancel' profile}}>Cancel</button>
       </div>
       {{/bs-form-group}}
     {{/bs-form}}

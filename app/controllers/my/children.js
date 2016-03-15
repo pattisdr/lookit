@@ -6,7 +6,12 @@ export default Ember.Controller.extend({
     session: service('session'),
     sessionAccount: service('session-account'),
     toast: Ember.inject.service(),
-
+    isValid: function() {
+        if (!Ember.isEmpty(this.get('newFirstName')) && !Ember.isEmpty(this.get('newBirthday'))) {
+            return true;
+        }
+        return false;
+    }.property('newFirstName', 'newBirthday'),
     actions: {
         // To add a new profile in the Children Information tab
         createProfile: function() {

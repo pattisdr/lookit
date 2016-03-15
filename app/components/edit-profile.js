@@ -13,6 +13,12 @@ export default Ember.Component.extend({
         }
         return false;
     }.property('firstName', 'birthday'),
+    isValid: function() {
+        if (!Ember.isEmpty(this.get('firstName')) && !Ember.isEmpty(this.get('birthday'))) {
+            return true;
+        }
+        return false;
+    }.property('firstName', 'birthday'),
     actions: {
         save: function(profile) {
             Ember.setProperties(profile, {'firstName': this.get('firstName'),'birthday': new Date(this.get('birthday'))});
