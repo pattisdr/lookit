@@ -25,5 +25,5 @@ export default Account.extend({
     demographicsCanScheduleAnAppointment: DS.attr('string'),
     demographicsAdditionalComments: DS.attr('string'),
 
-    hasCompletedSurvey: Ember.computed.or(DEMOGRAPHIC_FIELDS)
+    hasCompletedSurvey: Ember.computed.or(...DEMOGRAPHIC_FIELDS)
 });
