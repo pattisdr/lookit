@@ -1,0 +1,25 @@
+<div>
+  <strong>{{profile.firstName}}</strong>
+  <hr>
+  <div class="col-sm-offset-1 col-sm-11">
+    {{#bs-form class="form-horizontal"}}
+      {{#bs-form-group}}
+      <div>
+        <label>First Name</label>
+        {{bs-input type="text" class="required" value=firstName}}
+      </div>
+      <br>
+      <div>
+        <label>Birthday</label>
+        {{pikaday-input value=birthday format="MM/DD/YYYY" yearRange="1990,currentYear" class="form-control"}}
+      </div>
+      <br>
+      <div class="pull-right">
+        <button disabled={{not isDirty}} class="btn btn-success" {{action 'save' profile}}>Save</button>
+        <button class="btn btn-danger" {{action 'delete' profile}}>Delete</button>
+        <button class="btn btn-default" {{action 'cancel' profile}}>Cancel</button>
+      </div>
+      {{/bs-form-group}}
+    {{/bs-form}}
+  </div>
+</div>
