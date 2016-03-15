@@ -28,7 +28,7 @@ export default Ember.Controller.extend({
                 email: attrs.email,
                 profiles: [],
                 // Update the line below to be more general
-                id: `${config.JAMDB.namespace}.accounts.${attrs.username}`
+                id: `${attrs.username}`
             });
             newAccount.save().then(() => {
                 // log in immediately with this new account information
