@@ -15,7 +15,7 @@
       </div>
       <br>
       <div class="pull-right">
-        <button class="btn btn-success" disabled={{not isValid}} data-toggle="collapse" data-target="#addNewParticipant" {{action 'createProfile'}}>Create Profile</button>
+        <button class="btn btn-success" {{action 'createProfile'}} disabled={{not isValid}}>Create Profile</button>
         <button class="btn btn-default" data-toggle="collapse" data-target="#addNewParticipant" {{action 'cancel'}}>Cancel</button>
       </div>
       {{/bs-form-group}}

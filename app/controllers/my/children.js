@@ -15,6 +15,7 @@ export default Ember.Controller.extend({
     actions: {
         // To add a new profile in the Children Information tab
         createProfile: function() {
+            $('.collapse').collapse("hide");
             var firstName = this.get('newFirstName');
             var birthday = new Date(this.get('newBirthday'));
             var profileId = this.get('model.username') + "." + Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
