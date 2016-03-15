@@ -16,7 +16,9 @@ export default Ember.Component.extend({
     actions: {
         save: function(profile) {
             Ember.setProperties(profile, {'firstName': this.get('firstName'),'birthday': new Date(this.get('birthday'))});
-            this.get('model').save();
+            this.get('model').save().then(() => {
+                this.toast.info('Child profile updated successfully.');
+            });
         },
         cancel: function(profile) {
             this.set('firstName', profile.get('firstName'));
@@ -30,7 +32,9 @@ export default Ember.Component.extend({
                 console.log('No profiles to delete.')
             }
 
-            this.get('model').save();
+            this.get('model').save().then(() => {
+                this.toast.info('Child profile deleted successfully.');
+            });
         }
     }
 });

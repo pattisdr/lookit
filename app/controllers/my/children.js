@@ -5,6 +5,7 @@ const { service } = Ember.inject;
 export default Ember.Controller.extend({
     session: service('session'),
     sessionAccount: service('session-account'),
+    toast: Ember.inject.service(),
 
     actions: {
         // To add a new profile in the Children Information tab
@@ -23,15 +24,13 @@ export default Ember.Controller.extend({
                 this.get('model.profiles').pushObject(profile);
             }
 
-            this.get('model').save();
+            this.get('model').save().then(() => {
+                this.toast.info('Profile created successfully.');
+            });
 
             // Reset input fields
             this.set('newFirstName','');
             this.set('newBirthday','');
-        },
-        save: function(profile) {
-            Ember.setProperties(profile, {'firstName': profile.get('firstName'),'birthday': new Date(profile.get('birthday'))});
-            this.get('model').save();
         },
         cancel: function() {
             this.set('newFirstName','');
