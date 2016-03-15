@@ -5,7 +5,7 @@
 </div>
 
 {{#if invalidAuth}}
-    {{#bs-modal title="An error occured when logging in." closedAction=(action 'toggleUserNotFound')}}
+    {{#bs-modal title="An error occured when logging in." closedAction=(action 'toggleInvalidAuth')}}
         {{#bs-modal-body}}Invalid username or password.{{/bs-modal-body}}
     {{/bs-modal}}
 {{/if}}
@@ -15,6 +15,13 @@
         {{#bs-modal-body}}That username has already been taken. Please choose another.{{/bs-modal-body}}
     {{/bs-modal}}
 {{/if}}
+
+{{#if creatingUser}}
+    {{#bs-modal title="Creating your account." closedAction=(action 'toggleCreatingUser')}}
+        {{#bs-modal-body}}Creating your account...{{/bs-modal-body}}
+    {{/bs-modal}}
+{{/if}}
+
 
 <div class="lookit-row login-row">
     <div class="container">
