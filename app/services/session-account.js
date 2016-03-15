@@ -1,20 +1,25 @@
 import Ember from 'ember';
 
-import ENV from 'lookit-base/config/environment';
+const {
+    inject: {
+        service
+    },
+    RSVP
+} = Ember;
 
 
 export default Ember.Service.extend({
     account: null,
     profile: null,
 
-    session: Ember.inject.service('session'),
-    store: Ember.inject.service(),
+    session: service('session'),
+    store: service(),
 
     loadCurrentUser() {
-        return new Ember.RSVP.Promise((resolve, reject) => {
+        return new RSVP.Promise((resolve, reject) => {
             const accountId = this.get('session.data.authenticated.id');
             if (!Ember.isEmpty(accountId)) {
-                return this.get('store').findRecord('account', `${ENV.JAMDB.namespace}.accounts.${accountId}`).then((account) => {
+                return this.get('store').findRecord('account', accountId).then((account) => {
                     this.set('account', account);
                     resolve(account);
                 }, reject);

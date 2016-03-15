@@ -260,9 +260,13 @@ button.account-row {
 /* STUDY DETAIL */
 
 .study-detail-thumbnail {
-    width: 80%;
-    /*max-width: 650px;
-    max-height: 650px;*/
+    max-width: 80%;
+    //max-width: 650px;
+    max-height: 400px;
+}
+.study-detail-placeholder {
+    font-size: 200px;
+    text-align: center;
 }
 .study-detail-caption {
     line-height: 25px;

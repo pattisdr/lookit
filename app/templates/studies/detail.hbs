@@ -9,7 +9,13 @@
       <div class="col-md-10 col-md-offset-1">
         <div class="row">
           <div class="col-xs-12">
-            <img class="study-detail-thumbnail" src="{{model.experiment.thumbnail.raw}}" />
+            {{#if model.experiment.thumbnail}}
+              <img class="study-detail-thumbnail" src="{{model.experiment.thumbnail.raw}}" />
+            {{else}}
+            <div class="study-detail-placeholder">
+              <i class="fa fa-picture-o "></i>
+            </div>
+            {{/if}}
           </div>
         </div>
 
@@ -37,7 +43,9 @@
             {{#if (not model.account) }}
               {{link-to 'Log in to participate' 'login' class="btn btn-lg btn-default"}}
             {{else if (not model.account.profiles)}}
-              {{link-to 'Add child profile to participate' 'my' class="btn btn-lg btn-default"}}
+              {{link-to 'Add child profile to participate' 'my.children' class="btn btn-lg btn-default"}}
+            {{else if (not model.account.hasCompletedSurvey) }}
+              {{link-to 'Complete demographic survey to participate' 'my.demographics' class="btn btn-lg btn-default"}}
             {{else}}
               <div class="form-group">
                 <label>Select a child:</label>

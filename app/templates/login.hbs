@@ -4,8 +4,8 @@
     </div>
 </div>
 
-{{#if userNotFound}}
-    {{#bs-modal title="An error occured when logging in." closedAction=(action 'toggleUserNotFound')}}
+{{#if invalidAuth}}
+    {{#bs-modal title="An error occured when logging in." closedAction=(action 'toggleInvalidAuth')}}
         {{#bs-modal-body}}Invalid username or password.{{/bs-modal-body}}
     {{/bs-modal}}
 {{/if}}
@@ -16,21 +16,22 @@
     {{/bs-modal}}
 {{/if}}
 
+{{#if creatingUser}}
+    {{#bs-modal title="Creating your account." closedAction=(action 'toggleCreatingUser')}}
+        {{#bs-modal-body}}Creating your account...{{/bs-modal-body}}
+    {{/bs-modal}}
+{{/if}}
+
+
 <div class="lookit-row login-row">
     <div class="container">
         <div class="row">
             <div class="login-item col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-                {{#if session.isAuthenticated}}
-                    <p>You are logged in.</p>
-                    <button class="btn btn-primary btn-lg" {{action 'invalidateSession'}}>Logout</button>
-                {{else}}
-                    {{jam-auth login=(action 'authenticate')}}
-                    <hr>
-                    <p>Not already a user? Create a Lookit account.</p>
-                    {{jam-create create=(action 'createAccount')}}
-                {{/if}}
+              {{jam-auth login=(action 'authenticate')}}
+              <hr>
+              <p>Not already a user? Create a Lookit account.</p>
+              {{jam-create create=(action 'createAccount')}}
             </div>
-
         </div>
     </div>
 </div>

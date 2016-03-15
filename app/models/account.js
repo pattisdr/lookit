@@ -1,5 +1,8 @@
+import Ember from 'ember';
 import DS from 'ember-data';
 import Account from 'exp-models/models/account';
+
+const DEMOGRAPHIC_FIELDS = ['demographicsLanguagesSpokenAtHome','demographicsNumberOfChildren','demographicsChildrenBirthDates','demographicsNumberOfGuardians','demographicsNumberOfGuardiansExplanation','demographicsRaceIdentification','demographicsAge','demographicsGender','demographicsEducationLevel','demographicsSpouseEducationLevel','demographicsAnnualIncome','demographicsWillingToBeContactedForSimilarStudies','demographicsCanScheduleAnAppointment','demographicsAdditionalComments'];
 
 export default Account.extend({
     email: DS.attr('string'),
@@ -20,5 +23,7 @@ export default Account.extend({
     demographicsAnnualIncome: DS.attr('string'),
     demographicsWillingToBeContactedForSimilarStudies: DS.attr('string'),
     demographicsCanScheduleAnAppointment: DS.attr('string'),
-    demographicsAdditionalComments: DS.attr('string')
+    demographicsAdditionalComments: DS.attr('string'),
+
+    hasCompletedSurvey: Ember.computed.or(...DEMOGRAPHIC_FIELDS)
 });
