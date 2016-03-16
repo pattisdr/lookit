@@ -5,10 +5,10 @@ const { service } = Ember.inject;
 export default Ember.Controller.extend({
     session: service('session'),
     sessionAccount: service('session-account'),
-    selectedRaceIdentification: function() {
+    selectedRaceIdentification: Ember.computed(function() {
         var model = this.get('model');
         return model.get('demographicsRaceIdentification');
-    }.property(),
+    }),
     ageChoices: [
         'under 18',
         '18-21',
@@ -93,8 +93,11 @@ export default Ember.Controller.extend({
         'no'
     ],
     actions: {
-        selectRaceIdentification: function(event) {
-            const selectedRaceIdentification = Ember.$(event.target).val();
+        selectRaceIdentification: function() {
+            const selectedRaceIdentification = [];
+            Ember.$('#raceIdentification input:checked').each(function() {
+                selectedRaceIdentification.push(Ember.$(this).attr('value'));
+            });
             this.set('selectedRaceIdentification', selectedRaceIdentification || []);
         },
         saveDemographicsPreferences: function() {
