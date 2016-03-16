@@ -88,6 +88,9 @@
                     <option value={{yesNoOption}} selected={{eq model.demographicsCanScheduleAnAppointment yesNoOption}}>{{yesNoOption}}</option>
                   {{/each}}
                 </select>
+                <label>About how many children's books are there in your home?</label>
+                    {{bs-input type="number" value=model.demographicsNumberOfBooks}}
+                <br />
 
                 <label>Any additional comments?</label>
                     {{bs-input type="text" value=model.demographicsAdditionalComments}}

@@ -113,6 +113,7 @@ export default Ember.Controller.extend({
                 demographicsAnnualIncome: model.get('demographicsAnnualIncome'),
                 demographicsWillingToBeContactedForSimilarStudies: model.get('demographicsWillingToBeContactedForSimilarStudies'),
                 demographicsCanScheduleAnAppointment: model.get('demographicsCanScheduleAnAppointment'),
+                demographicsNumberOfBooks: model.get('demographicsNumberOfBooks'),
                 demographicsAdditionalComments: model.get('demographicsAdditionalComments')
             });
             model.save();
