@@ -8,22 +8,13 @@
                 <label>What language(s) does your family speak at home?</label>
                     {{bs-input type="text" value=model.demographicsLanguagesSpokenAtHome}}
                 <label>How many children do you have?</label>
-                <select onchange={{action "selectNumberOfChildren" value="target.value"}}
+                <select onchange={{action (mut model.demographicsNumberOfChildren) value="target.value"}}
                                 class="form-control">
                   <option value="" disabled selected hidden>Please Choose...</option>
                   {{#each childrenCounts as |childrenCount|}}
-                  <option value={{childrenCount}} selected={{eq selectedNumberOfChildren childrenCount}}>{{childrenCount}}</option>
+                  <option value={{childrenCount}} selected={{eq model.demographicsNumberOfChildren childrenCount}}>{{childrenCount}}</option>
                   {{/each}}
                 </select>
-
-                <label>What are their birthdates? (mm/yyyy)</label>
-                  <div class="col-md-12" onchange={{action "addChildBirthdate" value="target.value"  index="target.index"}}>
-                    {{#each childrenBirthdates as |childBirthdate index|}}
-                      <label>Birthdate {{index}}</label>
-                      {{log index}}
-                      {{pikaday-input value=childrenBirthdates.index format="MM/YYYY" yearRange="1990,currentYear" class="form-control"}}
-                    {{/each}}
-                  </div>
                 <label>How many parents/guardians do your children live with?</label>
                 <br />If the answer varies due to shared custody arrangements or travel,
                 please enter the number of parents/guardians your children are usually

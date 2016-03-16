@@ -9,10 +9,6 @@ export default Ember.Controller.extend({
         var model = this.get('model');
         return model.get('demographicsRaceIdentification');
     }),
-    selectedNumberOfChildren: Ember.computed(function() {
-        var model = this.get('model');
-        return model.get('demographicsNumberOfChildren');
-    }),
     ageChoices: [
         'under 18',
         '18-21',
@@ -96,33 +92,16 @@ export default Ember.Controller.extend({
         'yes',
         'no'
     ],
-    childrenBirthdates: [],
     actions: {
-        selectRaceIdentification: function() {
-            const selectedRaceIdentification = [];
-            Ember.$('#raceIdentification input:checked').each(function() {
-                selectedRaceIdentification.push(Ember.$(this).attr('value'));
-            });
+        selectRaceIdentification: function(event) {
+            const selectedRaceIdentification = Ember.$(event.target).val();
             this.set('selectedRaceIdentification', selectedRaceIdentification || []);
-        },
-        selectNumberOfChildren: function(value) {
-            let numberOfChildren = parseInt(value);
-            const childrenBirthdates = [];
-            for (var i=0; i < numberOfChildren; i++) {
-                childrenBirthdates.push(null);
-            }
-
-            this.set('childrenBirthdates', childrenBirthdates);
-        },
-        addChildBirthdate: function(value, index) {
-            debugger;
         },
         saveDemographicsPreferences: function() {
             var model = this.get('model');
             model.setProperties({
                 demographicsLanguagesSpokenAtHome: model.get('demographicsLanguagesSpokenAtHome'),
-                demographicsNumberOfChildren: model.get('numberOfChildren'),
-                demographicsChildrenBirthDates: this.get('childrenBirthdates'),
+                demographicsNumberOfChildren: model.get('demographicsNumberOfChildren'),
                 demographicsNumberOfGuardians: model.get('demographicsNumberOfGuardians'),
                 demographicsNumberOfGuardiansExplanation: model.get('demographicsNumberOfGuardiansExplanation'),
                 demographicsRaceIdentification: this.get('selectedRaceIdentification'),
@@ -137,7 +116,7 @@ export default Ember.Controller.extend({
                 demographicsAdditionalComments: model.get('demographicsAdditionalComments')
             });
             model.save().then(() => {
-                this.toast.info('Demographics survey saved successfully.');
+                this.toast.info('Demographic survey saved successfully.');
             });
         }
     }
