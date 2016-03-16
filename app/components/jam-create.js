@@ -1,4 +1,4 @@
-import Em from 'ember';
+import Ember from 'ember';
 import ENV from 'lookit-base/config/environment';
 
 export default Ember.Component.extend({
