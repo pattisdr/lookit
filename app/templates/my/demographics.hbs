@@ -29,6 +29,12 @@
                     <option value={{guardianOption}} selected={{eq model.demographicsNumberOfGuardians guardianOption}}>{{guardianOption}}</option>
                   {{/each}}
                 </select>
+                {{#if (eq model.demographicsNumberOfGuardians "varies")}}
+                  <div class="col-md-12">
+                    <label>Additional information:</label>
+                      {{bs-input type="text" value=model.demographicsNumberOfGuardiansExplanation}}
+                  </div>
+                {{/if}}
                 <label>What category(ies) does your family identify as?</label>
                 <select onchange={{action "selectRaceIdentification"}}
                                 multiple class="form-control" >
