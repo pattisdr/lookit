@@ -115,7 +115,9 @@ export default Ember.Controller.extend({
                 demographicsCanScheduleAnAppointment: model.get('demographicsCanScheduleAnAppointment'),
                 demographicsAdditionalComments: model.get('demographicsAdditionalComments')
             });
-            model.save();
+            model.save().then(() => {
+                this.toast.info('Demographics survey saved successfully.');
+            });
         }
     }
 });
