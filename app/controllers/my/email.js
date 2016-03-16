@@ -14,7 +14,9 @@ export default Ember.Controller.extend({
             Ember.setProperties(model.get('emailPreferencesNewStudies'), this.get('emailPreferencesNewStudies'));
             Ember.setProperties(model.get('emailPreferencesResultsPublished'), this.get('emailPreferencesResultsPublished'));
 
-            model.save();
+            model.save().then(() => {
+                this.toast.info('Email preferences saved successfully.');
+            });
         }
     }
 });

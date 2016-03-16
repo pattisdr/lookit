@@ -7,6 +7,7 @@ export default Ember.Controller.extend({
     oldPass: null,
     newPass: null,
     confirmPass: null,
+    toast: Ember.inject.service(),
 
     passMatch: function() {
         this.set('_error');
@@ -21,7 +22,9 @@ export default Ember.Controller.extend({
 
     actions: {
         save() {
-            this.get('model').save();
+            this.get('model').save().then(() => {
+                this.toast.info('Account updated successfully.');
+            });
         },
         cancel() {
             this.get('model').rollbackAttributes();
@@ -38,6 +41,7 @@ export default Ember.Controller.extend({
                 this.set('oldPass', null);
                 this.set('newPass', null);
                 this.set('confirmPass', null);
+                this.toast.info('Password updated successfully.');
             }, () => {
                 this.set('_error', 'Could not update password');
             });
