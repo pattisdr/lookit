@@ -8,16 +8,13 @@
                 <label>What language(s) does your family speak at home?</label>
                     {{bs-input type="text" value=model.demographicsLanguagesSpokenAtHome}}
                 <label>How many children do you have?</label>
-                <select onchange={{action (mut model.numberOfChildren) value="target.value"}}
+                <select onchange={{action (mut model.demographicsNumberOfChildren) value="target.value"}}
                                 class="form-control">
                   <option value="" disabled selected hidden>Please Choose...</option>
                   {{#each childrenCounts as |childrenCount|}}
                   <option value={{childrenCount}} selected={{eq model.demographicsNumberOfChildren childrenCount}}>{{childrenCount}}</option>
                   {{/each}}
                 </select>
-
-                <label>What are their birthdates? (mm/yyyy)</label>
-                    {{bs-input type="text" value=model.demographicsChildrenBirthDates}}
                 <label>How many parents/guardians do your children live with?</label>
                 <br />If the answer varies due to shared custody arrangements or travel,
                 please enter the number of parents/guardians your children are usually
@@ -29,6 +26,12 @@
                     <option value={{guardianOption}} selected={{eq model.demographicsNumberOfGuardians guardianOption}}>{{guardianOption}}</option>
                   {{/each}}
                 </select>
+                {{#if (eq model.demographicsNumberOfGuardians "varies")}}
+                  <div class="col-md-12">
+                    <label>Additional information:</label>
+                      {{bs-input type="text" value=model.demographicsNumberOfGuardiansExplanation}}
+                  </div>
+                {{/if}}
                 <label>What category(ies) does your family identify as?</label>
                 <div onchange={{action "selectRaceIdentification"}} id="raceIdentification">
                   {{#each raceCategories as |raceCategory|}}
@@ -88,6 +91,9 @@
                     <option value={{yesNoOption}} selected={{eq model.demographicsCanScheduleAnAppointment yesNoOption}}>{{yesNoOption}}</option>
                   {{/each}}
                 </select>
+                <label>About how many children's books are there in your home?</label>
+                    {{bs-input type="number" value=model.demographicsNumberOfBooks}}
+                <br />
 
                 <label>Any additional comments?</label>
                     {{bs-input type="text" value=model.demographicsAdditionalComments}}

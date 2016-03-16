@@ -104,8 +104,7 @@ export default Ember.Controller.extend({
             var model = this.get('model');
             model.setProperties({
                 demographicsLanguagesSpokenAtHome: model.get('demographicsLanguagesSpokenAtHome'),
-                demographicsNumberOfChildren: model.get('numberOfChildren'),
-                demographicsChildrenBirthDates: model.get('demographicsChildrenBirthDates'),
+                demographicsNumberOfChildren: model.get('demographicsNumberOfChildren'),
                 demographicsNumberOfGuardians: model.get('demographicsNumberOfGuardians'),
                 demographicsNumberOfGuardiansExplanation: model.get('demographicsNumberOfGuardiansExplanation'),
                 demographicsRaceIdentification: this.get('selectedRaceIdentification'),
@@ -116,10 +115,11 @@ export default Ember.Controller.extend({
                 demographicsAnnualIncome: model.get('demographicsAnnualIncome'),
                 demographicsWillingToBeContactedForSimilarStudies: model.get('demographicsWillingToBeContactedForSimilarStudies'),
                 demographicsCanScheduleAnAppointment: model.get('demographicsCanScheduleAnAppointment'),
+                demographicsNumberOfBooks: model.get('demographicsNumberOfBooks'),
                 demographicsAdditionalComments: model.get('demographicsAdditionalComments')
             });
             model.save().then(() => {
-                this.toast.info('Demographics survey saved successfully.');
+                this.toast.info('Demographic survey saved successfully.');
             });
         }
     }
