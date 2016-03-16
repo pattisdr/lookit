@@ -1,68 +1,48 @@
 <div>
-{{#bs-accordion}}
-    {{#each model.profiles as |profile|}}
-        {{#bs-accordion-item title=profile.firstName}}
-
-            {{#if isEditing}}
-
-                <div>
-                    {{#bs-form}}
-                        {{#bs-form-group}}
-                            <div>
-                                <label>First Name</label>
-                                {{bs-input type="text" value=profile.firstName}}
-                            </div>
-                            <br>
-                            <div class="form-inline">
-                                <label>Birthday</label>
-                                {{pikaday-input value=profile.birthday format="MM/DD/YYYY" yearRange="1990,currentYear" class="form-control"}}
-                            </div>
-                            <br>
-                            <button class="btn btn-default" {{action 'editProfile' profile}}>Submit</button>
-                            <button class="btn btn-default" {{action 'edit'}}>Cancel</button>
-                        {{/bs-form-group}}
-                    {{/bs-form}}
-                </div>
-
-            {{else}}
-
-                <div>
-                    <div>
-                        <p>Name: {{profile.firstName}}</p>
-                    </div>
-                    <div class="form-inline">
-                        <label>Birthday</label>
-                        {{pikaday-input value=profile.birthday format="MM/DD/YYYY" disabled=true class="form-control"}}
-                    </div>
-                    <br>
-                    <button class="btn btn-default" {{action 'edit'}}>Edit information</button>
-                </div>
-
-            {{/if}}
-
-        {{/bs-accordion-item}}
-    {{/each}}
-
-    {{#bs-accordion-item title="Add a child"}}
-        <div>
-
-            {{#bs-form}}
-                {{#bs-form-group}}
-                    <div>
-                        <label>First Name</label>
-                        {{bs-input type="text" value=newFirstName}}
-                    </div>
-                    <br>
-                    <div class="form-inline">
-                        <label>Birthday</label>
-                        {{pikaday-input value=newBirthday format="MM/DD/YYYY" yearRange="1990,currentYear" class="form-control"}}
-                    </div>
-                    <br>
-                    <button class="btn btn-default" {{action 'createProfile'}}>Add</button>
-                {{/bs-form-group}}
-            {{/bs-form}}
-
+  <a href="#addNewParticipant" data-toggle="collapse">Add a child</a>
+  <div id="addNewParticipant" class="collapse">
+    <hr>
+    {{#bs-form}}
+      {{#bs-form-group}}
+      <div>
+        <label>First Name</label>
+        {{bs-input type="text" value=newFirstName}}
+      </div>
+      <br>
+      <div>
+        <label>Birthday</label>
+        {{pikaday-input value=newBirthday format="MM/DD/YYYY" yearRange="1990,currentYear" class="form-control"}}
+      </div>
+      <br>
+      <div>
+        <label>Gender</label>
+        <div onchange={{action (mut newGender) value="target.value"}}>
+          {{#each genderOptions as |genderOption|}}
+          <label class="radio-inline">
+            <input class="radio" type="radio" value={{genderOption}} checked={{eq newGender genderOption}}> {{genderOption}}
+          </label>
+          {{/each}}
         </div>
-    {{/bs-accordion-item}}
-{{/bs-accordion}}
+      </div>
+      <br>
+      <div>
+        <label>Gestational Age at Birth</label>
+        <select onchange={{action (mut newAgeAtBirth) value="target.value"}} class="form-control">
+          <option value="" disabled={{not (eq newAgeAtBirth null)}} selected={{eq newAgeAtBirth null}} hidden={{not (eq newAgeAtBirth null)}}>Please Choose...</option>
+          {{#each ageAtBirthOptions as |ageAtBirthOption|}}
+            <option value={{ageAtBirthOption}} selected={{eq newAgeAtBirth ageAtBirthOption}}>{{ageAtBirthOption}}</option>
+          {{/each}}
+        </select>
+      </div>
+      <br>
+      <div class="pull-right">
+        <button class="btn btn-success" {{action 'createProfile'}} disabled={{not isValid}}>Create Profile</button>
+        <button class="btn btn-default" data-toggle="collapse" data-target="#addNewParticipant" {{action 'cancel'}}>Cancel</button>
+      </div>
+      {{/bs-form-group}}
+    {{/bs-form}}
+  </div>
+  {{#each model.profiles as |profile|}}
+    {{edit-profile profile=profile model=model genderOptions=genderOptions ageAtBirthOptions=ageAtBirthOptions}}
+  {{/each}}
 </div>

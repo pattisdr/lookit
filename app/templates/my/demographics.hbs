@@ -42,13 +42,13 @@
                   </div>
                 {{/if}}
                 <label>What category(ies) does your family identify as?</label>
-                <select onchange={{action "selectRaceIdentification"}}
-                                multiple class="form-control" >
-                  <option value="" disabled selected hidden>Please Choose...</option>
+                <div onchange={{action "selectRaceIdentification"}} id="raceIdentification">
                   {{#each raceCategories as |raceCategory|}}
-                    <option value={{raceCategory}} selected={{include selectedRaceIdentification raceCategory}}>{{raceCategory}}</option>
+                  <label class="checkbox">
+                    <input type="checkbox" value={{raceCategory}} checked={{include model.demographicsRaceIdentification raceCategory}}> {{raceCategory}}
+                  </label>
                   {{/each}}
-                </select>
+                </div>
                 <label>What is your age?</label>
                 <select onchange={{action (mut model.demographicsAge) value="target.value"}} class="form-control" >
                   <option value="" disabled selected hidden>Please Choose...</option>
@@ -107,7 +107,7 @@
                 <label>Any additional comments?</label>
                     {{bs-input type="text" value=model.demographicsAdditionalComments}}
                 <br />
-                {{#bs-button type="primary" action="saveDemographicsPreferences"}}
+                {{#bs-button type="success" action="saveDemographicsPreferences"}}
                     Save
                 {{/bs-button}}
             {{/bs-form-group}}

@@ -5,10 +5,10 @@ const { service } = Ember.inject;
 export default Ember.Controller.extend({
     session: service('session'),
     sessionAccount: service('session-account'),
-    selectedRaceIdentification: function() {
+    selectedRaceIdentification: Ember.computed(function() {
         var model = this.get('model');
         return model.get('demographicsRaceIdentification');
-    }.property(),
+    }),
     selectedNumberOfChildren: Ember.computed(function() {
         var model = this.get('model');
         return model.get('demographicsNumberOfChildren');
@@ -98,8 +98,11 @@ export default Ember.Controller.extend({
     ],
     childrenBirthdates: [],
     actions: {
-        selectRaceIdentification: function(event) {
-            const selectedRaceIdentification = Ember.$(event.target).val();
+        selectRaceIdentification: function() {
+            const selectedRaceIdentification = [];
+            Ember.$('#raceIdentification input:checked').each(function() {
+                selectedRaceIdentification.push(Ember.$(this).attr('value'));
+            });
             this.set('selectedRaceIdentification', selectedRaceIdentification || []);
         },
         selectNumberOfChildren: function(value) {
@@ -133,7 +136,9 @@ export default Ember.Controller.extend({
                 demographicsNumberOfBooks: model.get('demographicsNumberOfBooks'),
                 demographicsAdditionalComments: model.get('demographicsAdditionalComments')
             });
-            model.save();
+            model.save().then(() => {
+                this.toast.info('Demographics survey saved successfully.');
+            });
         }
     }
 });
