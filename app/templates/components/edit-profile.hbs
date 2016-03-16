@@ -35,9 +35,9 @@
         </select>
       </div>
       <br>
+      <a class="text-danger" role="button" {{action 'delete' profile}}>Remove {{profile.firstName}} from account</a>
       <div class="pull-right">
         <button disabled={{or (not isDirty) (not isValid)}} class="btn btn-success" {{action 'save' profile}}>Save</button>
-        <button class="btn btn-danger" {{action 'delete' profile}}>Delete</button>
         <button disabled={{not isDirty}} class="btn btn-default" {{action 'cancel' profile}}>Cancel</button>
       </div>
       {{/bs-form-group}}
