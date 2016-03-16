@@ -5,6 +5,13 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
+    sourcemaps: {enabled: true},
+    minifyJS: {
+        enabled: EmberApp.env() !== 'development'
+    },
+    minifyCSS: {
+        enabled: EmberApp.env() !== 'development'
+    },
     emberWowza: {
       // Config for video recorder config
       asp: JSON.parse(process.env.WOWZA_ASP),
