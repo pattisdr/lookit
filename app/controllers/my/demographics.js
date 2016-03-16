@@ -93,8 +93,11 @@ export default Ember.Controller.extend({
         'no'
     ],
     actions: {
-        selectRaceIdentification: function(event) {
-            const selectedRaceIdentification = Ember.$(event.target).val();
+        selectRaceIdentification: function() {
+            const selectedRaceIdentification = [];
+            Ember.$('#raceIdentification input:checked').each(function() {
+                selectedRaceIdentification.push(Ember.$(this).attr('value'));
+            });
             this.set('selectedRaceIdentification', selectedRaceIdentification || []);
         },
         saveDemographicsPreferences: function() {
