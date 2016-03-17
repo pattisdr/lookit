@@ -10,14 +10,13 @@ export default Ember.Component.extend({
 
   actions: {
     authenticate() {
-      this.get('login')({
-        provider: 'self',
-        namespace: this.get('namespace'),
-        collection: this.get('collection'),
-        username: this.get('username'),
-        password: this.get('password')
-      });
-      return false;
+        this.get('login')({
+            provider: 'self',
+            username: this.get('username'),
+            password: this.get('password'),
+            namespace: this.get('namespace'),
+            collection: this.get('collection'),
+        });
     }
   }
 });

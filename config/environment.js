@@ -2,13 +2,6 @@
 
 module.exports = function(environment) {
   var ENV = {
-    JAMDB: {
-        url: 'http://localhost:1212',
-        namespace: 'experimenter',
-        collection:'accounts',
-        authorizer: 'jam-jwt'
-    },
-
     modulePrefix: 'lookit-base',
     environment: environment,
     baseURL: '/',
@@ -22,7 +15,6 @@ module.exports = function(environment) {
     'ember-simple-auth': {
         authenticationRoute: 'login',
         routeAfterAuthentication: 'home',
-        authorizer: 'simple-auth-authorizer:jam-jwt'
     },
     APP: {
       // Here you can pass flags/options to your application instance
@@ -49,10 +41,23 @@ module.exports = function(environment) {
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
   }
 
-  if (environment === 'staging') {
-    ENV.JAMDB.url = 'https://staging-metadata.osf.io';
-    ENV.JAMDB.namespace = 'experimenter';
-  }
+    if (environment === 'development') {
+        ENV.JAMDB = {
+            authorizer: 'jam-jwt',
+            collection:'accounts',
+            namespace: 'experimenter',
+            url: process.env.JAMDB_URL  || 'http://localhost:1212',
+        };
+    }
+
+    if (environment === 'staging' || environment === 'production') {
+        ENV.JAMDB = {
+            authorizer: 'jam-jwt',
+            collection:'accounts',
+            url: process.env.JAMDB_URL,
+            namespace: process.env.JAMDB_NAMESPACE,
+        };
+    }
 
   if (environment === 'test') {
     // Testem prefers this...

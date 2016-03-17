@@ -11,15 +11,7 @@ export default Ember.Controller.extend({
     creatingUser: false,
     actions: {
         authenticate(attrs) {
-            var me = this;
-            var target = me.get('target');
-            me.get('session').authenticate('authenticator:jam-jwt',attrs).then(
-                function() {
-                    target.transitionTo('home');
-                }, function() {
-                    me.send('toggleInvalidAuth');
-                }
-            );
+            this.get('session').authenticate('authenticator:jam-jwt', attrs).catch(() => this.send('toggleInvalidAuth'));
         },
         toggleInvalidAuth() {
             this.toggleProperty('invalidAuth');
