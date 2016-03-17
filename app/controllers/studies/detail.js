@@ -4,6 +4,11 @@ export default Ember.Controller.extend({
     session: Ember.inject.service(),
     sessionAccount: Ember.inject.service(),
     selectedChildId: null,
+
+    route: function() {
+        return `${Ember.getOwner(this).lookup('router:main').get('currentPath')}:${this.get('model.experiment.id')}`;
+    }.property('model'),
+
     actions: {
         pickChild: function() {
             var account = this.get('sessionAccount').get('account');

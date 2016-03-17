@@ -4,14 +4,19 @@ import config from 'ember-get-config';
 
 export default Ember.Controller.extend({
     modal: false,
+    queryParams: ['ref'],
     session: Ember.inject.service('session'),
 
     invalidAuth: false,
     userConflict: false,
     creatingUser: false,
+
     actions: {
         authenticate(attrs) {
-            this.get('session').authenticate('authenticator:jam-jwt', attrs).catch(() => this.send('toggleInvalidAuth'));
+            this.get('session')
+                .authenticate('authenticator:jam-jwt', attrs)
+                .then(() => this.get('ref') ? this.transitionToRoute(...this.get('ref').split(':')) : null)
+                .catch(() => this.send('toggleInvalidAuth'));
         },
         toggleInvalidAuth() {
             this.toggleProperty('invalidAuth');

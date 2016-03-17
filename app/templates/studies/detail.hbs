@@ -41,7 +41,7 @@
           </div>
           <div class="col-md-3">
             {{#if (not model.account) }}
-              {{link-to 'Log in to participate' 'login' class="btn btn-lg btn-default"}}
+              {{link-to 'Log in to participate' 'login' (query-params ref=route) class="btn btn-lg btn-default"}}
             {{else if (not model.account.profiles)}}
               {{link-to 'Add child profile to participate' 'my.children' class="btn btn-lg btn-default"}}
             {{else if (not model.account.hasCompletedSurvey) }}

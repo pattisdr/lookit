@@ -15,21 +15,11 @@ module.exports = function(environment) {
     'ember-simple-auth': {
         authenticationRoute: 'login',
         routeAfterAuthentication: 'home',
+        routeIfAlreadyAuthenticated: 'home',
     },
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-    },
-
-    //    This is probably super unsafe, but just for proof of concept...
-    contentSecurityPolicy: {
-        'font-src':"'self' fonts.gstatic.com fonts.googleapis.com",
-        'style-src':"'self''unsafe-inline' fonts.googleapis.com",
-        'connect-src': "'self' localhost:1212",
-        'child-src':"'self' blob:",
-//        Change this unsafe inline
-        'script-src': "* 'unsafe-inline'",
-        'default-src': "*",
     }
   };
 
