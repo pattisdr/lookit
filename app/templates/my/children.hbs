@@ -1,48 +1,13 @@
-<div>
-  <a href="#addNewParticipant" data-toggle="collapse">Add a child</a>
-  <div id="addNewParticipant" class="collapse">
-    <hr>
-    {{#bs-form}}
-      {{#bs-form-group}}
-      <div>
-        <label>First Name</label>
-        {{bs-input type="text" value=newFirstName}}
-      </div>
-      <br>
-      <div>
-        <label>Birthday</label>
-        {{pikaday-input value=newBirthday format="MM/DD/YYYY" yearRange="1990,currentYear" class="form-control"}}
-      </div>
-      <br>
-      <div>
-        <label>Gender</label>
-        <div onchange={{action (mut newGender) value="target.value"}}>
-          {{#each genderOptions as |genderOption|}}
-          <label class="radio-inline">
-            <input class="radio" type="radio" value={{genderOption}} checked={{eq newGender genderOption}}> {{genderOption}}
-          </label>
-          {{/each}}
-        </div>
-      </div>
-      <br>
-      <div>
-        <label>Gestational Age at Birth</label>
-        <select onchange={{action (mut newAgeAtBirth) value="target.value"}} class="form-control">
-          <option value="" disabled={{not (eq newAgeAtBirth null)}} selected={{eq newAgeAtBirth null}} hidden={{not (eq newAgeAtBirth null)}}>Please Choose...</option>
-          {{#each ageAtBirthOptions as |ageAtBirthOption|}}
-            <option value={{ageAtBirthOption}} selected={{eq newAgeAtBirth ageAtBirthOption}}>{{ageAtBirthOption}}</option>
-          {{/each}}
-        </select>
-      </div>
-      <br>
-      <div class="pull-right">
-        <button class="btn btn-success" {{action 'createProfile'}} disabled={{not isValid}}>Create Profile</button>
-        <button class="btn btn-default" data-toggle="collapse" data-target="#addNewParticipant" {{action 'cancel'}}>Cancel</button>
-      </div>
-      {{/bs-form-group}}
-    {{/bs-form}}
-  </div>
-  {{#each model.profiles as |profile|}}
-    {{edit-profile profile=profile model=model genderOptions=genderOptions ageAtBirthOptions=ageAtBirthOptions}}
+<div class="row">
+<div class="col-md=12">
+  <button class="btn btn-default pull-right" onclick={{action 'toggleAddingNew'}}>Add a child</button>
+  <br>
+  <br>
+  {{#bs-collapse collapsed=notAddingNew}}
+    {{edit-profile profile=profile account=model genderOptions=genderOptions ageAtBirthOptions=ageAtBirthOptions onAdd=(action 'profileAdded')}}
+  {{/bs-collapse}}
+  {{#each model.activeProfiles as |child|}}
+    {{edit-profile profile=child account=model genderOptions=genderOptions ageAtBirthOptions=ageAtBirthOptions}}
   {{/each}}
+</div>
 </div>
