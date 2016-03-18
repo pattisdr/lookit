@@ -17,7 +17,8 @@
     "handlebars": "3.0.3",
     "toastr": "^2.1.2",
     "lodash": "~3.10.1",
-    "pikaday": "^1.4.0"
+    "pikaday": "^1.4.0",
+    "tooltipster": "^3.3.0"
   },
   "resolutions": {
     "ember": "2.3.0",

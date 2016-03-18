@@ -5,12 +5,30 @@
     {{#bs-form class="form-horizontal"}}
       {{#bs-form-group}}
       <div>
-        <label>First Name</label>
+        <label>
+           {{#tool-tipster
+           title=tooltips.firstName
+           triggerEvent="hover"
+           position="right"
+           }}
+           First Name
+           <i class="fa fa-info-circle"></i>
+           {{/tool-tipster}}
+        </label>
         {{bs-input type="text" value=profile.firstName}}
       </div>
       <br>
       <div>
-        <label>Birthday</label>
+        <label>
+          {{#tool-tipster
+           title=tooltips.birthday
+           triggerEvent="hover"
+           position="right"
+           }}
+           Birthday
+           <i class="fa fa-info-circle"></i>
+          {{/tool-tipster}}
+        </label>
         <div class="input-group">
           {{pikaday-input value=profile.birthday format="MM/DD/YYYY" yearRange="1990,currentYear" class="form-control"}}
           <span class="input-group-addon">{{moment-from-now profile.birthday hideSuffix=true}} old</span>
@@ -36,6 +54,12 @@
             <option value={{ageAtBirthOption}} selected={{eq profile.ageAtBirth ageAtBirthOption}}>{{ageAtBirthOption}}</option>
           {{/each}}
         </select>
+      </div>
+      <br>
+      <div>
+        <label>Any additional information you'd like us to know</label>
+        <p class="text-muted"><em>for instance, diagnosed developmental disorders or vision or hearing problems</em></p>
+        {{textarea value=profile.additionalInformation class="textarea-full"}}
       </div>
       <br>
       <button class="btn btn-warning" role="button" {{action 'delete' profile}}>Remove {{profile.firstName}} from account</button>

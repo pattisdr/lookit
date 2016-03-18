@@ -7,7 +7,7 @@
     {{edit-profile profile=profile account=model genderOptions=genderOptions ageAtBirthOptions=ageAtBirthOptions onAdd=(action 'profileAdded')}}
   {{/bs-collapse}}
   {{#each model.activeProfiles as |child|}}
-    {{edit-profile profile=child account=model genderOptions=genderOptions ageAtBirthOptions=ageAtBirthOptions}}
+    {{edit-profile profile=child account=model}}
   {{/each}}
 </div>
 </div>
