@@ -3,10 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
     tooltips: {
         firstName: 'This lets you select the correct child to participate in a particular study. A nickname or initials are fine! We may include your child\'s name in email to you (for instance, "There\'s a new study available for Molly!") but will never publish names or use them in our research.',
-        birthday: 'This lets you select the correct child to participate in a particular study. A nickname or initials are fine! We may include your child\'s name in email to you (for instance, "There\'s a new study available for Molly!") but will never publish names or use them in our research.',
-
-
-
+        birthday: 'This lets you select the correct child to participate in a particular study. A nickname or initials are fine! We may include your child\'s name in email to you (for instance, "There\'s a new study available for Molly!") but will never publish names or use them in our research.'
     },
 
     profile: null,
