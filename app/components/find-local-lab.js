@@ -574,6 +574,9 @@ export default Ember.Component.extend({
     chosenState: '',
     labs: [],
     nothingToShow: false,
+    matcher(state, term) {
+        return state.toLowerCase().indexOf(term.trim().toLowerCase()) === 0;
+    },
     actions: {
         chooseLocation(us_state) {
             this.set('chosenState', us_state);
