@@ -1,52 +1,57 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-    firstName: Ember.computed(function() {
-        return this.profile.firstName;
-    }),
-    birthday: Ember.computed(function() {
-        return this.profile.birthday;
-    }),
-    gender: Ember.computed(function() {
-        return this.profile.gender || null;
-    }),
-    ageAtBirth: Ember.computed(function() {
-        return this.profile.ageAtBirth || null;
-    }),
-    isDirty: Ember.computed('firstName', 'birthday', 'gender', 'ageAtBirth', function() {
-        if (this.get('firstName') !== this.get('profile.firstName') || this.get('birthday') !== this.get('profile.birthday') || this.get('gender') !== this.get('profile.gender') || this.get('ageAtBirth') !== this.get('profile.ageAtBirth')) {
+    tooltips: {
+        firstName: 'This lets you select the correct child to participate in a particular study. A nickname or initials are fine! We may include your child\'s name in email to you (for instance, "There\'s a new study available for Molly!") but will never publish names or use them in our research.',
+        birthday: 'This lets you select the correct child to participate in a particular study. A nickname or initials are fine! We may include your child\'s name in email to you (for instance, "There\'s a new study available for Molly!") but will never publish names or use them in our research.',
+
+
+
+    },
+
+    profile: null,
+    account: null,
+    isDirty: Ember.computed.alias('profile.hasDirtyAttributes'),
+    isValid: Ember.computed('profile.firstName', 'profile.birthday', 'profile.gender', 'profile.ageAtBirth', function() {
+        if (!Ember.isEmpty(this.get('profile.firstName')) && !Ember.isEmpty(this.get('profile.birthday')) && !Ember.isEmpty(this.get('profile.gender')) && !Ember.isEmpty(this.get('profile.ageAtBirth'))) {
             return true;
         }
         return false;
     }),
-    isValid: Ember.computed('firstName', 'birthday', 'gender', 'ageAtBirth', function() {
-        if (!Ember.isEmpty(this.get('firstName')) && !Ember.isEmpty(this.get('birthday')) && !Ember.isEmpty(this.get('gender')) && !Ember.isEmpty(this.get('ageAtBirth'))) {
-            return true;
+    genderOptions: [
+        'Male',
+        'Female',
+        'Other or prefer not to answer'
+    ],
+    ageAtBirthOptions: Ember.computed(function() {
+        var options = ['Under 24 weeks'];
+        for (var i = 25; i < 40; i++) {
+            options.push(`${i} weeks`);
         }
-        return false;
+        options.push('40 or more weeks');
+        return options;
     }),
     actions: {
         save: function(profile) {
-            Ember.setProperties(profile, {'firstName': this.get('firstName'),'birthday': new Date(this.get('birthday')), 'gender': this.get('gender'), 'ageAtBirth': this.get('ageAtBirth')});
-            this.get('model').save().then(() => {
-                this.toast.info('Child profile updated successfully.');
+            var account = this.get('account');
+            var verb = 'updated';
+            if (account.get('profiles').indexOf(profile) === -1) {
+                account.get('profiles').unshiftObject(profile);
+                verb = 'added';
+                this.get('onAdd')();
+            }
+
+            this.get('account').save().then(() => {
+                profile.save();
+                this.toast.info(`Child profile ${verb} successfully.`);
             });
         },
         cancel: function(profile) {
-            this.set('firstName', profile.get('firstName'));
-            this.set('birthday', profile.get('birthday'));
-            this.set('gender', profile.get('gender'));
-            this.set('ageAtBirth', profile.get('ageAtBirth'));
+            profile.rollbackAttributes();
         },
         delete: function(profile) {
-            if (this.get('model.profiles').length !== 0) {
-                this.get('model.profiles').removeObject(profile);
-            }
-            else {
-                console.log('No profiles to delete.');
-            }
-
-            this.get('model').save().then(() => {
+            profile.set('deleted', true);
+            this.get('account').save().then(() => {
                 this.toast.info('Child profile deleted successfully.');
             });
         }
