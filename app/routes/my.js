@@ -1,4 +1,3 @@
-
 import Ember from 'ember';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
@@ -9,7 +8,6 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     sessionAccount: service('session-account'),
 
     model() {
-        return this.store.findRecord('account', this.get('sessionAccount').account.id);
+        return this.get('sessionAccount').loadCurrentUser();
     }
-
 });
