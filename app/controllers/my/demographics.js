@@ -92,6 +92,34 @@ export default Ember.Controller.extend({
         'yes',
         'no'
     ],
+
+    nNumberOfChildren: 11,
+    numberOfChildren: Ember.computed('nNumberOfChildren', 'model.demographicsNumberOfChildren', function() {
+        var numberOfChildren = this.get('model.demographicsNumberOfChildren');
+        if (!numberOfChildren) {
+            return 0;
+        }
+        else if (isNaN(numberOfChildren)) {
+            numberOfChildren = this.get('nNumberOfChildren');
+            if (!numberOfChildren) {
+                return 0;
+            }
+            else {
+                return parseInt(numberOfChildren);
+            }
+        }
+        else {
+            return parseInt(numberOfChildren);
+        }
+    }),
+    onNumberOfChildrenChange: Ember.observer('numberOfChildren', function() {
+        var numberOfChildren = this.get('numberOfChildren');
+        var birthdays = [];
+        for(var i = 0; i < numberOfChildren; i++) {
+            birthdays[i] = this.get('model.demographicsChildBirthdays').objectAt(i);
+        }
+        this.get('model').set('demographicsChildBirthdays', Ember.A(birthdays));
+    }),
     actions: {
         selectRaceIdentification: function() {
             const selectedRaceIdentification = [];
@@ -101,26 +129,18 @@ export default Ember.Controller.extend({
             this.set('selectedRaceIdentification', selectedRaceIdentification || []);
         },
         saveDemographicsPreferences: function() {
-            var model = this.get('model');
-            model.setProperties({
-                demographicsLanguagesSpokenAtHome: model.get('demographicsLanguagesSpokenAtHome'),
-                demographicsNumberOfChildren: model.get('demographicsNumberOfChildren'),
-                demographicsNumberOfGuardians: model.get('demographicsNumberOfGuardians'),
-                demographicsNumberOfGuardiansExplanation: model.get('demographicsNumberOfGuardiansExplanation'),
-                demographicsRaceIdentification: this.get('selectedRaceIdentification'),
-                demographicsAge: model.get('demographicsAge'),
-                demographicsGender: model.get('demographicsGender'),
-                demographicsEducationLevel: model.get('demographicsEducationLevel'),
-                demographicsSpouseEducationLevel: model.get('demographicsSpouseEducationLevel'),
-                demographicsAnnualIncome: model.get('demographicsAnnualIncome'),
-                demographicsWillingToBeContactedForSimilarStudies: model.get('demographicsWillingToBeContactedForSimilarStudies'),
-                demographicsCanScheduleAnAppointment: model.get('demographicsCanScheduleAnAppointment'),
-                demographicsNumberOfBooks: model.get('demographicsNumberOfBooks'),
-                demographicsAdditionalComments: model.get('demographicsAdditionalComments')
-            });
-            model.save().then(() => {
+            this.get('model').save().then(() => {
                 this.toast.info('Demographic survey saved successfully.');
             });
+        },
+        setChildBirthday(index, birthday) {
+            var childBirthdays = this.get('model.demographicsChildBirthdays');
+            childBirthdays[index]  = birthday;
+
+            var model = this.get('model');
+
+            model.set('demographicsChildBirthdays', childBirthdays);
+            model.propertyDidChange('demographicsChildBirthdays');
         }
     }
 });
