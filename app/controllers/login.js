@@ -28,6 +28,9 @@ export default Ember.Controller.extend({
                 password: attrs.password,
                 email: attrs.email,
                 profiles: [],
+                emailPreferencesResearcherQuestions: true,
+                emailPreferencesNewStudies: true,
+                emailPreferencesResultsPublished: true,
                 // Update the line below to be more general
                 id: `${attrs.username}`
             });
