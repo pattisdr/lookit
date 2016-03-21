@@ -109,7 +109,7 @@
         <select onchange={{action (mut model.demographicsSpouseEducationLevel) value="target.value"}} class="form-control" >
           <option value="" disabled selected hidden>Please Choose...</option>
           {{#each spouseEducationOptions as |spouseEducationOption|}}
-          <option value={{spouseEducationOption}} selected={{eq chosenSpouseEducation spouseEducationOption}}>{{spouseEducationOption}}</option>
+          <option value={{spouseEducationOption}} selected={{eq model.demographicsSpouseEducationLevel spouseEducationOption}}>{{spouseEducationOption}}</option>
           {{/each}}
         </select>
       {{/bs-form-group}}

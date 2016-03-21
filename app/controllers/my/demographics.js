@@ -71,16 +71,16 @@ export default Ember.Controller.extend({
         'graduate or professional degree',
         'not applicable - no spouse or partner'
     ],
-    annualIncomeOptions: [
-        '0',
-        '5K',
-        '30K',
-        '40K',
-        '100K',
-        '200K',
-        'over 200K',
-        'prefer not to answer'
-    ],
+    annualIncomeOptions: Ember.computed(function() {
+        var ret = ['0', '5K'];
+        for (var i = 10; i < 200; i += 10) {
+            ret.push(`${i}K`);
+        }
+        ret.push('over 200K');
+        ret.push('prefer not to answer');
+
+        return ret;
+    }),
     guardianOptions: [
         '1',
         '2',
