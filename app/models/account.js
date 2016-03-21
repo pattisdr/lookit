@@ -7,7 +7,8 @@ const DEMOGRAPHIC_FIELDS = ['demographicsLanguagesSpokenAtHome','demographicsNum
 export default Account.extend({
     email: DS.attr('string'),
     mustResetPassword: DS.attr('boolean'),
-    emailPreferencesResearcherQuestions: DS.attr('boolean', {defaultValue: true}),
+
+    emailPreferencesNextSession: DS.attr('boolean', {defaultValue: true}),
     emailPreferencesNewStudies: DS.attr('boolean', {defaultValue: true}),
     emailPreferencesResultsPublished: DS.attr('boolean', {defaultValue: true}),
     demographicsLanguagesSpokenAtHome: DS.attr('string'),

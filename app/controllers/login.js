@@ -28,7 +28,7 @@ export default Ember.Controller.extend({
                 password: attrs.password,
                 email: attrs.email,
                 profiles: [],
-                emailPreferencesResearcherQuestions: true,
+                emailPreferencesNextSession: true,
                 emailPreferencesNewStudies: true,
                 emailPreferencesResultsPublished: true,
                 // Update the line below to be more general
