@@ -18,9 +18,10 @@ export default Ember.Component.extend({
     init() {
         this._super(...arguments);
 
-        let account = this.get('sessionAccount').account;  // Assumption: user must be logged in to see this
-        let profile = account.profileById(this.get('session.profileId'));
-        this.set('profileName', `${profile.firstName}`); // TODO: Name format should disambiguate
+        this.get('sessionAccount').loadCurrentUser((account) => {
+            let profile = account.profileById(this.get('session.profileId'));
+            this.set('profileName', `${profile.firstName}`); // TODO: Name format should disambiguate
+        });
     },
 
     actions: {
