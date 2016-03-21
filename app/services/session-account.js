@@ -28,12 +28,12 @@ export default Ember.Service.extend({
     loadCurrentUser() {
         return new RSVP.Promise((resolve, reject) => {
             if (!this.get('session.isAuthenticated')) {
-                reject();
+                return resolve(null);
             }
 
             var account = this.get('account');
             if (account) {
-                return account;
+                return resolve(account);
             }
 
             const accountId = this.get('session.data.authenticated.id');
