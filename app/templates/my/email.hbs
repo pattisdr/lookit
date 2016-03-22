@@ -19,6 +19,13 @@
         value=model.emailPreferencesResultsPublished
         label="Results of a study we participated in are published"
         }}
+        <div class="form-inline">
+          <div class="form-group">
+            <label>
+              A researcher may also email you personally if we have questions about your responses (for example, if you report two different birthdates for a child and we're not sure whether he's 3 or 5) or if you report a technical problem. Check here to opt out:&nbsp;&nbsp;&nbsp; {{input type="checkbox" checked=model.emailPreferencesOptOut}}
+            </label>
+          </div>
+        </div>
         <br>
         {{#bs-button type="success" action="saveEmailPreferences"}}
         Save

@@ -11,6 +11,8 @@ export default Account.extend({
     emailPreferencesNextSession: DS.attr('boolean', {defaultValue: true}),
     emailPreferencesNewStudies: DS.attr('boolean', {defaultValue: true}),
     emailPreferencesResultsPublished: DS.attr('boolean', {defaultValue: true}),
+    emailPreferencesOptOut: DS.attr('boolean', {defaultValue: false}),
+
     demographicsNumberOfChildren: DS.attr('string'),
     demographicsChildBirthdays: DS.attr('dateList'),
     demographicsLanguagesSpokenAtHome: DS.attr('string'),
