@@ -5,6 +5,7 @@ export default Ember.Component.extend({
         firstName: 'This lets you select the correct child to participate in a particular study. A nickname or initials are fine! We may include your child\'s name in email to you (for instance, "There\'s a new study available for Molly!") but will never publish names or use them in our research.',
         birthday: 'This lets you select the correct child to participate in a particular study. A nickname or initials are fine! We may include your child\'s name in email to you (for instance, "There\'s a new study available for Molly!") but will never publish names or use them in our research.'
     },
+    deleting: false,
 
     profile: null,
     account: null,
@@ -49,8 +50,11 @@ export default Ember.Component.extend({
         delete: function(profile) {
             profile.set('deleted', true);
             this.get('account').save().then(() => {
-                this.toast.info('Child profile deleted successfully.');
+                this.toast.info(`${profile.get('firstName')}'s profile deleted successfully.`);
             });
+        },
+        showDelete: function() {
+            this.toggleProperty('deleting');
         }
     }
 });

@@ -62,7 +62,7 @@
         {{textarea value=profile.additionalInformation class="textarea-full"}}
       </div>
       <br>
-      <button class="btn btn-warning" role="button" {{action 'delete' profile}}>Remove {{profile.firstName}} from account</button>
+      <button class="btn btn-warning" role="button" {{action 'showDelete'}}>Remove {{profile.firstName}} from account</button>
       <div class="pull-right">
         <button disabled={{or (not isDirty) (not isValid)}} class="btn btn-success" {{action 'save' profile}}>Save</button>
         <button disabled={{not isDirty}} class="btn btn-default" {{action 'cancel' profile}}>Cancel</button>
@@ -71,3 +71,19 @@
     {{/bs-form}}
   </div>
 </div>
+
+{{#bs-modal open=deleting footer=false title="Are you sure?"}}
+  {{#bs-modal-body}}
+    <div class="panel">
+      <div class="row">
+        <div class="col-md-12">
+          You are about to remove {{profile.firstName}}'s profile from your account. This action is irreversible.
+        </div>
+      </div>
+    </div>
+  {{/bs-modal-body}}
+  {{#bs-modal-footer as |footer|}}
+    {{#bs-button click=(action 'showDelete') type="default"}}Cancel{{/bs-button}}
+    {{#bs-button type="danger" click=(action 'delete' profile)}}Remove child{{/bs-button}}
+  {{/bs-modal-footer}}
+{{/bs-modal}}
