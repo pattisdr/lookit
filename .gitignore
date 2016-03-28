@@ -17,3 +17,5 @@ npm-debug.log
 testem.log
 /public/VideoRecorder.swf
 /.env
+
+migration/output/*
