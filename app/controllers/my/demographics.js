@@ -9,6 +9,7 @@ export default Ember.Controller.extend({
         var model = this.get('model');
         return model.get('demographicsRaceIdentification');
     }),
+    today: new Date(),
     ageChoices: [
         'under 18',
         '18-21',
@@ -118,7 +119,25 @@ export default Ember.Controller.extend({
         for(var i = 0; i < numberOfChildren; i++) {
             birthdays[i] = this.get('model.demographicsChildBirthdays').objectAt(i);
         }
-        this.get('model').set('demographicsChildBirthdays', Ember.A(birthdays));
+        this.get('model.demographicsChildBirthdays').setObjects(birthdays);
+    }),
+    childBirthdays: Ember.computed('model.demographicsChildBirthdays.[]', {
+        get: function() {
+            var ret = Ember.Object.create();
+            this.get('model.demographicsChildBirthdays').toArray().forEach(function(bd, i) {
+                ret.set(i.toString(),  bd);
+            });
+            return ret;
+        },
+        set: function(_, birthdays) {
+            var ret = [];
+            Object.keys(birthdays).forEach(function(key) {
+                ret[parseInt(key)] = birthdays[key];
+            });
+            this.get('model.demographicsChildBirthdays').setObjects(ret);
+            this.propertyDidChange('childBirthdays');
+            return this.get('childBirthdays');
+        }
     }),
     actions: {
         selectRaceIdentification: function() {
@@ -134,13 +153,9 @@ export default Ember.Controller.extend({
             });
         },
         setChildBirthday(index, birthday) {
-            var childBirthdays = this.get('model.demographicsChildBirthdays');
-            childBirthdays[index]  = birthday;
-
-            var model = this.get('model');
-
-            model.set('demographicsChildBirthdays', childBirthdays);
-            model.propertyDidChange('demographicsChildBirthdays');
+            var childBirthdays = this.get('childBirthdays');
+            childBirthdays.set(index.toString(), birthday);
+            this.set('childBirthdays', childBirthdays);
         }
     }
 });
