@@ -62,10 +62,16 @@
         {{textarea value=profile.additionalInformation class="textarea-full"}}
       </div>
       <br>
-      <button class="btn btn-warning" role="button" {{action 'showDelete'}}>Remove {{profile.firstName}} from account</button>
+      {{#if profile.profileId }}
+        <button class="btn btn-warning" role="button" {{action 'showDelete'}}>Remove {{profile.firstName}} from account</button>
+      {{else}}
+        <button class="btn btn-default" role="button" {{action 'cancelAdd'}}>Cancel</button>
+      {{/if}}
       <div class="pull-right">
         <button disabled={{or (not isDirty) (not isValid)}} class="btn btn-success" {{action 'save' profile}}>Save</button>
-        <button disabled={{not isDirty}} class="btn btn-default" {{action 'cancel' profile}}>Cancel</button>
+        {{#if profile.profileId }}
+          <button disabled={{not isDirty}} class="btn btn-default" {{action 'cancel' profile}}>Cancel</button>
+        {{/if}}
       </div>
       {{/bs-form-group}}
     {{/bs-form}}

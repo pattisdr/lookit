@@ -34,6 +34,7 @@ export default Ember.Component.extend({
             var account = this.get('account');
             var verb = 'updated';
             if (account.get('profiles').indexOf(profile) === -1) {
+                profile.set('profileId', account.generateProfileId());
                 account.get('profiles').unshiftObject(profile);
                 verb = 'added';
                 this.get('onAdd')();
@@ -46,6 +47,9 @@ export default Ember.Component.extend({
         },
         cancel: function(profile) {
             profile.rollbackAttributes();
+        },
+        cancelAdd: function() {
+            this.get('onCancelAdd')();
         },
         delete: function(profile) {
             profile.set('deleted', true);

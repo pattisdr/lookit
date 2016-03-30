@@ -13,7 +13,6 @@ export default Ember.Controller.extend({
     profile: null,
     newProfile: function() {
         return this.get('store').createRecord('profile', {
-            profileId: this.get('model').generateProfileId(),
             deleted: false
         });
     },
@@ -27,6 +26,10 @@ export default Ember.Controller.extend({
             this.toggleProperty('addingNew');
         },
         toggleAddingNew () {
+            this.toggleProperty('addingNew');
+        },
+        cancelAddProfile () {
+            this.set('profile', this.newProfile());
             this.toggleProperty('addingNew');
         }
     }

@@ -4,7 +4,7 @@
   <br>
   <br>
   {{#bs-collapse collapsed=notAddingNew}}
-    {{edit-profile profile=profile account=model genderOptions=genderOptions ageAtBirthOptions=ageAtBirthOptions onAdd=(action 'profileAdded')}}
+    {{edit-profile account=model profile=profile onAdd=(action 'profileAdded') onCancelAdd=(action 'cancelAddProfile')}}
   {{/bs-collapse}}
   {{#each model.activeProfiles as |child|}}
     {{edit-profile profile=child account=model}}
