@@ -51,7 +51,7 @@
                 <label>Select a child:</label>
                 <select onchange={{action (mut selectedChildId) value="target.value"}} >
                   <option value="">None Selected</option>
-                  {{#each model.account.profiles as |child|}}
+                  {{#each model.account.activeProfiles as |child|}}
                   <option value={{child.profileId}} >{{child.firstName}}</option>
                   {{/each}}
                 </select>
