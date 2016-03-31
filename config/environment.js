@@ -15,7 +15,7 @@ module.exports = function(environment) {
     'ember-simple-auth': {
         authenticationRoute: 'login',
         routeAfterAuthentication: 'home',
-        routeIfAlreadyAuthenticated: 'home',
+        routeIfAlreadyAuthenticated: 'home'
     },
     APP: {
       // Here you can pass flags/options to your application instance
@@ -36,7 +36,7 @@ module.exports = function(environment) {
             authorizer: 'jam-jwt',
             collection:'accounts',
             namespace: 'experimenter',
-            url: process.env.JAMDB_URL  || 'http://localhost:1212',
+            url: process.env.JAMDB_URL  || 'http://localhost:1212'
         };
     }
 
@@ -45,7 +45,7 @@ module.exports = function(environment) {
             authorizer: 'jam-jwt',
             collection:'accounts',
             url: process.env.JAMDB_URL,
-            namespace: process.env.JAMDB_NAMESPACE,
+            namespace: process.env.JAMDB_NAMESPACE
         };
     }
 
