@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
     tooltips: {
         firstName: 'This lets you select the correct child to participate in a particular study. A nickname or initials are fine! We may include your child\'s name in email to you (for instance, "There\'s a new study available for Molly!") but will never publish names or use them in our research.',
-        birthday: 'This lets you select the correct child to participate in a particular study. A nickname or initials are fine! We may include your child\'s name in email to you (for instance, "There\'s a new study available for Molly!") but will never publish names or use them in our research.'
+        birthday: 'This lets us figure out exactly how old your child when he or she participates in a study. We never publish children\'s birthdates or information that would allow a reader to calculate the birthdate.'
     },
     deleting: false,
 
@@ -22,8 +22,9 @@ export default Ember.Component.extend({
         'Other or prefer not to answer'
     ],
     ageAtBirthOptions: Ember.computed(function() {
-        var options = ['Under 24 weeks'];
-        for (var i = 25; i < 40; i++) {
+        var options = ['Not sure or prefer not to answer'];
+        options.push('Under 24 weeks');
+        for (var i = 24; i < 40; i++) {
             options.push(`${i} weeks`);
         }
         options.push('40 or more weeks');
