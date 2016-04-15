@@ -2,6 +2,8 @@ import Ember from 'ember';
 
 const { service } = Ember.inject;
 
+import validators from 'lookit-base/utils/validators';
+
 export default Ember.Controller.extend({
     session: service('session'),
     sessionAccount: service('session-account'),
@@ -93,6 +95,10 @@ export default Ember.Controller.extend({
         'yes',
         'no'
     ],
+
+    isValid: Ember.computed('model.demographicsNumberOfBooks', function() {
+	return validators.min(0)(this.get('model.demographicsNumberOfBooks'));
+    }),
 
     nNumberOfChildren: 11,
     numberOfChildren: Ember.computed('nNumberOfChildren', 'model.demographicsNumberOfChildren', function() {
