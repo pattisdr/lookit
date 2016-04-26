@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+    today: new Date(),
+
     tooltips: {
         firstName: 'This lets you select the correct child to participate in a particular study. A nickname or initials are fine! We may include your child\'s name in email to you (for instance, "There\'s a new study available for Molly!") but will never publish names or use them in our research.',
         birthday: 'This lets us figure out exactly how old your child when he or she participates in a study. We never publish children\'s birthdates or information that would allow a reader to calculate the birthdate.'

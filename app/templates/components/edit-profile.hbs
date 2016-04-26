@@ -30,7 +30,7 @@
           {{/tool-tipster}}
         </label>
         <div class="input-group">
-          {{pikaday-input value=profile.birthday format="MM/DD/YYYY" yearRange="1990,currentYear" class="form-control"}}
+          {{pikaday-input value=profile.birthday format="MM/DD/YYYY" yearRange="1990,currentYear" class="form-control" maxDate=today readonly=profile.profileId}}
           <span class="input-group-addon">{{moment-from-now profile.birthday hideSuffix=true}} old</span>
         </div>
       </div>
