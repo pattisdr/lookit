@@ -5,7 +5,7 @@
 ##### Generate a token
 You will need to generate a personal access token on the OSF to run this script. Visit [https://staging.osf.io/settings/tokens/](https://staging.osf.io/settings/tokens/) to do this.
 
-![example](https://raw.githubusercontent.com/CenterForOpenScience/lookit/scripts/pat-example.png)
+![example](https://raw.githubusercontent.com/CenterForOpenScience/lookit/develop/scripts/pat-example.png)
 
 **Make sure to save this token's value! You will not be able to retrieve it again.**
 
