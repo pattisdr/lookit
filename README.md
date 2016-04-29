@@ -69,7 +69,7 @@ To get an overview of the URL structure of the Lookit site, it's best to look at
 
 Ember.js enforces a very strict convention over configuration model. This means the names user here must correspond directly with files in `app/templates/`, `app/routes/`, and `app/controllers`.
 For example, the 'faq' route has a corresponding template file  `app/templates/faq.hbs`. Templates are compiled using [handlebars.js](http://handlebarsjs.com/), hence the .hbs extention. Generally
-for modifying most static content it's sufficient to modify the template for the page that needs changing.e
+for modifying most static content it's sufficient to modify the template for the page that needs changing.
 
 ##### Sub-routes
 
