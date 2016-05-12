@@ -11,6 +11,9 @@ export default Ember.Controller.extend({
     userConflict: false,
     creatingUser: false,
 
+    resetId: null,
+    resetSent: false,
+
     actions: {
         authenticate(attrs) {
             this.get('session')
@@ -48,6 +51,23 @@ export default Ember.Controller.extend({
                 }
             });
         },
+	resetPassword() {
+	    let options = Ember.getOwner(this).lookup('adapter:application').ajaxOptions();
+	    Ember.$.ajaxSetup(options);
+	    let url = `${config.JAMDB.url}/v1/id/collections/${config.JAMDB.namespace}.accounts/user`;
+	    Ember.$.ajax({
+		url: url,
+		method: 'POST',
+		data: JSON.stringify({
+		    data: {
+			type: "reset",
+			attributes: {
+			    id: this.get('resetId')
+			}
+		    }
+		})
+	    }).then(() => this.set('resetSent', true));
+	},
         toggleUserConflict() {
             this.toggleProperty('userConflict');
         },

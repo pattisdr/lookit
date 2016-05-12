@@ -1,7 +1,9 @@
 import Ember from 'ember';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-const { service } = Ember.inject;
+const {
+    service
+} = Ember.inject;
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
     session: service('session'),
@@ -9,5 +11,15 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
     model() {
         return this.get('sessionAccount').loadCurrentUser();
+    },
+    beforeModel(transition) {
+        if (transition.queryParams.access_token) {
+            this.get('session')
+                .authenticate('authenticator:jam-jwt', {}, transition.queryParams.access_token)
+                .then(() => {
+                    window.location.hash = '';
+                });
+        }
+        this._super(...arguments);
     }
 });

@@ -19,7 +19,11 @@ export default BaseAuthenticator.extend({
     },
     authenticate(attrs, token) {
 	if (token) {
-	    return new Ember.RSVP.promise((resolve => resolve(token)));
+	    return new Ember.RSVP.Promise(resolve => {
+		resolve({
+		    token: token
+		});
+	    });
 	}
         return $.ajax({
             method: 'POST',

@@ -15,7 +15,7 @@ export default Ember.Component.extend({
             username: this.get('username'),
             password: this.get('password'),
             namespace: this.get('namespace'),
-            collection: this.get('collection'),
+            collection: this.get('collection')
         });
     }
   }
