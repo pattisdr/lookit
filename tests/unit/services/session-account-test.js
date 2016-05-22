@@ -1,12 +1,15 @@
-import { moduleFor, test } from 'ember-qunit';
+import {
+    moduleFor,
+    test
+} from 'ember-qunit';
 
 moduleFor('service:session-account', 'Unit | Service | session account', {
-  // Specify the other units that are required for this test.
-  // needs: ['service:foo']
+    // Specify the other units that are required for this test.
+    needs: ['service:session-account']
 });
 
 // Replace this with your real tests.
 test('it exists', function(assert) {
-  let service = this.subject();
-  assert.ok(service);
+    let service = this.subject();
+    assert.ok(service);
 });

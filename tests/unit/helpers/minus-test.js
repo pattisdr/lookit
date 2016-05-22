@@ -5,6 +5,11 @@ module('Unit | Helper | minus');
 
 // Replace this with your real tests.
 test('it works', function(assert) {
-  let result = minus([42]);
-  assert.ok(result);
+    let result = minus([42]);
+    assert.equal(result,42);
+});
+
+test('it subtracts the difference', function(assert) {
+    let result = minus([42, 17]);
+    assert.equal(result, 42 - 17);
 });
