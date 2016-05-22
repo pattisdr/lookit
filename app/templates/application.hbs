@@ -1,5 +1,10 @@
-<!--<p>(Application layer of Lookit)</p>-->
-{{#unless isParticipate}}
-{{main-nav accountName=sessionAccount.account.username}}
-{{/unless}}
-{{outlet}}
+{{#if isParticipate}}
+  <div class="participate">
+    {{outlet}}
+  </div>
+{{else}}
+  <div class="main">
+    {{main-nav accountName=sessionAccount.account.username}}
+    {{outlet}}
+  </div>
+{{/if}}

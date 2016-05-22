@@ -3,10 +3,15 @@
 /* ENTIRE WEBSITE */
 body {
     font-family: 'Lato', sans-serif;
-    padding-top: 50px;
     font-size : 15px;
 }
-
+.main {
+    padding-top: 50px;
+}
+.participate {
+    height: 100%;
+    width: 100%;
+}
 
 .navbar {
     box-shadow: 0 0 15px -4px #444;
@@ -287,7 +292,7 @@ button.account-row {
 }
 
 #expContainer {
-    padding: 5%;
+    padding: 10px;
 }
 
 /* CHILD PICKER */
