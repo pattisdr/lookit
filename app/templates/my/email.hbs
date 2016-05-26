@@ -4,21 +4,13 @@
     <br>
     {{#bs-form}}
       {{#bs-form-group}}
-        {{
-        bs-form-element controlType="checkbox"
-        value=model.emailPreferencesNextSession
-        label="It's time for another session of a study we are currently participating in"
-        }}
-        {{
-        bs-form-element controlType="checkbox"
-        value=model.emailPreferencesNewStudies
-        label="A new study is available for one of my children"
-        }}
-        {{
-        bs-form-element controlType="checkbox"
-        value=model.emailPreferencesResultsPublished
-        label="The results of a study we participated in are published"
-        }}
+	{{#each model.suppressions.groups as group}}
+	  {{
+            bs-form-element controlType="checkbox"
+            value=(get model group.attr)
+            label=group.description
+            }}
+	{{/each}}
         <div class="form-inline">
           <div class="form-group">
             <label>
