@@ -5,7 +5,7 @@ import json
 import pymongo
 
 def convert_childs(account_id, records):
-    if not records:
+    if not records or not records.count():
         return []
 
     ret = []
@@ -61,19 +61,20 @@ def convert_childs(account_id, records):
 def convert_users(db):
     ret = []
     for record in db.details.find():
+        email = record.get('email_label')
         demographic = db.demographic.find_one({
-            'email_label': record['email_label']
+            'email_label': email
         }) or {}
 
         childs = db.childs.find({
-            'parent_id': record['pid']
+            'parent_id': email
         })
 
         ret.append(
             dict(
                 id=str(record.get('_id')),
                 name=record.get('name'),
-                email=record.get('id'),
+                email=email,
                 emailPreferenceNextSession=True,
                 emailPreferenceNewStudies=('updates' in record.get('preference', [])),
                 emailPreferenceResultsPublished=('results' in record.get('preference', [])),
@@ -94,7 +95,7 @@ def convert_users(db):
                 demographicsNumberOfBooks=None,  # TODO?
                 demographicsAdditionalComments='',
 
-                # TODO get usernames
+                profileId=email.split('@')[0],
                 profiles=convert_childs(str(record['_id']), childs)
             )
         )
@@ -110,22 +111,27 @@ def main():
         inputdir = sys.argv[1]
     except IndexError:
         print "Please supply a path to the mongo backup to be restored and migrated, e.g.:"
-        print "./migrate.py --in=<PATH> --out=<PATH>"
+        print "./migrate.py --in=<PATH> --out=<PATH> --dbname=<DBNAME>"
         sys.exit(1)
     try:
         outputdir = sys.argv[2]
     except IndexError:
         print "Please supply a path to the desired output directory (of the migrated JSON), e.g.:"
-        print "./migrate.py --in=<PATH> --out=<PATH>"
+        print "./migrate.py --in=<PATH> --out=<PATH> --dbname=<DBNAME>"
+        sys.exit(1)
+    try:
+        dbname = sys.argv[3]
+    except IndexError:
+        print "Please supply the database name of the dumped db, e.g.:"
+        print "./migrate.py --in=<PATH> --out=<PATH> --dbname=<DBNAME>"
         sys.exit(1)
 
-    db_name = os.path.basename(inputdir)
 
     client = pymongo.MongoClient('localhost', 27017)
     try:
-        db = client[db_name]
+        db = client[dbname]
     except KeyError:
-        print "No database named {} found.".format(db_name)
+        print "No database named {} found.".format(dbname)
     else:
         migrate(db, outputdir)
 
