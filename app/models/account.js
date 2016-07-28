@@ -4,7 +4,7 @@ import Account from 'exp-models/models/account';
 
 import config from 'ember-get-config';
 
-const DEMOGRAPHIC_FIELDS = ['demographicsLanguagesSpokenAtHome', 'demographicsNumberOfChildren', 'demographicsNumberOfGuardians', 'demographicsNumberOfGuardiansExplanation', 'demographicsRaceIdentification', 'demographicsAge', 'demographicsGender', 'demographicsEducationLevel', 'demographicsSpouseEducationLevel', 'demographicsAnnualIncome', 'demographicsWillingToBeContactedForSimilarStudies', 'demographicsCanScheduleAnAppointment', 'demographicsNumberOfBooks', 'demographicsAdditionalComments'];
+const DEMOGRAPHIC_FIELDS = ['demographicsLanguagesSpokenAtHome', 'demographicsNumberOfChildren', 'demographicsNumberOfGuardians', 'demographicsNumberOfGuardiansExplanation', 'demographicsRaceIdentification', 'demographicsAge', 'demographicsGender', 'demographicsEducationLevel', 'demographicsSpouseEducationLevel', 'demographicsAnnualIncome', 'demographicsNumberOfBooks', 'demographicsAdditionalComments'];
 
 const ASM_MAPPING = {
     nextSession: {
@@ -44,8 +44,6 @@ export default Account.extend({
     demographicsEducationLevel: DS.attr('string'),
     demographicsSpouseEducationLevel: DS.attr('string'),
     demographicsAnnualIncome: DS.attr('string'),
-    demographicsWillingToBeContactedForSimilarStudies: DS.attr('string'),
-    demographicsCanScheduleAnAppointment: DS.attr('string'),
     demographicsNumberOfBooks: DS.attr('number'),
     demographicsAdditionalComments: DS.attr('string'),
 
