@@ -6,28 +6,7 @@ import config from 'ember-get-config';
 
 const DEMOGRAPHIC_FIELDS = ['demographicsLanguagesSpokenAtHome', 'demographicsNumberOfChildren', 'demographicsNumberOfGuardians', 'demographicsNumberOfGuardiansExplanation', 'demographicsRaceIdentification', 'demographicsAge', 'demographicsGender', 'demographicsEducationLevel', 'demographicsSpouseEducationLevel', 'demographicsAnnualIncome', 'demographicsNumberOfBooks', 'demographicsAdditionalComments'];
 
-const ASM_MAPPING = {
-    nextSession: {
-        label: 'Next Session',
-        description: 'It\'s time for another session of a study we are currently participating in',
-        id: '911'
-    },
-    newStudies: {
-        label: 'New Studies',
-        description: 'A new study is available for one of my children',
-        id: '913'
-    },
-    resultsPublished: {
-        label: 'Results Published',
-        description: 'The results of a study we participated in are published',
-        id: '915'
-    },
-    optOut: {
-        label: 'Opt Out',
-        description: 'A researcher may also email you personally if we have questions about your responses (for example, if you report two different birthdates for a child and we\'re not sure whether he\'s 3 or 5) or if you report a technical problem. Check here to opt out:',
-        id: '1117'
-    }
-};
+let { ASM_MAPPING } = config;
 
 export default Account.extend({
     email: DS.attr('string'),
