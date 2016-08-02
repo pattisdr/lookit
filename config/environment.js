@@ -40,7 +40,7 @@ module.exports = function(environment) {
         };
     }
 
-    if (environment === 'development') {
+    if (environment === 'staging') {
         ENV.ASM_MAPPING = {
             nextSession: {
                 label: 'Next Session',
@@ -100,10 +100,6 @@ module.exports = function(environment) {
         ENV.APP.LOG_VIEW_LOOKUPS = false;
 
         ENV.APP.rootElement = '#ember-testing';
-    }
-
-    if (environment === 'production') {
-
     }
 
     return ENV;
