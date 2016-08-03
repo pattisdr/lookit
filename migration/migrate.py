@@ -2,16 +2,22 @@ import sys
 import os
 import json
 
+import pymongo
+import dateparser
+
 from mappings import MAPPINGS
 
-import pymongo
-
-def convert_childs(account_id, records):
+def convert_childs(account_id, records, parent):
     if not records or not records.count():
         return []
 
     ret = []
 
+    child_birthdays = parent.get('dob', [])
+    if not isinstance(child_birthdays, list):
+        child_birthdays = [child_birthdays]
+
+    child_birthdays = [dateparser.parse(d).isoformat() for d in child_birthdays]
     for childs in records:
         child_ids = childs.get('child', [])
         child_names = childs.get('child_name', [])
@@ -23,7 +29,7 @@ def convert_childs(account_id, records):
                 child = {
                     'profileId': "{}.{}".format(account_id, child_ids[i]),
                     'firstName': child_names[i],
-                    'birthday': None,  # TODO
+                    'birthday': child_birthdays[i],
                     'gestationalAgeAtBirth': child_g_ages[i],
                     'gender': child_genders[i],
                     'deleted': False,
@@ -44,6 +50,7 @@ def convert_childs(account_id, records):
                 'firstName': child_names,
                 'birthday': None,  # TODO
                 'gestationalAgeAtBirth': child_g_ages,
+                'birthday': child_birthdays[0],
                 'gender': child_genders,
                 'deleted': False,
             }
@@ -78,7 +85,6 @@ def convert_demographic(demo):
                     ret[mapping['to']] = mapping['ref'][value.strip()]
                 except Exception as e:
                     print e
-                    import ipdb; ipdb.set_trace()
             else:
                 ret[mapping['to']] = value
     return ret
@@ -101,12 +107,14 @@ def convert_users(db):
         id = email.split('@')[0]
         attrs = dict(
             id=id,
+            migratedFrom=record.get('id'),
             name=record.get('name'),
             email=email,
             emailPreferenceNextSession=True,
             emailPreferenceNewStudies=('updates' in record.get('preference', [])),
             emailPreferenceResultsPublished=('results' in record.get('preference', [])),
-            profiles=convert_childs(str(id), childs)
+            profiles=convert_childs(str(id), childs, record),
+            unmigratedDob=record.get('dob')
         )
         attrs.update(demographic)
         ret.append(attrs)
@@ -122,7 +130,7 @@ def migrate(db, outputdir):
         else:
             count = profileIds[aid]
             account['id'] = aid + '_' + str(count)
-            profileIds[aid] = profileIds[aid] + 1    
+            profileIds[aid] = profileIds[aid] + 1
     with open(os.path.join(outputdir, 'accounts.json'), 'w') as fp:
         json.dump(accounts, fp, sort_keys=True, indent=4, separators=(',', ': '))
 
