@@ -87,6 +87,7 @@ def convert_demographic(demo):
                     print e
             else:
                 ret[mapping['to']] = value
+    ret['unmigratedSiblingages'] = demo.get('siblingages')
     return ret
 
 def convert_users(db):
