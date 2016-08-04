@@ -39,7 +39,7 @@
                 {{pikaday-input value=(unbound bd) onPikadaySelect=(action 'setChildBirthday' index) format="MM/DD/YYYY" yearRange="1990,currentYear" maxDate=today class="form-control"}}
                 <span class="input-group-addon">
                   {{#if bd}}
-                    {{moment-from-now (unbound bd) hideSuffix=true}} old
+                    {{moment-from-now bd hideSuffix=true}} old
                   {{/if}}
                 </span>
               </div>
