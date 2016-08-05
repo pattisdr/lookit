@@ -16,25 +16,14 @@ export default Ember.Controller.extend({
         if (!child) {
             return true;
         }
-
         let experiment = this.get('model');
-        let {
-            eligibilityMinAge,
-            eligibilityMaxAge
-        } = experiment.getProperties('eligibilityMinAge', 'eligibilityMaxAge');
-        let [minNumber, minUnit] = eligibilityMinAge.split(' ');
-        let minDays = moment.duration(parseFloat(minNumber), minUnit).asDays();
-        let [maxNumber, maxUnit] = eligibilityMaxAge.split(' ');
-        let maxDays = moment.duration(parseFloat(maxNumber), maxUnit).asDays();
-
-        var diff = moment().diff(child.get('birthday'), 'days');
-        return minDays <= diff && diff <= maxDays;
+	return experiment.isEligible(child);
     }),
 
     route: function() {
         return `${Ember.getOwner(this).lookup('router:main').get('currentPath')}:${this.get('model.id')}`;
     }.property('model'),
-
+    
     actions: {
         pickChild() {
             let profile = this.get('selectedChild');
