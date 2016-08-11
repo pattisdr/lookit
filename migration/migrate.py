@@ -7,6 +7,7 @@ import dateparser
 
 from mappings import MAPPINGS
 
+
 def convert_childs(account_id, records, parent):
     if not records or not records.count():
         return []
@@ -67,6 +68,7 @@ def convert_childs(account_id, records, parent):
 
     return ret
 
+
 def convert_demographic(demo):
     ret = {}
     for key, mapping in MAPPINGS.items():
@@ -89,6 +91,7 @@ def convert_demographic(demo):
                 ret[mapping['to']] = value
     ret['unmigratedSiblingages'] = demo.get('siblingages')
     return ret
+
 
 def convert_users(db):
     ret = []
@@ -121,6 +124,7 @@ def convert_users(db):
         ret.append(attrs)
     return ret
 
+
 def migrate(db, outputdir):
     accounts = convert_users(db)
     profileIds = {}
@@ -135,9 +139,10 @@ def migrate(db, outputdir):
     with open(os.path.join(outputdir, 'accounts.json'), 'w') as fp:
         json.dump(accounts, fp, sort_keys=True, indent=4, separators=(',', ': '))
 
+
 def main():
     try:
-        inputdir = sys.argv[1]
+        sys.argv[1]
     except IndexError:
         print "Please supply a path to the mongo backup to be restored and migrated, e.g.:"
         print "./migrate.py --in=<PATH> --out=<PATH> --dbname=<DBNAME>"
@@ -154,7 +159,6 @@ def main():
         print "Please supply the database name of the dumped db, e.g.:"
         print "./migrate.py --in=<PATH> --out=<PATH> --dbname=<DBNAME>"
         sys.exit(1)
-
 
     client = pymongo.MongoClient('localhost', 27017)
     try:
