@@ -54,10 +54,11 @@ This script fetches all of the users with a non-null value of `migratedFrom` att
 `python email_migrated_users.py -DR true|false -D true|false -V 0|1|2`
 
 where:
-	*`-DR` specifies whether this is a 'dry-run' or not. Setting this flag true (default) will make the script only log who password requests are
-	sent to (not actually sending emails). Set this false to actaully send emails.
-	*`-D` specifies whether or not to use debug mode. Debug mode means if an unexpected server response is seen an IPDB shell is opened to inspect
-	the program state.
+
+	*`-DR` specifies whether this is a 'dry-run' or not. Setting this flag true (default) will make the script only log who password requests are sent to (not actually sending emails). Set this false to actaully send emails.
+	
+	*`-D` specifies whether or not to use debug mode. Debug mode means if an unexpected server response is seen an IPDB shell is opened to inspect the program state.
+	
 	*`-V` specifies verbositiy. Use integers 0-2 to pick a logging level (0=NOTSET, 1=INFO, 2=DEBUG)
 
 
