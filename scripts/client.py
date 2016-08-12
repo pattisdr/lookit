@@ -205,6 +205,7 @@ class ExperimenterClient(object):
 
 def test():
     client = ExperimenterClient(access_token=OSF_ACCESS_TOKEN).authenticate()
+    '''
     exps = client.fetch_experiments()
     for exp in exps:
         exp['sessions'] = client.fetch_sessions_for_experiment(exp)
@@ -221,7 +222,7 @@ def test():
         sess['id'].split('.')[-1],
         exp['attributes']['title']
     )
-
+    '''
     account_id = 'sam'
     print """
     Demographics for {}:
@@ -230,5 +231,5 @@ def test():
         client.get_demographics_for_account(account_id),
         indent=4
     ))
-
+0
 test() if __name__ == '__main__' else None
