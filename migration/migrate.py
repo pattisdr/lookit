@@ -108,16 +108,19 @@ def convert_users(db):
         demographic = convert_demographic(demographic)
         demographic['demographicsNumberOfBooks'] = None
 
-        id = email.split('@')[0]
+        aid = email.split('@')[0].replace('.', '')
+        if len(aid) < 3:
+            aid = aid.ljust(2, '1').ljust(3, '2')
+
         attrs = dict(
-            id=id,
-            migratedFrom=record.get('id'),
+            id=aid,
+            migratedFrom=str(record.get('_id')),
             name=record.get('name'),
             email=email,
             emailPreferenceNextSession=True,
             emailPreferenceNewStudies=('updates' in record.get('preference', [])),
             emailPreferenceResultsPublished=('results' in record.get('preference', [])),
-            profiles=convert_childs(str(id), childs, record),
+            profiles=convert_childs(str(aid), childs, record),
             unmigratedDob=record.get('dob')
         )
         attrs.update(demographic)

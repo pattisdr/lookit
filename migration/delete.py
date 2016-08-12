@@ -1,10 +1,11 @@
+import json
 import argparse
 import logging
 
 from scripts import client as CLI
 
 
-def delete(host=None, namespace=None, debug=False, verbosity=None):
+def delete(host=None, namespace=None, debug=False, verbosity=None, load=False):
     if not (host and namespace):
         raise RuntimeError('Must specify host and namespace')
 
@@ -15,7 +16,11 @@ def delete(host=None, namespace=None, debug=False, verbosity=None):
         namespace=namespace
     ).authenticate()
 
-    accounts = client.fetch_accounts('q=_exists_:migratedFrom')
+    accounts = None
+    if not load:
+        accounts = client.fetch_accounts('q=_exists_:migratedFrom')
+    else:
+        accounts = [CLI.Account(a['id'], a['name'], a['email']) for a in json.load(open('migration/output/accounts.json', 'r'))]
 
     verbosity = min(max(verbosity or 0, 0), 2)
     if verbosity == 1:
@@ -39,5 +44,6 @@ if __name__ == '__main__':
     parser.add_argument('-N', '--namespace', type=str, required=True)
     parser.add_argument('-D', '--debug', type=bool, default=False)
     parser.add_argument('-V', '--verbosity', type=int, default=0, choices=(0, 1, 2))
+    parser.add_argument('-L', '--load', type=bool, default=False)
     args = parser.parse_args()
     delete(**vars(args))

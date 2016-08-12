@@ -27,8 +27,6 @@ def create(host=None, namespace=None, debug=False, verbosity=None):
 
     for account in accounts:
         aid = account.pop('id')
-        if len(aid) < 3:
-            aid = aid.ljust(2, '1').ljust(3, '2')
         account['password'] = bcrypt.hashpw(rand(12), bcrypt.gensalt())
         account['demographicsChildBirthdays'] = filter(
             bool,
@@ -43,7 +41,7 @@ def create(host=None, namespace=None, debug=False, verbosity=None):
 
         res = requests.post(url, json={
             'data': {
-                'id': '{}.accounts.{}'.format(namespace, aid.replace('.', '')),
+                'id': '{}.accounts.{}'.format(namespace, aid),
                 'type': 'documents',
                 'attributes': account
             }
@@ -52,7 +50,8 @@ def create(host=None, namespace=None, debug=False, verbosity=None):
             if res.status_code == 409:
                 pass
             elif debug:
-                import ipdb; ipdb.set_trace()  # noqa
+                import ipdb
+                ipdb.set_trace()  # noqa
             else:
                 print res.json()
 
