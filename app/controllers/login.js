@@ -6,6 +6,7 @@ export default Ember.Controller.extend({
     modal: false,
     queryParams: ['ref'],
     session: Ember.inject.service('session'),
+    ieCheck: Ember.inject.service(),
 
     invalidAuth: false,
     userConflict: false,
