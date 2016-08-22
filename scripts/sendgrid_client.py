@@ -1,7 +1,6 @@
 import argparse
 import sendgrid
 import json
-import pprint
 
 import conf
 
@@ -34,10 +33,12 @@ class SendGrid(object):
 
     def groups(self):
         res = self.sg.client.asm.groups.get()
-        return {
-            EmailPreferences.ASM_MAPPING[group['name']]: group
-            for group in json.loads(res.response_body)
-        }
+        ret = {}
+        for group in json.loads(res.response_body):
+            name = group['name']
+            if EmailPreferences.ASM_MAPPING.get(name):
+                ret[EmailPreferences.ASM_MAPPING.get(name)] = group
+        return ret
 
     def unsubscribes_for(self, group):
         return json.loads(

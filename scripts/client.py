@@ -2,7 +2,6 @@ import os
 import json
 import requests
 
-import sendgrid
 from dotenv import load_dotenv
 
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
@@ -29,14 +28,6 @@ class Account(object):
             id=data['id'],
             name=attrs.get('name', ''),
             email=attrs.get('email'),
-        )
-
-
-class SendGrid(object):
-
-    def __init__(self, apikey=None):
-        self.sg = sendgrid.SendGridAPIClient(
-            apikey=apikey or SENDGRID_KEY
         )
 
 
@@ -179,12 +170,9 @@ class ExperimenterClient(object):
             self.NAMESPACE,
             '_search?' + query if query else 'documents'
         )
-        return filter(
-            lambda a: bool(a.email),
-            map(
-                Account.from_data,
-                self._fetch_all(self._make_request('get', url))['data']
-            )
+        return map(
+            Account.from_data,
+            self._fetch_all(self._make_request('get', url))['data']
         )
 
     def update_accounts(self, updates):
@@ -231,5 +219,5 @@ def test():
         client.get_demographics_for_account(account_id),
         indent=4
     ))
-0
+
 test() if __name__ == '__main__' else None
