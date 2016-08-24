@@ -129,6 +129,7 @@ def convert_users(db):
                 nextSession=True,
                 newStudies=('updates' in record.get('preference', [])),
                 resultsPublished=('results' in record.get('preference', [])),
+                personalCommunication=('researchers' in record.get('preference', []))
             )
         )
         attrs.update(demographic)

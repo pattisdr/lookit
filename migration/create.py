@@ -7,10 +7,7 @@ import string
 import bcrypt
 from copy import deepcopy
 
-from scripts import sendgrid_client as SG
-
-sg = SG.SendGrid()
-ASM_GROUPS = sg.groups()
+from sync_sendgrid import sync_account
 
 
 def rand(N):
@@ -64,11 +61,7 @@ def create(host=None, namespace=None, debug=False, verbosity=None):
             else:
                 print res.json()
         else:
-            for gid, group in ASM_GROUPS.items():
-                if email_prefs.get('group', True):
-                    sg.subscribe_to(group, account['email'])
-                else:
-                    sg.unsubscribe_from(group, account['email'])
+            sync_account(account, email_prefs)
 
 
 if __name__ == '__main__':

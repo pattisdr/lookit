@@ -11,13 +11,15 @@ class EmailPreferences(object):
         'Next Session': 'nextSession',
         'New Studies': 'newStudies',
         'Results Published': 'resultsPublished',
-        'Opt Out': 'optOut'
+        'Opt Out': 'optOut',
+        'Personal communication': 'personalCommunication'
     }
 
-    def __init__(self, nextSession, newStudies, resultsPublished):
+    def __init__(self, nextSession, newStudies, resultsPublished, personalCommunication):  # noqa
         self.nextSession = nextSession
         self.newStudies = newStudies
         self.resultsPublished = resultsPublished
+        self.personalCommunication = personalCommunication
 
 
 class SendGrid(object):
