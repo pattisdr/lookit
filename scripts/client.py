@@ -1,17 +1,7 @@
-import os
 import json
 import requests
 
-from dotenv import load_dotenv
-
-dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
-load_dotenv(dotenv_path)
-
-OSF_ACCESS_TOKEN = os.environ.get('OSF_ACCESS_TOKEN')
-SENDGRID_KEY = os.environ.get('SENDGRID_KEY')
-
-JAM_URL = os.environ.get('JAM_URL') or 'https://staging-metadata.osf.io'
-JAM_NAMESPACE = os.environ.get('JAM_NAMESPACE') or 'experimenter'
+import conf
 
 
 class Account(object):
@@ -33,8 +23,8 @@ class Account(object):
 
 class ExperimenterClient(object):
 
-    BASE_URL = JAM_URL
-    NAMESPACE = JAM_NAMESPACE
+    BASE_URL = conf.JAM_HOST
+    NAMESPACE = conf.JAM_NAMESPACE
 
     def __init__(self, access_token=None, jwt=None, url=None, namespace=None):
         self.access_token = access_token
@@ -84,7 +74,7 @@ class ExperimenterClient(object):
                     'type': 'users',
                     'attributes': {
                         'provider': 'osf',
-                        'access_token': OSF_ACCESS_TOKEN
+                        'access_token': conf.OSF_ACCESS_TOKEN
                     }
                 }
             })
@@ -192,7 +182,7 @@ class ExperimenterClient(object):
 
 
 def test():
-    client = ExperimenterClient(access_token=OSF_ACCESS_TOKEN).authenticate()
+    client = ExperimenterClient(access_token=conf.OSF_ACCESS_TOKEN).authenticate()  # noqa
     '''
     exps = client.fetch_experiments()
     for exp in exps:
