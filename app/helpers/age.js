@@ -2,11 +2,22 @@ import Ember from 'ember';
 import moment from 'moment';
 
 export function age([bd, ]) {
-    let monthsOld = moment().diff(bd, 'months');
+    let monthsOld = Math.floor(moment().diff(bd, 'months', true));
     if (monthsOld >= 12) {
-	return moment().from(bd, 'years');
+        var yearsOld = Math.floor(monthsOld / 12);
+        if (yearsOld > 1) {
+            return `${yearsOld} years`;
+        } else {
+            return '1 year';
+        }
+    } else if (monthsOld >= 1) {
+        if (monthsOld === 1) {
+            return 'a month';
+        } else {
+            return `${monthsOld} months`;
+        }
     } else {
-	return moment(bd).fromNow(true);
+        return 'less than a month';
     }
 }
 
