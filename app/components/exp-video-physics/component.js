@@ -3,7 +3,8 @@ import Ember from 'ember';
 import ExpFrameBaseComponent from 'exp-player/components/exp-frame-base';
 import FullScreen from 'exp-player/mixins/full-screen';
 import MediaReload from 'exp-player/mixins/media-reload';
-import VideoRecord from 'exp-player/mixins/video-record';
+
+import VideoRecord from '../../mixins/video-record';
 
 let {
     $

@@ -1,9 +1,7 @@
 import Ember from 'ember';
 import ExpFrameBaseComponent from 'exp-player/components/exp-frame-base';
-import layout from 'exp-player/templates/components/exp-video-config';
 
 export default ExpFrameBaseComponent.extend({
-    layout,
     videoRecorder: Ember.inject.service(),
     recorder: null,
     hasCamAccess: Ember.computed.alias('recorder.hasCamAccess'),
