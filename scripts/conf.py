@@ -11,5 +11,5 @@ load_dotenv(dotenv_path)
 
 OSF_ACCESS_TOKEN = os.environ.get('OSF_ACCESS_TOKEN')
 SENDGRID_KEY = os.environ.get('SENDGRID_KEY')
-JAM_NAMESPACE = os.environ.get('JAM_NAMESPACE')
-JAM_HOST = os.environ.get('JAM_URL')
+JAM_NAMESPACE = os.environ.get('JAMDB_NAMESPACE')
+JAM_HOST = os.environ.get('JAMDB_URL')
