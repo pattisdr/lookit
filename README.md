@@ -98,7 +98,7 @@ take the example of the `resources` page:
 
 Notice the special `{{find-local-lab}}` syntax. This is Ember's cue to lookup the find-local-lab component and render it at this point in the HTML document. Components tend to be organized two ways:
 
-1. Seperate JS and .hbs:
+1. Separate JS and .hbs:
    - `app/components/<component-name>.js`
    - `app/templates/components/<component_name>.hbs`
 2. 'Pod' structure:
