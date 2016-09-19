@@ -46,6 +46,8 @@ OSF_URL=https://staging-accounts.osf.io
 WOWZA_PHP='{}'
 WOWZA_ASP='{}'
 
+SENTRY_DSN=''
+
 JAMDB_URL=https://staging-metadata.osf.io
 JAMDB_NAMESPACE=experimenter
 ```
