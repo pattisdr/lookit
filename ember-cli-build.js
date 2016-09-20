@@ -3,13 +3,12 @@
 require('dotenv').config();
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
-const nonCdnEnvironments = ['development', 'test'];
-
 module.exports = function (defaults) {
-    const useCdn = (nonCdnEnvironments.indexOf(process.env.EMBER_ENV) === -1);
 
     var app = new EmberApp(defaults, {
-        sourcemaps: {enabled: true},
+        sourcemaps: {
+            enabled: true
+        },
         minifyJS: {
             enabled: EmberApp.env() === 'production'
         },
@@ -27,14 +26,6 @@ module.exports = function (defaults) {
         },
         'ember-bootstrap-datetimepicker': {
             importBootstrapCSS: false
-        },
-        inlineContent: {
-            raven: {
-                enabled: useCdn,
-                content: `
-                    <script src="https://cdn.ravenjs.com/3.5.1/ember/raven.min.js"></script>
-                    <script>Raven.config("${process.env.SENTRY_DSN}", {}).install();</script>`
-            },
         }
     });
 
