@@ -20,16 +20,16 @@ export default BaseAuthenticator.extend({
         return RSVP.reject(data);
     },
     authenticate(attrs, token) {
-	if (token) {
-	    var payload = jwt_decode(token);
-	    var accountId = payload.sub.split('-').pop();
-	    return new Ember.RSVP.Promise(resolve => {
-		resolve({
-		    id: accountId,
-		    token: token
-		});
-	    });
-	}
+        if (token) {
+            var payload = jwt_decode(token);
+            var accountId = payload.sub.split('-').pop();
+            return new Ember.RSVP.Promise(resolve => {
+                resolve({
+                    id: accountId,
+                    token: token
+                });
+            });
+        }
         return $.ajax({
             method: 'POST',
             url: this.url,
