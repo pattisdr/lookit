@@ -66,8 +66,6 @@ module.exports = function(environment) {
     }
 
     if (environment === 'production') {
-        ENV.sentryDSN = process.env.SENTRY_DSN || '';  // TODO: Add a default value
-
         ENV.ASM_MAPPING = {
             nextSession: {
                 label: 'Next Session',
