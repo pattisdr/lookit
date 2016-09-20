@@ -48,6 +48,8 @@ WOWZA_ASP='{}'
 
 JAMDB_URL=https://staging-metadata.osf.io
 JAMDB_NAMESPACE=experimenter
+
+SENTRY_DSN=""
 ```
 3. Run the server with:
 ```bash
