@@ -16,7 +16,7 @@ export default BaseAuthenticator.extend({
     raven: Ember.inject.service('raven'),
 
     _captureUser(username) {
-         this.get('raven').callRaven('setUserContext', { id: username });
+        this.get('raven').callRaven('setUserContext', { id: username });
     },
 
     restore(data) {
@@ -52,7 +52,7 @@ export default BaseAuthenticator.extend({
             })
         }).then(res => {
             // Include logged-in user data with all Raven payloads during session
-           this._captureUser(res.id);
+            this._captureUser(res.id);
             return res.data.attributes;
         });
     },
