@@ -32,6 +32,10 @@ npm install
 bower install
 ```
 
+To use the video capture facilities of Lookit, you will also need to place the file `VideoRecorder.swf` 
+in your `lookit/public/` folder. This file is not part of the git repository; it is from the HDFVR flash video 
+recorder and must be obtained from a team member with access to the licensed version.
+
 ## Running / Development
 
 #### Configuration
