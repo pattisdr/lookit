@@ -2,7 +2,7 @@ import argparse
 import logging
 import requests
 
-from client import ExperimenterClient
+from client import Account, ExperimenterClient
 import conf
 
 url = '{}/v1/id/collections/{}.accounts/_search?q=_exists_:migratedFrom'.format(conf.JAM_HOST, conf.JAM_NAMESPACE)  # noqa
@@ -18,7 +18,9 @@ def main(dry=True, debug=False, verbosity=0, user=None):
     client = ExperimenterClient(access_token=conf.OSF_ACCESS_TOKEN).authenticate()
 
     if user:
-        accounts = [client.fetch_account(user)]
+        account_payload = client.fetch_account(user)
+        user_account = Account.from_data(account_payload)
+        accounts = [user_account]
     else:
         accounts = client.fetch_accounts('q=_exists_:migratedFrom')
     for account in accounts:
@@ -26,6 +28,7 @@ def main(dry=True, debug=False, verbosity=0, user=None):
         if not dry:
             url = '{}/v1/id/collections/{}.accounts/user'.format(conf.JAM_HOST, conf.JAM_NAMESPACE)
             res = requests.post(
+                url,
                 json={
                     "data": {
                         "type": "reset",
@@ -45,8 +48,12 @@ def main(dry=True, debug=False, verbosity=0, user=None):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--dry', action='store_true')
-    parser.add_argument('-d', '--debug', type=bool, default=False)
+    parser.add_argument('--debug', action='store_true', help='Launch a python debugger for failed requests (developer tool)')
     parser.add_argument('-u', '--user', type=str, help='If specified, only perform migration on a single user account')
-    parser.add_argument('-v', '--verbosity', type=int, default=0, choices=(0, 1, 2))  # noqa
+    parser.add_argument('-v', '--verbosity', type=int, default=0, choices=(0, 1, 2),
+                        help='Log basic information (level 1) or in-depth messages (level 2)')
     args = parser.parse_args()
-    main(**vars(args))
+    main(dry=args.dry,
+         debug=args.debug,
+         verbosity=args.verbosity,
+         user=args.user)
