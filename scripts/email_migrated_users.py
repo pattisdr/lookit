@@ -24,7 +24,7 @@ def main(dry=True, debug=False, verbosity=0, user=None):
     else:
         accounts = client.fetch_accounts('q=_exists_:migratedFrom')
     for account in accounts:
-        logging.info('Sending password reset request to {} for account {} ({})'.format(
+        logging.info(u'Sending password reset request to {} for account {} ({})'.format(
             account.email, account.name, account.id))
         if not dry:
             url = '{}/v1/id/collections/{}.accounts/user'.format(conf.JAM_HOST, conf.JAM_NAMESPACE)
