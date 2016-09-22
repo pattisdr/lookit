@@ -33,7 +33,8 @@ def main(dry=True, debug=False, verbosity=0, user=None):
                     "data": {
                         "type": "reset",
                         "attributes": {
-                            "id": account.id
+                            # Account ID in payload should only be final part (namespace.collection.<item_id>)
+                            "id": account.id.rsplit('.', 1)[-1]
                         }
                     }
                 }
