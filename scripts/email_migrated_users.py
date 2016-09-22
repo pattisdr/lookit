@@ -62,6 +62,8 @@ if __name__ == '__main__':
                         default=0,
                         choices=(0, 1, 2),
                         help='Log basic information (level 1) or in-depth messages (level 2)')
+    # Actually consumed in another module, but parser fails with error if argument is not defined
+    parser.add_argument('-c', '--config', type=str, help='Config file location')
     args = parser.parse_args()
     main(dry=args.dry,
          debug=args.debug,

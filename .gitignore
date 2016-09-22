@@ -20,6 +20,5 @@ testem.log
 
 # Virtualenv
 scripts/env
-scripts/.env
 
 migration/output/*
