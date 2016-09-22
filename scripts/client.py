@@ -230,4 +230,5 @@ def test():
         indent=4
     ))
 
-test() if __name__ == '__main__' else None
+if __name__ == '__main__':
+    test()
