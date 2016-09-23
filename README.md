@@ -47,8 +47,8 @@ OSF_CLIENT_ID=<application_client_id>
 OSF_SCOPE=osf.users.all_read
 OSF_URL=https://staging-accounts.osf.io
 
-WOWZA_PHP='{"minRecordTime":1,"showMenu":"false","showTimer":"false","enableBlinkingRec":1,"skipInitialScreen":1,"recordAgain":"false","showSoundBar":"true","hideDeviceSettingsButtons":1,"connectionstring":"CONNECTIONSTRING"}'
-WOWZA_ASP='{"showMenu":"false","loopbackMic":"true","skipInitialScreen":1,"showSoundBar":"false","snapshotEnable":"false"}'
+WOWZA_PHP='{"minRecordTime":1,"showMenu":"false","showTimer":"false","enableBlinkingRec":1,"skipInitialScreen":1,"recordAgain":"false","showSoundBar":"true","hideDeviceSettingsButtons":1,"microphoneGain": 60,"connectionstring":"CONNECTIONSTRING"}'
+WOWZA_ASP='{"showMenu":"false","loopbackMic":"true","skipInitialScreen":1,"showSoundBar":"true","snapshotEnable":"false"}'
 
 JAMDB_URL=https://staging-metadata.osf.io
 JAMDB_NAMESPACE=experimenter
@@ -57,7 +57,7 @@ SENTRY_DSN=""
 ```
 
 A more complete configuration string is available upon request. In this application, we typically use `WOWZA_PHP` 
-for settings in which a video is actually recorded, and `WOWZA_ASP` for video preview screens.
+for settings in which a video is actually recorded, and `WOWZA_ASP` for video preview screens where no video is to be saved.
 The value of `connectionstring` is available internally but not committed to Github; **it must be replaced 
 with a reference to the streaming server.**  Other settings are as described in the sample `avc_settings.php` file 
 provided in the HDFVR installation zip file.
