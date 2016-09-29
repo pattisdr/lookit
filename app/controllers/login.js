@@ -40,35 +40,40 @@ export default Ember.Controller.extend({
             });
             newAccount.save().then(() => {
                 // log in immediately with this new account information
-                var theAttrs = {provider: 'self', namespace: config.JAMDB.namespace, collection: 'accounts', username: attrs.username, password: attrs.password};
+                var theAttrs = {
+                    provider: 'self',
+                    namespace: config.JAMDB.namespace,
+                    collection: 'accounts',
+                    username: attrs.username,
+                    password: attrs.password
+                };
                 this.send('authenticate', theAttrs);
-            }, (res) => {
+            }).catch((res) => {
                 this.set('creatingUser', false);
-                if(res.errors[0].status === '409') {
+                if (res.errors[0].status === '409') {
                     this.send('toggleUserConflict');
-                }
-                else {
+                } else {
                     this.send('toggleInvalidAuth');
                 }
             });
         },
-	resetPassword() {
-	    let options = Ember.getOwner(this).lookup('adapter:application').ajaxOptions();
-	    Ember.$.ajaxSetup(options);
-	    let url = `${config.JAMDB.url}/v1/id/collections/${config.JAMDB.namespace}.accounts/user`;
-	    Ember.$.ajax({
-		url: url,
-		method: 'POST',
-		data: JSON.stringify({
-		    data: {
-			type: "reset",
-			attributes: {
-			    id: this.get('resetId')
-			}
-		    }
-		})
-	    }).then(() => this.set('resetSent', true));
-	},
+        resetPassword() {
+            let options = Ember.getOwner(this).lookup('adapter:application').ajaxOptions();
+            Ember.$.ajaxSetup(options);
+            let url = `${config.JAMDB.url}/v1/id/collections/${config.JAMDB.namespace}.accounts/user`;
+            Ember.$.ajax({
+                url: url,
+                method: 'POST',
+                data: JSON.stringify({
+                    data: {
+                        type: "reset",
+                        attributes: {
+                            id: this.get('resetId')
+                        }
+                    }
+                })
+            }).then(() => this.set('resetSent', true));
+        },
         toggleUserConflict() {
             this.toggleProperty('userConflict');
         },

@@ -18,9 +18,9 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
                 .authenticate('authenticator:jam-jwt', {}, transition.queryParams.access_token)
                 .then(() => {
                     window.location.hash = '';
-		    return this._super(...arguments);
+                    return this._super(...arguments);
                 });
         }
-	return this._super(...arguments);
+        return this._super(...arguments);
     }
 });
