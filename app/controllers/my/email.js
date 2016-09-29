@@ -6,22 +6,22 @@ export default Ember.Controller.extend({
     account: Ember.computed.alias('sessionAccount.account'),
     suppressions: null,
     _setSuppressions() {
-	if (this.get('account')) {
-	    this.get('account').getSuppressions().then(suppressions => {
-		this.set('suppressions', suppressions);
-	    });
-	}
+        if (this.get('account')) {
+            this.get('account').getSuppressions().then(suppressions => {
+                this.set('suppressions', suppressions);
+            });
+        }
     },
     init() {
-	this._super(...arguments);
-	this._setSuppressions();
+        this._super(...arguments);
+        this._setSuppressions();
     },
-    onAccountChange: Ember.observer('account', function() {
-	this._setSuppressions();
+    onAccountChange: Ember.observer('account', function () {
+        this._setSuppressions();
     }),
     canSave: true,
     actions: {
-        saveEmailPreferences: function() {
+        saveEmailPreferences: function () {
             var suppressions = this.get('suppressions');
             this.set('canSave', false);
             this.get('sessionAccount').loadCurrentUser().then(account => {

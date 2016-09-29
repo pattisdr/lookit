@@ -12,27 +12,27 @@ export default Ember.Controller.extend({
     addingNew: false,
     notAddingNew: Ember.computed.not('addingNew'),
     childProfile: null,
-    newProfile: function() {
+    newProfile: function () {
         this.set('childProfile', this.get('store').createRecord('profile', {
             deleted: false
         }));
     },
     init() {
-	this.newProfile();
+        this.newProfile();
     },
-    onModelChange: Ember.observer('account', function() {
+    onModelChange: Ember.observer('account', function () {
         this.newProfile();
     }),
     actions: {
         profileAdded () {
-	    this.newProfile();
+            this.newProfile();
             this.toggleProperty('addingNew');
         },
         toggleAddingNew () {
             this.toggleProperty('addingNew');
         },
         cancelAddProfile () {
-	    this.newProfile();
+            this.newProfile();
             this.toggleProperty('addingNew');
         }
     }
