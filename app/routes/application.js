@@ -5,7 +5,8 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     session: Ember.inject.service('session'),
     sessionAccount: Ember.inject.service('session-account'),
     sessionAuthenticated() {
-        this._super(...arguments);
-        this.get('sessionAccount').loadCurrentUser().catch(() => this.get('session').invalidate());
+        this.get('sessionAccount').loadCurrentUser()
+            .then(() => this._super(...arguments))
+            .catch(() => this.get('session').invalidate());
     }
 });
