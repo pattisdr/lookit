@@ -1,7 +1,7 @@
 /* global dcodeIO */
 import Ember from 'ember';
 
-const {bcrypt} = dcodeIO;
+const { bcrypt } = dcodeIO;
 
 export default Ember.Controller.extend({
     _error: null,
@@ -11,10 +11,10 @@ export default Ember.Controller.extend({
     account: Ember.computed.alias('sessionAccount.account'),
     toast: Ember.inject.service(),
 
-    passMatch: function() {
+    passMatch: Ember.computed('newPass', 'confirmPass', function() {
         this.set('_error');
         return this.get('newPass') === this.get('confirmPass');
-    }.property('newPass', 'confirmPass'),
+    }),
 
     canUpdate: Ember.computed.and('newPass', 'confirmPass', 'passMatch'),
 

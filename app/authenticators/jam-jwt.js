@@ -39,7 +39,7 @@ export default BaseAuthenticator.extend({
                 });
             });
         }
-        return $.ajax({
+        let jqDeferred = $.ajax({
             method: 'POST',
             url: this.url,
             dataType: 'json',
@@ -54,6 +54,11 @@ export default BaseAuthenticator.extend({
             // Include logged-in user data with all Raven payloads during session
             this._captureUser(res.id);
             return res.data.attributes;
+        });
+
+        return new Ember.RSVP.Promise((resolve, reject) => {
+            jqDeferred.done(resolve);
+            jqDeferred.fail(reject);
         });
     },
 

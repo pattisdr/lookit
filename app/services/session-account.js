@@ -1,19 +1,11 @@
 import Ember from 'ember';
 
-const {
-    inject: {
-        service
-    },
-    RSVP
-} = Ember;
-
-
 export default Ember.Service.extend({
     account: null,
     profile: null,
 
-    session: service('session'),
-    store: service(),
+    session: Ember.inject.service('session'),
+    store: Ember.inject.service(),
 
     _setAccount() {
         const accountId = this.get('session.data.authenticated.id');
@@ -38,7 +30,7 @@ export default Ember.Service.extend({
     },
 
     loadCurrentUser() {
-        return new RSVP.Promise((resolve) => {
+        return new Ember.RSVP.Promise((resolve) => {
             if (!this.get('session.isAuthenticated')) {
                 return resolve(null);
             }
