@@ -9,11 +9,7 @@ export default Ember.Component.extend({
     password: null,
     email: null,
 
-    maySubmit: Ember.computed('username', 'password', 'email', function () {
-        return ['username', 'password', 'email']
-            .map(k => this.get(k))
-            .reduce((acc, val) => acc && val);
-    }),
+    maySubmit: Ember.computed.and('username', 'password', 'email'),
 
     actions: {
         createAccount() {
@@ -21,7 +17,6 @@ export default Ember.Component.extend({
                 username: this.get('username'),
                 password: this.get('password'),
                 email: this.get('email')
-                // Add fields for permissions and history?
             });
             return false;
         }
