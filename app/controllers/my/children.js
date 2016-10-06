@@ -5,7 +5,7 @@ const { service } = Ember.inject;
 export default Ember.Controller.extend({
     session: service('session'),
     sessionAccount: service('session-account'),
-    account: Ember.computed.alias('sessionAccount.account'),
+
     store: service(),
     toast: service(),
 
@@ -20,7 +20,7 @@ export default Ember.Controller.extend({
     init() {
         this.newProfile();
     },
-    onModelChange: Ember.observer('account', function () {
+    onModelChange: Ember.observer('model', function () {
         this.newProfile();
     }),
     actions: {
