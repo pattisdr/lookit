@@ -24,7 +24,7 @@ export default Ember.Controller.extend({
         saveEmailPreferences: function () {
             var suppressions = this.get('suppressions');
             this.set('canSave', false);
-            this.get('sessionAccount').loadCurrentUser().then(account => {
+            this.get('sessionAccount').load().then(account => {
                 var suppressionsHash = {};
                 Object.keys(suppressions).forEach(s => {
                     var suppression = suppressions[s];

@@ -25,7 +25,6 @@ export default Ember.Controller.extend({
     actions: {
         pickChild() {
             let profile = this.get('selectedChild');
-            this.get('sessionAccount').setProfile(profile);
             this.get('session').set('data.profile', profile);
             this.transitionToRoute('participate', this.get('model.id'));
         }
