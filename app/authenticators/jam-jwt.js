@@ -13,7 +13,7 @@ const {
 export default BaseAuthenticator.extend({
     url: `${ENV.JAMDB.url}/v1/auth`,
 
-    raven: Ember.inject.service('raven'),
+    raven: Ember.inject.service(),
 
     _captureUser(username) {
         this.get('raven').callRaven('setUserContext', { id: username });

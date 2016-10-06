@@ -3,9 +3,9 @@ import Ember from 'ember';
 import config from 'ember-get-config';
 
 export default Ember.Controller.extend({
-    modal: false,
+    session: Ember.inject.service(),
+
     queryParams: ['ref'],
-    session: Ember.inject.service('session'),
 
     isIE: /(MSIE|rv:11.0)/i.test(navigator.userAgent),
 

@@ -1,13 +1,9 @@
 import Ember from 'ember';
 
-const {
-    service
-} = Ember.inject;
-
 import validators from 'lookit-base/utils/validators';
 
 export default Ember.Controller.extend({
-    session: service('session'),
+    session: Ember.inject.service(),
 
     selectedRaceIdentification: Ember.computed.alias('model.demographicsRaceIdentification'),
     today: new Date(),

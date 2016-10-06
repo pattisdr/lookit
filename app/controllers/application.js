@@ -1,9 +1,8 @@
 import Ember from 'ember';
 
-const { service } = Ember.inject;
-
 export default Ember.Controller.extend({
-    session: service('session'),
+    session: Ember.inject.service(),
+
     isParticipate: Ember.computed('currentPath', function() {
         return this.get('currentPath') === 'participate';
     }),
