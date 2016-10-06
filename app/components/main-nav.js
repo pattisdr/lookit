@@ -13,7 +13,12 @@ export default Ember.Component.extend({
     account: null,
     accountName: Ember.computed.alias('account.username'),
 
-    updateAccount: Ember.observer('session.isAuthenticated', function () {
+    init() {
+        this._super(...arguments);
+        this._fetchAccount();
+    },
+
+    _fetchAccount() {
         if (!this.get('session.isAuthenticated')) {
             this.set('account', null);
         } else {
@@ -21,5 +26,9 @@ export default Ember.Component.extend({
                 .then(account => this.set('account', account))
                 .catch(() => this.set('account', null));
         }
+    },
+
+    updateAccount: Ember.observer('session.isAuthenticated', function () {
+        this._fetchAccount();
     })
 });
