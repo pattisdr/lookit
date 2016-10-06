@@ -6,7 +6,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     sessionAccount: Ember.inject.service('session-account'),
 
     model() {
-        return this.get('sessionAccount').load();
+        return this.get('sessionAccount.account');
     },
     beforeModel(transition) {
         if (transition.queryParams.access_token) {

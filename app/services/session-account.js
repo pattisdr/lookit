@@ -22,16 +22,19 @@ export default Ember.Service.extend({
      * @method load
      * @return {Promise}
      */
-    // TODO: Renamed loadCurrentUser to load, and changed return type
     load() {
         return new Ember.RSVP.Promise((resolve, reject) => {
             var currentUserId = this.get('currentUserId');
             if (!Ember.isEmpty(currentUserId)) {
                 var currentUser = this.get('store').peekRecord('account', currentUserId);
                 if (currentUser) {
-                    resolve(currentUser);
+                    this.set('account', currentUser);
+                    resolve();
                 } else {
-                    this.get('store').findRecord('account', currentUserId).then(resolve, reject);
+                    this.get('store').findRecord('account', currentUserId).then((user) => {
+                        this.set('account', user);
+                        resolve();
+                    }).catch(reject);
                 }
             } else {
                 reject();

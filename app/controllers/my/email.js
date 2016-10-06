@@ -24,16 +24,15 @@ export default Ember.Controller.extend({
         saveEmailPreferences: function () {
             var suppressions = this.get('suppressions');
             this.set('canSave', false);
-            this.get('sessionAccount').load().then(account => {
-                var suppressionsHash = {};
-                Object.keys(suppressions).forEach(s => {
-                    var suppression = suppressions[s];
-                    suppressionsHash[`${suppression.id}`] = !suppression.subscribed;
-                });
-                account.setSuppressions(suppressionsHash).then(() => {
-                    this.set('canSave', true);
-                    this.get('toast').info('Notification preferences saved successfully');
-                });
+            let account = this.get('sessionAccount.account');
+            var suppressionsHash = {};
+            Object.keys(suppressions).forEach(s => {
+                var suppression = suppressions[s];
+                suppressionsHash[`${suppression.id}`] = !suppression.subscribed;
+            });
+            account.setSuppressions(suppressionsHash).then(() => {
+                this.set('canSave', true);
+                this.get('toast').info('Notification preferences saved successfully');
             });
         }
     }
