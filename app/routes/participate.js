@@ -6,9 +6,9 @@ import ExpPlayerRouteMixin from 'exp-player/mixins/exp-player-route';
 import WarnOnExitRouteMixin from 'exp-player/mixins/warn-on-exit-route';
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, ExpPlayerRouteMixin, WarnOnExitRouteMixin, {
-    raven: Ember.inject.service('raven'),
+    raven: Ember.inject.service(),
 
-    sessionAccount: Ember.inject.service('session-account'),
+    sessionAccount: Ember.inject.service(),
 
     _getExperiment(params) {
         return this.store.findRecord('experiment', Ember.get(params, 'experiment_id'));

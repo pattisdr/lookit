@@ -4,7 +4,6 @@ import Ember from 'ember';
 const { bcrypt } = dcodeIO;
 
 export default Ember.Controller.extend({
-    sessionAccount: Ember.inject.service(),
     toast: Ember.inject.service(),
 
     _error: null,

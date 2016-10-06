@@ -1,13 +1,10 @@
 import Ember from 'ember';
 
-const { service } = Ember.inject;
-
 export default Ember.Controller.extend({
-    session: service('session'),
-    sessionAccount: service('session-account'),
+    session: Ember.inject.service(),
 
-    store: service(),
-    toast: service(),
+    store: Ember.inject.service(),
+    toast: Ember.inject.service(),
 
     addingNew: false,
     notAddingNew: Ember.computed.not('addingNew'),

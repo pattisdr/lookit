@@ -2,14 +2,15 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
     session: Ember.inject.service(),
-    sessionAccount: Ember.inject.service(),
 
     account: null,
 
     selectedChildId: null,
     selectedChild: Ember.computed('selectedChildId', function () {
-        let account = this.get('sessionAccount').get('account');
-        return account.profileById(this.get('selectedChildId'));
+        let account = this.get('account');
+        if (account) {
+            return account.profileById(this.get('selectedChildId'));
+        }
     }),
 
     isAgeEligible: Ember.computed('selectedChild', function () {

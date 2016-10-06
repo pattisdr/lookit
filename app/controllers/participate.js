@@ -3,8 +3,7 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
     model: null,
     session: null,
-    sessionAccount: Ember.inject.service('session-account'),
-    store: Ember.inject.service(),
+
     isDirty: function() {
         // TODO: check the session model to see if it contains unsaved data
         var session = this.get('session');

@@ -8,7 +8,6 @@ import validators from 'lookit-base/utils/validators';
 
 export default Ember.Controller.extend({
     session: service('session'),
-    sessionAccount: service('session-account'),
 
     selectedRaceIdentification: Ember.computed.alias('model.demographicsRaceIdentification'),
     today: new Date(),
