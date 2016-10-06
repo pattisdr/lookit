@@ -33,6 +33,7 @@ export default BaseAuthenticator.extend({
             var payload = jwt_decode(token);
             var accountId = payload.sub.split('-').pop();
             return new Ember.RSVP.Promise(resolve => {
+                this._captureUser(accountId);
                 resolve({
                     id: accountId,
                     token: token
