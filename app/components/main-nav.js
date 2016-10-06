@@ -9,20 +9,17 @@ export default Ember.Component.extend({
      */
     logout: null,
 
-    // TODO: Check the meaning of the name field. Is it still being used at all?
     // Placeholder: account will be set when session auth state changes
     account: null,
     accountName: Ember.computed.alias('account.username'),
 
     updateAccount: Ember.observer('session.isAuthenticated', function () {
-        let foundUser;
         if (!this.get('session.isAuthenticated')) {
-            foundUser = null;
+            this.set('account', null);
         } else {
-            this.get('sessionAccount')
-                .load().then(account => {foundUser = account;})
-                .catch(() => {foundUser = null;});
+            this.get('sessionAccount').load()
+                .then(account => this.set('account', account))
+                .catch(() => this.set('account', null));
         }
-        this.set('account', foundUser);
     })
 });
