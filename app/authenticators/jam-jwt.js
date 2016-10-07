@@ -20,7 +20,13 @@ export default BaseAuthenticator.extend({
     },
 
     restore(data) {
-        let token = JSON.parse(atob(data.token.split('.')[1]));
+        let token;
+        try {
+            token = JSON.parse(atob(data.token.split('.')[1]));
+        } catch (e) {
+            return RSVP.reject();
+        }
+
         if (token.exp > moment().unix()) {
             this._captureUser(data.id);
             return RSVP.resolve(data);
@@ -30,9 +36,15 @@ export default BaseAuthenticator.extend({
 
     authenticate(attrs, token) {
         if (token) {
-            var payload = jwt_decode(token);
-            var accountId = payload.sub.split('-').pop();
-            return new Ember.RSVP.Promise(resolve => {
+            return new Ember.RSVP.Promise((resolve, reject) => {
+                var payload;
+                var accountId;
+                try { // Handle case where token is malformed- otherwise ember swallows the error
+                    payload = jwt_decode(token);
+                    accountId = payload.sub.split('-').pop();
+                } catch (e) {
+                    reject();
+                }
                 this._captureUser(accountId);
                 resolve({
                     id: accountId,
