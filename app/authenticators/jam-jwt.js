@@ -19,6 +19,12 @@ export default BaseAuthenticator.extend({
         this.get('raven').callRaven('setUserContext', { id: username });
     },
 
+    _verifyToken(token) {
+        // For now we will trust the token given without validating against the server, provided it is well-formed
+        //   and can be parsed- but we will sanity check that it is still active. This will prevent auth/restore errors.
+        return token.exp > moment().unix();
+    },
+
     restore(data) {
         let token;
         try {
@@ -27,7 +33,7 @@ export default BaseAuthenticator.extend({
             return RSVP.reject();
         }
 
-        if (token.exp > moment().unix()) {
+        if (this._verifyToken(token)) {
             this._captureUser(data.id);
             return RSVP.resolve(data);
         }
@@ -35,6 +41,7 @@ export default BaseAuthenticator.extend({
     },
 
     authenticate(attrs, token) {
+        // Can authenticate either using an object with username and password, OR a pre-provided JWT token string
         if (token) {
             return new Ember.RSVP.Promise((resolve, reject) => {
                 var payload;
@@ -45,6 +52,10 @@ export default BaseAuthenticator.extend({
                 } catch (e) {
                     reject();
                 }
+                if (!this._verifyToken(token)) {
+                    reject();
+                }
+
                 this._captureUser(accountId);
                 resolve({
                     id: accountId,
