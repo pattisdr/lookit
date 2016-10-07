@@ -2,12 +2,15 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
     session: Ember.inject.service(),
-    sessionAccount: Ember.inject.service(),
-    account: Ember.computed.alias('sessionAccount.account'),
+
+    account: null,
+
     selectedChildId: null,
     selectedChild: Ember.computed('selectedChildId', function () {
-        let account = this.get('sessionAccount').get('account');
-        return account.profileById(this.get('selectedChildId'));
+        let account = this.get('account');
+        if (account) {
+            return account.profileById(this.get('selectedChildId'));
+        }
     }),
 
     isAgeEligible: Ember.computed('selectedChild', function () {
@@ -25,7 +28,6 @@ export default Ember.Controller.extend({
     actions: {
         pickChild() {
             let profile = this.get('selectedChild');
-            this.get('sessionAccount').setProfile(profile);
             this.get('session').set('data.profile', profile);
             this.transitionToRoute('participate', this.get('model.id'));
         }

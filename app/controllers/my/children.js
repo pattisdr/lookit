@@ -1,13 +1,10 @@
 import Ember from 'ember';
 
-const { service } = Ember.inject;
-
 export default Ember.Controller.extend({
-    session: service('session'),
-    sessionAccount: service('session-account'),
-    account: Ember.computed.alias('sessionAccount.account'),
-    store: service(),
-    toast: service(),
+    session: Ember.inject.service(),
+
+    store: Ember.inject.service(),
+    toast: Ember.inject.service(),
 
     addingNew: false,
     notAddingNew: Ember.computed.not('addingNew'),
@@ -20,7 +17,7 @@ export default Ember.Controller.extend({
     init() {
         this.newProfile();
     },
-    onModelChange: Ember.observer('account', function () {
+    onModelChange: Ember.observer('model', function () {
         this.newProfile();
     }),
     actions: {

@@ -1,43 +1,37 @@
 import Ember from 'ember';
 
 export default Ember.Service.extend({
-    account: null,
-    profile: null,
-
-    session: Ember.inject.service('session'),
+    session: Ember.inject.service(),
     store: Ember.inject.service(),
 
-    _setAccount() {
-        const accountId = this.get('session.data.authenticated.id');
-        if (!Ember.isEmpty(accountId)) {
-            this.get('store').findRecord('account', accountId).then((account) => {
-                this.set('account', account);
-            });
-        }
-    },
-    init() {
-        var session = this.get('session');
-        session.on('invalidationSucceeded', () => {
-            this.setProperties({
-                account: null,
-                profile: null
-            });
-        });
-        session.addObserver('isAuthenticated', this, this._setAccount);
-        if (session.get('isAuthenticated')) {
-            this._setAccount();
-        }
-    },
+    profile: Ember.computed.alias('session.data.profile'),
 
-    loadCurrentUser() {
-        return new Ember.RSVP.Promise((resolve) => {
-            if (!this.get('session.isAuthenticated')) {
-                return resolve(null);
+    currentUserId: Ember.computed('session.data.authenticated', function() {
+        var session = this.get('session');
+        if (session.get('isAuthenticated')) {
+            return session.get('data.authenticated.id');
+        } else {
+            return null;
+        }
+    }),
+    /**
+     * Fetch information about the currently logged in user. If no user is logged in, this method returns a rejected promise.
+     * @method load
+     * @return {Ember.RSVP.Promise}
+     */
+    load() {
+        return new Ember.RSVP.Promise((resolve, reject) => {
+            var currentUserId = this.get('currentUserId');
+            if (!Ember.isEmpty(currentUserId)) {
+                var currentUser = this.get('store').peekRecord('account', currentUserId);
+                if (currentUser) {
+                    resolve(currentUser);
+                } else {
+                    this.get('store').findRecord('account', currentUserId).then(resolve, reject);
+                }
+            } else {
+                reject();
             }
-            return resolve(this.get('account'));
         });
-    },
-    setProfile: function(profile) {
-        this.set('profile', profile);
     }
 });
