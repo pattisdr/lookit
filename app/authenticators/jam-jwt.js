@@ -52,7 +52,7 @@ export default BaseAuthenticator.extend({
                 } catch (e) {
                     reject();
                 }
-                if (!this._verifyToken(token)) {
+                if (!this._verifyToken(payload)) {
                     reject();
                 }
 
