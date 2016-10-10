@@ -18,4 +18,7 @@ testem.log
 /public/VideoRecorder.swf
 /.env
 
+# Virtualenv
+scripts/env
+
 migration/output/*

@@ -1,16 +1,11 @@
 import Ember from 'ember';
 
-const {
-    service
-} = Ember.inject;
-
 import validators from 'lookit-base/utils/validators';
 
 export default Ember.Controller.extend({
-    session: service('session'),
-    sessionAccount: service('session-account'),
-    account: Ember.computed.alias('sessionAccount.account'),
-    selectedRaceIdentification: Ember.computed.alias('account.demographicsRaceIdentification'),
+    session: Ember.inject.service(),
+
+    selectedRaceIdentification: Ember.computed.alias('model.demographicsRaceIdentification'),
     today: new Date(),
     ageChoices: [
         'under 18',
@@ -96,13 +91,13 @@ export default Ember.Controller.extend({
         'no'
     ],
 
-    isValid: Ember.computed('account.demographicsNumberOfBooks', function() {
-        return validators.min(0)(this.get('account.demographicsNumberOfBooks'));
+    isValid: Ember.computed('model.demographicsNumberOfBooks', function() {
+        return validators.min(0)(this.get('model.demographicsNumberOfBooks'));
     }),
 
     nNumberOfChildren: 11,
-    numberOfChildren: Ember.computed('nNumberOfChildren', 'account.demographicsNumberOfChildren', function() {
-        var numberOfChildren = this.get('account.demographicsNumberOfChildren');
+    numberOfChildren: Ember.computed('nNumberOfChildren', 'model.demographicsNumberOfChildren', function() {
+        var numberOfChildren = this.get('model.demographicsNumberOfChildren');
         if (!numberOfChildren) {
             return 0;
         } else if (isNaN(numberOfChildren)) {
@@ -120,14 +115,14 @@ export default Ember.Controller.extend({
         var numberOfChildren = this.get('numberOfChildren');
         var birthdays = [];
         for (var i = 0; i < numberOfChildren; i++) {
-            birthdays[i] = this.get('account.demographicsChildBirthdays').objectAt(i);
+            birthdays[i] = this.get('model.demographicsChildBirthdays').objectAt(i);
         }
-        this.get('account.demographicsChildBirthdays').setObjects(birthdays);
+        this.get('model.demographicsChildBirthdays').setObjects(birthdays);
     }),
-    childBirthdays: Ember.computed('account.demographicsChildBirthdays.[]', {
+    childBirthdays: Ember.computed('model.demographicsChildBirthdays.[]', {
         get: function() {
             var ret = Ember.Object.create();
-            this.get('account.demographicsChildBirthdays').toArray().forEach(function(bd, i) {
+            this.get('model.demographicsChildBirthdays').toArray().forEach(function(bd, i) {
                 ret.set(i.toString(), bd);
             });
             return ret;
@@ -137,7 +132,7 @@ export default Ember.Controller.extend({
             Object.keys(birthdays).forEach(function(key) {
                 ret[parseInt(key)] = birthdays[key];
             });
-            this.get('account.demographicsChildBirthdays').setObjects(ret);
+            this.get('model.demographicsChildBirthdays').setObjects(ret);
             this.propertyDidChange('childBirthdays');
             return this.get('childBirthdays');
         }
@@ -155,7 +150,7 @@ export default Ember.Controller.extend({
             this.set('selectedRaceIdentification', selectedRaceIdentification);
         },
         saveDemographicsPreferences: function() {
-            this.get('account').save().then(() => {
+            this.get('model').save().then(() => {
                 this.toast.info('Demographic survey saved successfully.');
             });
         },
