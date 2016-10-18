@@ -34,7 +34,7 @@ able to continue the study.
         if (!this.get('allowExit')) {
             this.get('toast').warning('To leave the study early, please press F1 and then select a privacy level for your videos');
         }
-        this._super(...arguments);
+        return this._super(...arguments);
     },
     actions: {
         exitEarly() {
