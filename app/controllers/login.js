@@ -15,6 +15,7 @@ export default Ember.Controller.extend({
 
     resetId: null,
     resetSent: false,
+
     actions: {
         authenticate(attrs) {
             return this.get('session')
@@ -28,14 +29,12 @@ export default Ember.Controller.extend({
         createAccount(attrs) {
             this.set('creatingUser', true);
             var newAccount = this.store.createRecord('account', {
-                username: attrs.username,
                 password: attrs.password,
                 email: attrs.email,
                 profiles: [],
                 emailPreferencesNextSession: true,
                 emailPreferencesNewStudies: true,
                 emailPreferencesResultsPublished: true,
-                // Update the line below to be more general
                 id: `${attrs.username}`
             });
             newAccount.save().then(() => {
@@ -49,6 +48,8 @@ export default Ember.Controller.extend({
                 };
                 this.send('authenticate', theAttrs);
             }).catch((res) => {
+                // Remove the failed record from the store so that user can try again
+                this.store.unloadRecord(newAccount);
                 this.set('creatingUser', false);
                 if (res.errors[0].status === '409') {
                     this.send('toggleUserConflict');
