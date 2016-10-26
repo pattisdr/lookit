@@ -18,8 +18,10 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
         return experiments.then((experiments) => {
             experiments.forEach((experiment) => {
                 // Endpoint only returns sessions that the user has permissions to see (assumption: for a Jam user, this means only their own sessions)
+                // Rule: show all videos with a consent recording even if not complete, enabling visible feedback for partial sessions
                 let foundSessions = this.store.query(experiment.get('sessionCollectionId'), {
-                    'filter[completed]': 1, 'page[size]': 100
+                    'sort': '-created_on',
+                    'page[size]': 100
                 }).then((sessions) => {
                     // Only show sessions where expData contains a key with information about the consent frame
                     // TODO: For now, this is an extremely Lookit-specific way of identifying the consent page, pending LEI-272
