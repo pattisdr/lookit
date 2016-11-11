@@ -1,5 +1,14 @@
 import Ember from 'ember';
 
+/**
+ * @module lookit
+ * @submodule services
+ */
+
+/**
+ * A service for accessing information about the currently logged-in user
+ * @class sessionAccount
+ */
 export default Ember.Service.extend({
     session: Ember.inject.service(),
     store: Ember.inject.service(),
