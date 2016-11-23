@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ExpPlayer from 'exp-player/components/exp-player';
+import ExpPlayer from 'exp-player/components/exp-player/component';
 
 export default ExpPlayer.extend({
     toast: Ember.inject.service(),
