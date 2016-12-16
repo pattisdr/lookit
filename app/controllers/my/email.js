@@ -30,9 +30,9 @@ export default Ember.Controller.extend({
                 suppressionsHash[`${suppression.id}`] = !suppression.subscribed;
             });
             account.setSuppressions(suppressionsHash).then(() => {
-                this.set('canSave', true);
                 this.get('toast').info('Notification preferences saved successfully');
-            });
+            }).catch(() => this.get('toast').error('Could not update notification preferences. If the problem persists, please contact support.')
+            ).finally(() => this.set('canSave', true));
         }
     }
 });
