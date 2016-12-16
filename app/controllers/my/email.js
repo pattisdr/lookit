@@ -32,7 +32,7 @@ export default Ember.Controller.extend({
             account.setSuppressions(suppressionsHash).then(() => {
                 this.set('canSave', true);
                 this.get('toast').info('Notification preferences saved successfully');
-            });
+            }).catch(() => this.get('toast').error('Could not update notification preferences. If the problem persists, please contact support.'));
         }
     }
 });
