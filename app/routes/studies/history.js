@@ -8,7 +8,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
         // In the future, routes should be restructured to better support more experiments
         let Experiment = this.store.modelFor('experiment');
         let experiments = this.store.query('experiment', {
-            q: `state:${Experiment.prototype.ACTIVE} OR state:${Experiment.prototype.ARCHIVED}`
+            q: `state:${Experiment.ACTIVE} OR state:${Experiment.ARCHIVED}`
         });
 
         let sessionPromises = [];
