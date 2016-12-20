@@ -54,6 +54,8 @@ JAMDB_URL=https://staging-metadata.osf.io
 JAMDB_NAMESPACE=experimenter
 
 SENTRY_DSN=""
+# One of "staging" or "production"
+SENDGRID_ENV="staging"
 ```
 
 A more complete configuration string is available upon request. In this application, we typically use `WOWZA_PHP` 
