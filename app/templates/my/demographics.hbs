@@ -76,7 +76,7 @@
             {{#if (not (eq numberOfChildren 0))}}
                 {{#bs-form-group}}
                     <label>For each child, please enter his or her birthdate below:</label>
-                    {{#each-in childBirthdays as |index bd|}}
+                    {{#each model.demographicsChildBirthdays as |bd index|}}
                         <div class="form-inline">
                             <div class="row">
                                 <div class="col-xs-1">
@@ -90,14 +90,14 @@
                                                         class="form-control"}}
                                         {{#if bd}}
                                             <span class="input-group-addon">
-                        {{age bd hideSuffix=true}} old
-                    </span>
+                                                {{age bd hideSuffix=true}} old
+                                            </span>
                                         {{/if}}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    {{/each-in}}
+                    {{/each}}
                 {{/bs-form-group}}
             {{/if}}
             {{#bs-form-group}}
