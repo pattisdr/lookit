@@ -104,51 +104,32 @@ def parse_args():
     # User management
     # TODO: Provide a "list" feature to easily see who has access, making it easier to find someone for removal
     parser_permission = subparsers.add_parser('permissions',
-                                              help='Manage who has access to a specified collection')
+                                              help='Manage who has access to a specified collection. Must be a Lookit admin to use this functionality.')
     parser_permission.set_defaults(func=manage_permissions)
     parser_permission.add_argument('collection_id', type=str,
                                    help='The ID of the collection ')
     parser_permission.add_argument('--level', default='READ', required=False, choices=['READ', 'WRITE', 'ADMIN'],
-                                   help='The level of permissions to grant a user')
-    # TODO: Make add/remove mutually exclusive group (possibly with list option)
-    parser_permission.add_argument('--add', nargs='+', type=validate_osf_user,
-                                   help='A list of OSF users to add with the specified permission level')
-    parser_permission.add_argument('--remove', nargs='+', type=validate_osf_user,
-                                   help='A list of OSF users to remove (regardless of permission level)')
+                                   help='The level of permissions to grant a user (when adding)')
+    permission_group = parser_permission.add_mutually_exclusive_group(required=True)
+    permission_group.add_argument('--add', nargs='+', type=validate_osf_user,
+                                  help='A list of OSF users to add with the specified permission level')
+    permission_group.add_argument('--remove', nargs='+', type=validate_osf_user,
+                                  help='A list of OSF users to remove (regardless of permission level)')
+    permission_group.add_argument('--list', action='store_true',
+                                  help='Print out a list of OSF users with permissions on this collection, then exit')
 
     # Email management
     parser_emails = subparsers.add_parser('emails',
-                                          help='Support managing the default email template')
+                                          help='Support managing the default email template. Must be a Lookit admin to use this functionality.')
     parser_emails.set_defaults(func=manage_emails)
     parser_emails.add_argument('template_id',
                                help='The ID of the sendgrid template to use')
-    parser_emails.add_argument('--collection_id',
-                               default='accounts',
-                               help='The name of the collection that stores account information')
 
     return parser.parse_args()
 
 
 ########
 # Basic client logic
-class Account(object):
-    """Data object with helpers for reading JSON payloads"""
-    def __init__(self, id, name, email):
-        self.id = id
-        self.name = name
-        self.email = email
-
-    @classmethod
-    def from_data(cls, data):
-        """Helper to convert JSON payload into """
-        attrs = data['attributes']
-        return cls(
-            id=data['id'],
-            name=attrs.get('name', ''),
-            email=attrs.get('email'),
-        )
-
-
 class ExperimenterClient(object):
     """
     Base class for experimenter requests
@@ -242,11 +223,18 @@ class ExperimenterClient(object):
         else:
             return self._fetch_all(res)['data']
 
-    def fetch_account(self, account_id):
-        url = '{}/v1/id/documents/{}.accounts.{}'.format(
+    def fetch_record(self, collection, record):
+        """
+
+        :param collection: Name of the desired collection
+        :param record: Name of the desired record
+        :return:
+        """
+        url = '{}/v1/id/documents/{}.{}.{}'.format(
             self.BASE_URL,
             self.NAMESPACE,
-            account_id
+            collection,
+            record
         )
         res = self._make_request('get', url)
         if res.status_code != 200:
@@ -255,16 +243,9 @@ class ExperimenterClient(object):
             return res.json()['data']
         return None
 
-    def fetch_accounts(self, query=None):
-        url = '{}/v1/id/collections/{}.accounts/{}'.format(
-            self.BASE_URL,
-            self.NAMESPACE,
-            '_search?' + query if query else 'documents'
-        )
-        return map(
-            Account.from_data,
-            self._fetch_all(self._make_request('get', url))['data']
-        )
+    def fetch_account(self, account_id):
+        # TODO: Remove?
+        return self.fetch_record('accounts', account_id)
 
     def set_email_template(self, template_id):
         """Set the email template associated with password reset (and other contact functionality)"""
@@ -294,25 +275,27 @@ def download_records(args, client):
     collection = args.collection_id
     record_id = args.record
 
-    out_fn = args.out or 'data_{}'.format(collection)
+    out_fn = 'data_{}'.format(collection)
     if record_id:
-        # TODO: Implement ability to fetch one single record
-        pass
+        data = client.fetch_record(collection, record_id)
+        out_fn = '{}_{}'.format(out_fn, record_id)
     else:
         print('Fetching records. This may take a while- please wait...')
         data = client.fetch_collection(collection)
         print('Download complete. Found {} records'.format(len(data)))
 
-    # TODO: Improve how out_fn choice is respected
-    out_fn += str(datetime.datetime.utcnow()) + '.json'
+    out_fn += '{}.json'.format(datetime.datetime.utcnow())
+    # Can override the constructed filename with a manually passed in option
+    out_fn = args.out or out_fn
     print('Writing results to: ', out_fn)
     with open(out_fn, 'w') as f:
         json.dump(data, f, indent=4)
 
 
 def manage_emails(args, client):
-    print(args)
-    pass
+    """Provide a way to change the auth template"""
+    # TODO: Perhaps we would like to print out the old template first in case of error / rollback?
+    client.set_email_template(args.template_id)
 
 
 def manage_permissions(args, client):
