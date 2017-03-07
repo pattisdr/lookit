@@ -4,20 +4,26 @@ All-in-one script for basic Lookit/Experimenter platform management and administ
 Make sure to install requirements (`pip install requests`), then run at the command line as `python experimenter.py`
   for help and options.
 """
+from __future__ import print_function
+
 import argparse
 import copy
 import json
 import os
+import re
+import sys
 
 import requests
 
 
+# Prepackaged defaults for convenience when distributing this script to users
 JAMDB_SERVER_URL = 'https://staging-metadata.osf.io'
 JAMDB_NAMESPACE = 'experimenter'
 
 DEFAULT_CONFIG = {
-    'JAMDB_SERVER_URL': JAMDB_SERVER_URL,
-    'JAMDB_NAMESPACE': JAMDB_NAMESPACE
+    'host': JAMDB_SERVER_URL,
+    'namespace': JAMDB_NAMESPACE,
+    'osf_token': None
 }
 
 
@@ -33,25 +39,89 @@ def create_default_config():
         json.dump(DEFAULT_CONFIG, f, indent=4, sort_keys=4)
 
 
-def load_config():
-    """Load configuration from a file or built-in defaults"""
+def load_config(osf_token=None, host=None, namespace=None):
+    """
+    Load configuration from three places: built in defaults, a file, and options provided via command line
+      (in case of a conflict, the most directly user-provided option "wins")
+    """
     if not os.path.isfile(CONFIG_PATH):
         create_default_config()
 
     with open(CONFIG_PATH, 'r') as f:
-        user_config = json.load(f)
+        file_config = json.load(f)
 
     # User configuration takes precedence over default options
     final_config = copy.deepcopy(DEFAULT_CONFIG)
-    final_config.update(user_config)
+    final_config.update(file_config)
 
-    # TODO: Future: further allow certain configuration params to be overridden by CLI arguments?
+    if osf_token:
+        final_config['osf_token'] = osf_token
+    if host:
+        final_config['host'] = host
+    if namespace:
+        final_config['namespace'] = namespace
+
+    final_config.setdefault('osf_token', osf_token)
+    final_config.setdefault('host', host)
+    final_config.setdefault('namespace', namespace)
+
+    if not all([final_config['osf_token'], final_config['host'], final_config['namespace']]):
+        print('ERROR: Must provide osf_token, host, and namespace in order to run')
+        sys.exit(1)
+
     return final_config
+
+
+def validate_osf_user(value):
+    """Validate that the provided string corresponds to an OSF user ID"""
+
+    if not re.match('^[a-zA-Z0-9]{5,6}$', value):
+        raise argparse.ArgumentTypeError('{} does not appear to be a valid user ID'.format(value))
+    return str(value)
 
 
 def parse_args():
     """Define command line interface and connect it to functionality"""
     parser = argparse.ArgumentParser('Experimenter platform administration script')
+    parser.add_argument('--osf_token', help='An OSF personal access token used to authenticate to JamDB')
+    parser.add_argument('--host', help='The fully qualified hostname for the JamDB server backend')
+    parser.add_argument('--namespace', help='The namespace (eg "Lookit") where records are stored')
+
+    subparsers = parser.add_subparsers()
+    subparsers.required = True
+
+    # Download collection data
+    parser_download = subparsers.add_parser('download',
+                                            help='Allow downloading of data from a specific collection')
+    parser_download.set_defaults(func=download_records)
+    parser_download.add_argument('collection_id')
+    parser_download.add_argument('--record', type=str, required=False,
+                                 help='The ID of a specific record to fetch')
+
+    # User management
+    # TODO: Provide a "list" feature to easily see who has access, making it easier to find someone for removal
+    parser_permission = subparsers.add_parser('permissions',
+                                              help='Manage who has access to a specified collection')
+    parser_permission.set_defaults(func=manage_permissions)
+    parser_permission.add_argument('collection_id', type=str,
+                                   help='The ID of the collection ')
+    parser_permission.add_argument('--level', default='READ', required=False, choices=['READ', 'WRITE', 'ADMIN'],
+                                   help='The level of permissions to grant a user')
+    # TODO: Make add/remove mutually exclusive group (possibly with list option)
+    parser_permission.add_argument('--add', nargs='+', type=validate_osf_user,
+                                   help='A list of OSF users to add with the specified permission level')
+    parser_permission.add_argument('--remove', nargs='+', type=validate_osf_user,
+                                   help='A list of OSF users to remove (regardless of permission level)')
+
+    # Email management
+    parser_emails = subparsers.add_parser('emails',
+                                          help='Support managing the default email template')
+    parser_emails.add_argument('template_id',
+                               help='The ID of the sendgrid template to use')
+    parser_emails.add_argument('--collection_id',
+                               default='accounts',
+                               help='The name of the collection that stores account information')
+    parser_emails.set_defaults(func=manage_emails)
 
     return parser.parse_args()
 
@@ -60,7 +130,6 @@ def parse_args():
 # Basic client logic
 class Account(object):
     """Data object with helpers for reading JSON payloads"""
-    # TODO: Maybe just use kawrgs and namedtuple
     def __init__(self, id, name, email):
         self.id = id
         self.name = name
@@ -84,7 +153,7 @@ class ExperimenterClient(object):
     BASE_URL = JAMDB_SERVER_URL
     NAMESPACE = JAMDB_NAMESPACE
 
-    def __init__(self, jam_token=None, jwt=None, url=None, namespace=None):
+    def __init__(self, jam_token=None, url=None, namespace=None):
         self.jam_token = jam_token
         self.BASE_URL = url or self.BASE_URL
         self.NAMESPACE = namespace or self.NAMESPACE
@@ -157,14 +226,15 @@ class ExperimenterClient(object):
             namespace=namespace
         )
 
-    def fetch_sessions_for_experiment(self, experiment_id):
-        url = '{}/v1/id/collections/{}.session{}s/documents/'.format(
+    def fetch_collection(self, collection_id):
+        url = '{}/v1/id/collections/{}.{}/documents/'.format(
             self.BASE_URL,
             self.NAMESPACE,
-            experiment_id
+            collection_id
         )
         res = self._make_request('get', url)
         if res.status_code == 404:
+            print('No results found for specified collection!')
             return []
         else:
             return self._fetch_all(res)['data']
@@ -214,15 +284,30 @@ class ExperimenterClient(object):
             ]
         )
 
-    # TODO: Fire off
-
-
 
 ########
-# Specific tasks
+# Specific tasks used by argparse
+def download_records(args, client):
+    ## TODO: Receives collection, record
+    print(args)
+    pass
+
+
+def manage_emails(args, client):
+    print(args)
+    pass
+
+
+def manage_permissions(args, client):
+    print(args)
+    pass
 
 
 if __name__ == '__main__':
-    args = parse_args()
-    # TODO Pass in any configuration
-    config = load_config()
+    options = parse_args()
+
+    print(options)
+    config = load_config(osf_token=options.osf_token, host=options.host, namespace=options.namespace)
+
+    # client = ExperimenterClient.authenticate(config['osf_token'])
+    # args.func(args, client)
