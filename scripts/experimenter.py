@@ -10,7 +10,6 @@ import argparse
 import copy
 import datetime
 import json
-import operator
 import os
 import re
 import sys
@@ -279,6 +278,76 @@ class ExperimenterClient(object):
         )
 
 
+def _list_osf_user_permissions(permissions_payload, display=True):
+    """Given the permissions payload (eg from a collection or namespace), return the subset of OSF users by ID"""
+    # Accounts managed by this script must have pattern `user-osf-abc12`
+    osf_permission_pattern = re.compile('^user-osf-([a-zA-Z0-9]{5,6}|\\*)$')
+
+    # Sort the selectors alphabetically for display
+    osf_user_permissions = {}
+    for selector, level in permissions_payload.items():
+        match = osf_permission_pattern.match(selector)
+        if match:
+            osf_id = match.group(1)
+            osf_user_permissions[osf_id] = level
+
+    if display:
+        if len(osf_user_permissions):
+            print('The following OSF users have permissions here (or on a parent):')
+            print('Level'.ljust(10), 'User')
+            for osf_id in sorted(osf_user_permissions.keys()):
+                level = osf_user_permissions[osf_id]
+                print('{:10s} {}'.format(level, osf_id))
+        else:
+            print('Did not find any users with access here (or on a parent)')
+        print('\n')
+
+    return osf_user_permissions
+
+
+def _add_osf_user_permissions(osf_user_ids, level, osf_permissions_subset=None, display=True):
+    """
+    Generate permissions rules to give the specified OSF users access to a JamDB collection or namespace
+
+    :param osf_user_ids: A list of OSF user ids
+    :param level: The level of access to grant (READ, WRITE, ADMIN, etc)
+    :param osf_permissions_subset: A dict of {osf_id: level} representing existing permissions (optional)
+    :param display: Whether to print warnings. If False, will not check existing permissions.
+    :return: An object of {selector: level} suitable for merging with existing JamDB permissions
+    """
+    osf_permissions_subset = osf_permissions_subset or {}
+
+    permissions = {}
+    for osf_id in osf_user_ids:
+        permissions['user-osf-{}'.format(osf_id)] = level
+
+        old_val = osf_permissions_subset.get(osf_id)
+        if display and old_val and old_val != level:
+            print('WARNING! The specified user already has "{}" level access. This will be changed to: {}'.format(
+                old_val, level
+            ))
+
+    return permissions
+
+
+def _remove_osf_user_permissions(users_to_remove, current_permissions, display=True):
+    """
+    Modify permissions rules so that specified OSF users can no longer access a JamDB collection or namespace
+
+    :param users_to_remove: List of osf_ids to remove permissions for (any other IDs will be left untouched)
+    :param current_permissions: A dict of {selector: level} permissions, as provided by JamDB for a current entity
+    :param display: Whether to print warnings if you ask to remove a user who already does not have permissions
+    :return: An updated permissions dictionary suitable for sending to JamDB
+    """
+    current_permissions = copy.deepcopy(current_permissions)
+    for osf_id in users_to_remove:
+        existing = current_permissions.pop('user-osf-{}'.format(osf_id), None)
+        if display and not existing:
+            print('WARNING! Asked to remove user {}, but they did not have access'.format(osf_id))
+
+    return current_permissions
+
+
 ########
 # Specific tasks used by argparse
 def download_records(args, client):
@@ -313,23 +382,26 @@ def manage_permissions(args, client):
 
     collection_meta = client.fetch_collection_meta(args.collection)
     current_permissions = collection_meta['attributes']['permissions']
-
-    # Accounts managed by this script must have pattern `user-osf-abc12`
-    osf_permission_pattern = re.compile('^user-osf-([a-zA-Z0-9]{5,6}|\\*)$')
-
-    # Sort the selectors alphabetically for display
-    for selector, level in sorted(current_permissions.items(), key=operator.itemgetter(1)):
-        match = osf_permission_pattern.match(selector)
-        if match:
-            osf_id = match.group(1)
-            print('{:10s} {}'.format(level, osf_id))
+    osf_permissions_subset = _list_osf_user_permissions(current_permissions, display=True)
 
     if args.list:
-        # Always list out users with access. If that is the only action requested, exit cleanly.
+        # Always list out users with access. If that is the only action requested, exit cleanly when complete.
         sys.exit(0)
 
+    users_to_add = args.add
+    users_to_remove = args.remove
+    new_perm_level = args.level
 
-    # In first iteration we'll update payload, then we may cycle back and explore PATCH operations
+    if args.add:
+        new_permissions = _add_osf_user_permissions(users_to_add, new_perm_level,
+                                                    osf_permissions_subset=osf_permissions_subset,
+                                                    display=True)
+        current_permissions.update(new_permissions)
+    if args.remove:
+        # TODO: Implement remove and messaging logic
+        current_permissions = _remove_osf_user_permissions(users_to_remove, current_permissions, display=True)
+
+    # TODO: Implement update permissions logic in client (using the updated current permissions from above)
 
 
 if __name__ == '__main__':
