@@ -8,6 +8,7 @@ from __future__ import print_function
 
 import argparse
 import copy
+import datetime
 import json
 import os
 import re
@@ -94,10 +95,12 @@ def parse_args():
     parser_download = subparsers.add_parser('download',
                                             help='Allow downloading of data from a specific collection')
     parser_download.set_defaults(func=download_records)
-    parser_download.add_argument('collection_id')
+    parser_download.add_argument('collection_id',
+                                 help='The collection from which to fetch records')
     parser_download.add_argument('--record', type=str, required=False,
-                                 help='The ID of a specific record to fetch')
-
+                                 help='If provided, the ID of a specific record to fetch')
+    parser_download.add_argument('--out', type=str, required=False,
+                                 help='If provided, the filename of where to output the results')
     # User management
     # TODO: Provide a "list" feature to easily see who has access, making it easier to find someone for removal
     parser_permission = subparsers.add_parser('permissions',
@@ -116,12 +119,12 @@ def parse_args():
     # Email management
     parser_emails = subparsers.add_parser('emails',
                                           help='Support managing the default email template')
+    parser_emails.set_defaults(func=manage_emails)
     parser_emails.add_argument('template_id',
                                help='The ID of the sendgrid template to use')
     parser_emails.add_argument('--collection_id',
                                default='accounts',
                                help='The name of the collection that stores account information')
-    parser_emails.set_defaults(func=manage_emails)
 
     return parser.parse_args()
 
@@ -288,9 +291,23 @@ class ExperimenterClient(object):
 ########
 # Specific tasks used by argparse
 def download_records(args, client):
-    ## TODO: Receives collection, record
-    print(args)
-    pass
+    collection = args.collection_id
+    record_id = args.record
+
+    out_fn = args.out or 'data_{}'.format(collection)
+    if record_id:
+        # TODO: Implement ability to fetch one single record
+        pass
+    else:
+        print('Fetching records. This may take a while- please wait...')
+        data = client.fetch_collection(collection)
+        print('Download complete. Found {} records'.format(len(data)))
+
+    # TODO: Improve how out_fn choice is respected
+    out_fn += str(datetime.datetime.utcnow()) + '.json'
+    print('Writing results to: ', out_fn)
+    with open(out_fn, 'w') as f:
+        json.dump(data, f, indent=4)
 
 
 def manage_emails(args, client):
@@ -309,5 +326,7 @@ if __name__ == '__main__':
     print(options)
     config = load_config(osf_token=options.osf_token, host=options.host, namespace=options.namespace)
 
-    # client = ExperimenterClient.authenticate(config['osf_token'])
-    # args.func(args, client)
+    client = ExperimenterClient.authenticate(config['osf_token'],
+                                             base_url=config['host'],
+                                             namespace=config['namespace'])
+    options.func(options, client)
