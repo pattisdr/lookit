@@ -10,6 +10,7 @@ import argparse
 import copy
 import datetime
 import json
+import operator
 import os
 import re
 import sys
@@ -34,6 +35,9 @@ CONFIG_PATH = os.path.join(CONFIG_DIR, 'config.json')
 
 ########
 # Script configuration and CLI interface
+OSF_USER_PATTERN = re.compile('^[a-zA-Z0-9]{5,6}$')
+
+
 def create_default_config():
     """If no configuration file is present, save one with built-in defaults"""
     with open(CONFIG_PATH, 'w') as f:
@@ -51,20 +55,17 @@ def load_config(osf_token=None, host=None, namespace=None):
     with open(CONFIG_PATH, 'r') as f:
         file_config = json.load(f)
 
-    # User configuration takes precedence over default options
+    # User configuration file takes precedence over default options
     final_config = copy.deepcopy(DEFAULT_CONFIG)
     final_config.update(file_config)
 
+    # Options provided directly (eg via the command line) override anything else
     if osf_token:
         final_config['osf_token'] = osf_token
     if host:
         final_config['host'] = host
     if namespace:
         final_config['namespace'] = namespace
-
-    final_config.setdefault('osf_token', osf_token)
-    final_config.setdefault('host', host)
-    final_config.setdefault('namespace', namespace)
 
     if not all([final_config['osf_token'], final_config['host'], final_config['namespace']]):
         print('ERROR: Must provide osf_token, host, and namespace in order to run')
@@ -76,7 +77,7 @@ def load_config(osf_token=None, host=None, namespace=None):
 def validate_osf_user(value):
     """Validate that the provided string corresponds to an OSF user ID"""
 
-    if not re.match('^[a-zA-Z0-9]{5,6}$', value):
+    if not OSF_USER_PATTERN.match(value):
         raise argparse.ArgumentTypeError('{} does not appear to be a valid user ID'.format(value))
     return str(value)
 
@@ -95,18 +96,18 @@ def parse_args():
     parser_download = subparsers.add_parser('download',
                                             help='Allow downloading of data from a specific collection')
     parser_download.set_defaults(func=download_records)
-    parser_download.add_argument('collection_id',
+    parser_download.add_argument('collection',
                                  help='The collection from which to fetch records')
     parser_download.add_argument('--record', type=str, required=False,
                                  help='If provided, the ID of a specific record to fetch')
     parser_download.add_argument('--out', type=str, required=False,
                                  help='If provided, the filename of where to output the results')
+
     # User management
-    # TODO: Provide a "list" feature to easily see who has access, making it easier to find someone for removal
     parser_permission = subparsers.add_parser('permissions',
                                               help='Manage who has access to a specified collection. Must be a Lookit admin to use this functionality.')
     parser_permission.set_defaults(func=manage_permissions)
-    parser_permission.add_argument('collection_id', type=str,
+    parser_permission.add_argument('collection', type=str,
                                    help='The ID of the collection ')
     parser_permission.add_argument('--level', default='READ', required=False, choices=['READ', 'WRITE', 'ADMIN'],
                                    help='The level of permissions to grant a user (when adding)')
@@ -122,7 +123,7 @@ def parse_args():
     parser_emails = subparsers.add_parser('emails',
                                           help='Support managing the default email template. Must be a Lookit admin to use this functionality.')
     parser_emails.set_defaults(func=manage_emails)
-    parser_emails.add_argument('template_id',
+    parser_emails.add_argument('template',
                                help='The ID of the sendgrid template to use')
 
     return parser.parse_args()
@@ -141,6 +142,17 @@ class ExperimenterClient(object):
         self.jam_token = jam_token
         self.BASE_URL = url or self.BASE_URL
         self.NAMESPACE = namespace or self.NAMESPACE
+
+    def _url_for_collection(self, collection):
+        return '{}/v1/id/collections/{}.{}'.format(
+            self.BASE_URL,
+            self.NAMESPACE,
+            collection
+        )
+
+    def _url_for_collection_records(self, collection):
+        base_url = self._url_for_collection(collection)
+        return base_url + '/documents/'
 
     def _make_request(self, method, *args, **kwargs):
         """Make a request with the appropriate authorization"""
@@ -210,12 +222,17 @@ class ExperimenterClient(object):
             namespace=namespace
         )
 
-    def fetch_collection(self, collection_id):
-        url = '{}/v1/id/collections/{}.{}/documents/'.format(
-            self.BASE_URL,
-            self.NAMESPACE,
-            collection_id
-        )
+    def fetch_collection_meta(self, collection):
+        """Fetch collection metadata, like permissions. May require admin permissions to use."""
+        # TODO: Verify permissions rules
+        url = self._url_for_collection(collection)
+        res = self._make_request('get', url)
+        # TODO: Do not suppress non-200 status codes in future
+        return res.json()['data']
+
+    def fetch_collection_records(self, collection):
+        """Fetch all records that are a member of the specified collection"""
+        url = self._url_for_collection_records(collection)
         res = self._make_request('get', url)
         if res.status_code == 404:
             print('No results found for specified collection!')
@@ -243,16 +260,9 @@ class ExperimenterClient(object):
             return res.json()['data']
         return None
 
-    def fetch_account(self, account_id):
-        # TODO: Remove?
-        return self.fetch_record('accounts', account_id)
-
     def set_email_template(self, template_id):
         """Set the email template associated with password reset (and other contact functionality)"""
-        url = '{}/v1/id/collections/{}.accounts'.format(
-            self.BASE_URL,
-            self.NAMESPACE
-        )
+        url = self._url_for_collection('accounts')
         self._make_request(
             'patch',
             url,
@@ -272,16 +282,16 @@ class ExperimenterClient(object):
 ########
 # Specific tasks used by argparse
 def download_records(args, client):
-    collection = args.collection_id
+    collection_id = args.collection
     record_id = args.record
 
-    out_fn = 'data_{}'.format(collection)
+    out_fn = 'data_{}'.format(collection_id)
     if record_id:
-        data = client.fetch_record(collection, record_id)
+        data = client.fetch_record(collection_id, record_id)
         out_fn = '{}_{}'.format(out_fn, record_id)
     else:
         print('Fetching records. This may take a while- please wait...')
-        data = client.fetch_collection(collection)
+        data = client.fetch_collection_records(collection_id)
         print('Download complete. Found {} records'.format(len(data)))
 
     out_fn += '{}.json'.format(datetime.datetime.utcnow())
@@ -295,18 +305,36 @@ def download_records(args, client):
 def manage_emails(args, client):
     """Provide a way to change the auth template"""
     # TODO: Perhaps we would like to print out the old template first in case of error / rollback?
-    client.set_email_template(args.template_id)
+    client.set_email_template(args.template)
 
 
 def manage_permissions(args, client):
-    print(args)
-    pass
+    """Manage who has access to a collection"""
+
+    collection_meta = client.fetch_collection_meta(args.collection)
+    current_permissions = collection_meta['attributes']['permissions']
+
+    # Accounts managed by this script must have pattern `user-osf-abc12`
+    osf_permission_pattern = re.compile('^user-osf-([a-zA-Z0-9]{5,6}|\\*)$')
+
+    # Sort the selectors alphabetically for display
+    for selector, level in sorted(current_permissions.items(), key=operator.itemgetter(1)):
+        match = osf_permission_pattern.match(selector)
+        if match:
+            osf_id = match.group(1)
+            print('{:10s} {}'.format(level, osf_id))
+
+    if args.list:
+        # Always list out users with access. If that is the only action requested, exit cleanly.
+        sys.exit(0)
+
+
+    # In first iteration we'll update payload, then we may cycle back and explore PATCH operations
 
 
 if __name__ == '__main__':
     options = parse_args()
 
-    print(options)
     config = load_config(osf_token=options.osf_token, host=options.host, namespace=options.namespace)
 
     client = ExperimenterClient.authenticate(config['osf_token'],
