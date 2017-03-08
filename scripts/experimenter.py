@@ -236,7 +236,6 @@ class ExperimenterClient(object):
 
     def fetch_collection_meta(self, collection):
         """Fetch collection metadata, like permissions. May require admin permissions to use."""
-        # TODO: Verify permissions rules
         url = self._url_for_collection(collection)
         res = self._make_request('get', url)
         return res.json()['data']
@@ -398,12 +397,15 @@ def download_records(args, client):
         data = client.fetch_collection_records(collection_id)
         print('Download complete. Found {} records'.format(len(data)))
 
-    out_fn += '{}.json'.format(datetime.datetime.utcnow())
-    # Can override the constructed filename with a manually passed in option
-    out_fn = args.out or out_fn
-    print('Writing results to: ', out_fn)
-    with open(out_fn, 'w') as f:
-        json.dump(data, f, indent=4)
+    if data:
+        out_fn += '{}.json'.format(datetime.datetime.utcnow())
+        # Can override the constructed filename with a manually passed in option
+        out_fn = args.out or out_fn
+        print('Writing results to: ', out_fn)
+        with open(out_fn, 'w') as f:
+            json.dump(data, f, indent=4)
+    else:
+        print('No records were downloaded. Skipping output step.')
 
 
 def manage_emails(args, client):
@@ -416,6 +418,12 @@ def manage_permissions(args, client):
     """Manage who has access to a collection"""
 
     collection_meta = client.fetch_collection_meta(args.collection)
+
+    # Non admin users get a 200 response with information, but it does not include the list of permissions
+    if collection_meta['meta']['permissions'] != 'ADMIN':
+        print('WARNING! This feature requires an OSF user with ADMIN privileges on this collection')
+        sys.exit(1)
+
     current_permissions = collection_meta['attributes']['permissions']
     osf_permissions_subset = _list_osf_user_permissions(current_permissions, display=True)
 
