@@ -40,6 +40,7 @@ OSF_USER_PATTERN = re.compile('^[a-zA-Z0-9]{5,6}$')
 
 def create_default_config():
     """If no configuration file is present, save one with built-in defaults"""
+    print('No configuration file was found. Writing default settings to: {}'.format(CONFIG_PATH))
     with open(CONFIG_PATH, 'w') as f:
         json.dump(DEFAULT_CONFIG, f, indent=4, sort_keys=4)
 
