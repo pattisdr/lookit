@@ -215,7 +215,7 @@ class ExperimenterClient(object):
         namespace = namespace or cls.NAMESPACE
 
         res = requests.post(
-            '{}/v1/auth/'.format(cls.BASE_URL),
+            '{}/v1/auth/'.format(base_url),
             json={
                 'data': {
                     'type': 'users',
