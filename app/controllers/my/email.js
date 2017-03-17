@@ -25,9 +25,8 @@ export default Ember.Controller.extend({
             this.set('canSave', false);
             let account = this.get('model');
             var suppressionsHash = {};
-            Object.keys(suppressions).forEach(s => {
-                var suppression = suppressions[s];
-                suppressionsHash[`${suppression.id}`] = !suppression.subscribed;
+            suppressions.forEach(s => {
+                suppressionsHash[`${s.id}`] = !s.subscribed;
             });
             account.setSuppressions(suppressionsHash).then(() => {
                 this.get('toast').info('Notification preferences saved successfully');

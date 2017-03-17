@@ -168,24 +168,16 @@ export default Ember.Component.extend({
                 'name': 'Wesleyan University Cognitive Development Labs'
             },
             {
+                'url': 'http://infantandchild.yale.edu/',
+                'name': 'Yale Infant and Child Research'
+            },
+            {
                 'url': 'http://candlab.yale.edu/',
                 'name': 'Yale Clinical Affective Neuroscience & Development Lab'
             },
             {
-                'url': 'http://cogdevlab.sites.yale.edu/',
-                'name': 'Yale Cognition and Development Lab'
-            },
-            {
-                'url': 'http://www.yale.edu/infantlab/Welcome.html',
-                'name': 'Yale Infant Cognition Center'
-            },
-            {
-                'url': 'http://www.yale.edu/minddevlab/',
-                'name': 'Yale Mind and Development Lab'
-            },
-            {
-                'url': 'http://www.yale.edu/cnl/faculty.html',
-                'name': 'Yale Child Neuroscience Lab'
+                'url': 'https://medicine.yale.edu/lab/mcpartland/',
+                'name': 'McPartland Lab at Yale - Clinical Neuroscience of Autism Spectrum Disorder'
             }
         ],
         "Delaware": [
